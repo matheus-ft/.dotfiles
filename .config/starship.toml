@@ -1,0 +1,62 @@
+
+[line_break]
+disabled = true
+
+# purple is actually red in dracula
+
+# based on the status of the previous command.
+[character]
+success_symbol = "[▶](bold green)"
+error_symbol = "[✖](bold purple) "
+
+[package]
+disabled = true
+
+[python]
+format = "[$symbol$version]($style) "
+symbol = "python "
+style = "bold green"
+
+[memory_usage]
+format = "| RAM: [${ram}]($style) "
+threshold = 66
+style = "bold dimmed white"
+disabled = false
+
+[git_branch]
+format = "on [$symbol$branch]($style) "
+symbol = " branch "
+style = "bold yellow"
+always_show_remote = true
+
+[git_status]
+conflicted = "⚔️ "
+ahead = "⇡(${count}) "
+behind = "⇣(${count}) "
+diverged = "⇕ (${ahead_count}⇡ & ${behind_count}⇣) "
+untracked = "U×${count} "
+stashed = "📦×${count} "
+modified = "📝×${count} "
+staged = "+(${count}) "
+renamed = "»(${count}) "
+deleted = "🗑️×${count} "
+style = "bold red"
+format = "[$all_status$ahead_behind]($style)"
+
+[cmd_duration]
+min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
+format = " [$duration]($style) "
+disabled = false
+
+[directory]
+truncation_length = 5
+format = "[$path]($style)[$lock_symbol]($lock_style) "
+truncate_to_repo = false
+style = "bold cyan"
+read_only_style = "purple"
+repo_root_style = "bold green"
+truncation_symbol = ".../"
+
+[username]
+style_user = "bold dimmed blue"
+show_always = true
