@@ -3,8 +3,8 @@ alias python=python3
 alias py3=python3
 alias gpp=g++
 
-# General
-alias ls='exa -lahF --color=auto'  # change 'exa' to 'ls' if exa isn't installed
+# General (change 'exa' to 'ls' if exa isn't installed)
+alias ls='exa -lahF --color=auto'
 alias dir='exa --color=auto'
 alias ..='cd ..'
 alias clean='sudo apt autoremove && sudo apt autoclean'
@@ -19,5 +19,5 @@ alias top=htop
 alias mv='mv -i'
 alias rm='rm -i'
 
-# Git to manage dotfiles
+# Git bare alias to manage dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME' 

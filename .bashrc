@@ -114,7 +114,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export HISTCONTROL=ignoreboth
-
 eval "$(starship init bash)"
 neofetch
