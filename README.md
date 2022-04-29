@@ -38,7 +38,7 @@ sudo snap install starship
 
 `starship` is set to be the terminal emulator in line 119 of [.bashrc](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc)
 
-configs are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/starship.toml)
+configs are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
 ---
 
@@ -52,4 +52,4 @@ configs are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/maste
 
 - [Cinnamon](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-desktop.ini) - Linux Mint Debian Edition 5
 
-    - [keybindings](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-keybindings.ini)
+  - [keybindings](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-keybindings.ini)
