@@ -44,12 +44,42 @@ configs are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/maste
 
 ## Dracula Theme
 
-- to add
+- <https://draculatheme.com/gnome-terminal>
+
+- <https://draculatheme.com/gtk>
+
+- <https://draculatheme.com/visual-studio-code>
+
+- <https://draculatheme.com/firefox>
+
+- <https://draculatheme.com/rofi>
 
 ---
 
-## Desktop
+## Desktops
 
 - [Cinnamon](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-desktop.ini) - Linux Mint Debian Edition 5
 
   - [keybindings](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-keybindings.ini)
+
+---
+
+## Desktop Configs
+
+### save
+
+```sh
+dconf dump path > config-name.ini
+```
+
+### load
+
+```sh
+dconf load path < config-name.ini
+```
+
+### dependency
+
+```sh
+sudo apt install dconf-cli
+```
