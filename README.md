@@ -34,11 +34,25 @@ sudo apt install snapd
 sudo snap install starship
 ```
 
+or
+
+```sh
+curl -sS https://starship.rs/install.sh | sh
+```
+
 `snap` is added to the `PATH` in line 6 of [.bashrc](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc)
 
 `starship` is set to be the terminal emulator in line 117 of [.bashrc](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc)
 
 configs are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
+
+---
+
+## htop
+
+```sh
+sudo apt install htop
+```
 
 ---
 
