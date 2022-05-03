@@ -1,7 +1,8 @@
-# Python e C/C++
+# Python, C/C++, Git
 alias python=python3
 alias py3=python3
 alias gpp=g++
+alias checkout='git checkout'
 
 # General (change 'exa' to 'ls' if exa isn't installed)
 alias ls='exa -lahF --color=auto'
