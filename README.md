@@ -70,27 +70,28 @@ sudo apt install htop
 
 ---
 
-## Desktop Configs
+## Desktop configs
 
-### save
+### Cinnamon
 
-```sh
-dconf dump path > config-name.ini
-```
+- [Linux Mint Debian Edition 5](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-desktop.ini) `dconf dump / > cinnamon-desktop.ini`
 
-### load
+  - [keybindings](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-keybindings.ini) `dconf dump /org/cinnamon/desktop/keybindings/ > cinnamon-keybindings.ini`
 
-```sh
-dconf load path < config-name.ini
-```
-
-### dependency
+- dependency
 
 ```sh
 sudo apt install dconf-cli
 ```
 
-### Cinnamon
-- [Linux Mint Debian Edition 5](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-desktop.ini) ```sh dconf dump / > cinnamon-desktop.ini  ```
+- save
 
-  - [keybindings](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-keybindings.ini) ```sh dconf dump /org/cinnamon/desktop/keybindings/ > cinnamon-keybindings.ini  ```
+```sh
+dconf dump path > config-name.ini
+```
+
+- load
+
+```sh
+dconf load path < config-name.ini
+```
