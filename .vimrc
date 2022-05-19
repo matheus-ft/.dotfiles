@@ -34,8 +34,5 @@ let g:lightline = {
     \ 'colorscheme': 'dracula',
     \ }
 
-" Always show statusline
-set laststatus=2
-
-set mouse=nicr  " natural scrolling and clicking
+"set mouse=nicr  " natural scrolling and clicking
 
