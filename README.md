@@ -56,6 +56,14 @@ sudo apt install htop
 
 ---
 
+## Vim
+
+```sh
+sudo apt install vim
+```
+
+---
+
 ## Dracula Theme
 
 - <https://draculatheme.com/gnome-terminal>
@@ -74,9 +82,11 @@ sudo apt install htop
 
 ### Cinnamon
 
-- [Linux Mint Debian Edition 5](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-desktop.ini) `dconf dump / > cinnamon-desktop.ini`
+- [Linux Mint Debian Edition 5](https://github.com/matheus-ft/dotfiles/blob/master/.dconf-configs/cinnamon-desktop.ini) `dconf dump / > cinnamon-desktop.ini`
 
-  - [keybindings](https://github.com/matheus-ft/dotfiles/blob/master/cinnamon-keybindings.ini) `dconf dump /org/cinnamon/desktop/keybindings/ > cinnamon-keybindings.ini`
+  - [keybindings](https://github.com/matheus-ft/dotfiles/blob/master/.dconf-configs/cinnamon-keybindings.ini) `dconf dump /org/cinnamon/desktop/keybindings/ > cinnamon-keybindings.ini`
+
+  - [terminal-keybindings](https://github.com/matheus-ft/dotfiles/blob/master/.dconf-configs/gnome-terminal-keybindings.ini) `dconf dump /org/gnome/terminal/legacy/keybindings/ > gnome-terminal-keybindings.ini`
 
 - dependency
 
@@ -95,3 +105,4 @@ dconf dump path > config-name.ini
 ```sh
 dconf load path < config-name.ini
 ```
+
