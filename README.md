@@ -1,17 +1,9 @@
-# dotfiles
+# Pop!_OS 22.04 with GNOME 42.1
 
-## Neofetch
-
-```sh
-sudo apt install neofetch
-```
-
----
-
-## Rofi run prompt
+## Gdebi
 
 ```sh
-sudo apt install rofi
+sudo apt install gdebi-core
 ```
 
 ---
@@ -19,32 +11,20 @@ sudo apt install rofi
 ## Stronger `ls`
 
 ```sh
-sudo apt install cargo
-cargo install exa
+sudo apt install exa
 ```
-
-`exa` is added to the `PATH` in line 5 of [.bashrc](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc)
 
 ---
 
 ## Starship terminal
 
 ```sh
-sudo apt install snapd
-sudo snap install starship
-```
-
-or
-
-```sh
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-`snap` is added to the `PATH` in line 6 of [.bashrc](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc)
+`starship` is set to be the terminal emulator in line 1 of [bash_init](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/init)
 
-`starship` is set to be the terminal emulator in line 117 of [.bashrc](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc)
-
-configs are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
+Settings are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
 ---
 
@@ -64,45 +44,25 @@ sudo apt install vim
 
 ---
 
-## Dracula Theme
+## Neovim
 
-- <https://draculatheme.com/gnome-terminal>
-
-- <https://draculatheme.com/gtk>
-
-- <https://draculatheme.com/visual-studio-code>
-
-- <https://draculatheme.com/firefox>
-
-- <https://draculatheme.com/rofi>
+```sh
+sudo apt install neovim
+```
 
 ---
 
-## Desktop configs
-
-### Cinnamon
-
-- [Linux Mint Debian Edition 5](https://github.com/matheus-ft/dotfiles/blob/master/.dconf-configs/cinnamon-desktop.ini) `dconf dump / > cinnamon-desktop.ini`
-
-  - [keybindings](https://github.com/matheus-ft/dotfiles/blob/master/.dconf-configs/cinnamon-keybindings.ini) `dconf dump /org/cinnamon/desktop/keybindings/ > cinnamon-keybindings.ini`
-
-  - [terminal-keybindings](https://github.com/matheus-ft/dotfiles/blob/master/.dconf-configs/gnome-terminal-keybindings.ini) `dconf dump /org/gnome/terminal/legacy/keybindings/ > gnome-terminal-keybindings.ini`
-
-- dependency
+## GNOME tweaks
 
 ```sh
-sudo apt install dconf-cli
+sudo apt install gnome-tweaks
 ```
 
-- save
+---
+
+## Extension Manager
 
 ```sh
-dconf dump path > config-name.ini
-```
-
-- load
-
-```sh
-dconf load path < config-name.ini
+flatpak install flathub com.mattjakeman.ExtensionManager
 ```
 
