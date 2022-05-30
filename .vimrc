@@ -34,5 +34,3 @@ let g:lightline = {
     \ 'colorscheme': 'dracula',
     \ }
 
-"set mouse=nicr  " natural scrolling and clicking
-

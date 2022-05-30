@@ -42,6 +42,8 @@ sudo apt install htop
 sudo apt install vim
 ```
 
+Configs in [.vimrc](https://github.com/matheus-ft/dotfiles/blob/master/.vimrc)
+
 ---
 
 ## Neovim
@@ -49,6 +51,8 @@ sudo apt install vim
 ```sh
 sudo apt install neovim
 ```
+
+Configs in [init.vim](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.vim)
 
 ---
 
@@ -65,4 +69,54 @@ sudo apt install gnome-tweaks
 ```sh
 flatpak install flathub com.mattjakeman.ExtensionManager
 ```
+
+---
+
+## Rofi
+
+```sh
+sudo apt install rofi
+```
+
+Settings in [config.rasi](https://github.com/matheus-ft/dotfiles/blob/master/.config/rofi/config.rasi)
+
+---
+
+## Visual Studio Code
+
+```sh
+sudo apt install code
+```
+
+---
+
+## Desktop
+
+- Configs in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.dconf-configs): `dconf dump / > pop-os-<specifier>.ini`
+
+How to:
+
+- save
+
+```sh
+dconf dump path > config-name.ini
+```
+
+- load
+
+```sh
+dconf load path < config-name.ini
+```
+
+---
+
+## To do
+
+- add extensions and *rice*
+
+  - customize starship
+
+  - customize themes and stuff
+  
+- get a "less bloated neoftech"
 
