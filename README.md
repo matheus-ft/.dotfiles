@@ -8,7 +8,7 @@ sudo apt install gdebi-core
 
 ---
 
-## Stronger `ls`
+## Exa
 
 ```sh
 sudo apt install exa
@@ -16,13 +16,13 @@ sudo apt install exa
 
 ---
 
-## Starship terminal
+## Starship
 
 ```sh
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-`starship` is set to be the terminal emulator in line 1 of [bash_init](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/init)
+`starship` is set to be the shell prompt in line 1 of [bash_init](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/init)
 
 Settings are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
@@ -36,63 +36,55 @@ sudo apt install htop
 
 ---
 
-## Vim
+## Programming
+
+### Vim and Neovim
 
 ```sh
-sudo apt install vim
+sudo apt install vim neovim
 ```
 
-Configs in [.vimrc](https://github.com/matheus-ft/dotfiles/blob/master/.vimrc)
+Configs in [.vimrc](https://github.com/matheus-ft/dotfiles/blob/master/.vimrc) and [init.vim](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.vim)
 
----
-
-## Neovim
-
-```sh
-sudo apt install neovim
-```
-
-Configs in [init.vim](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.vim)
-
----
-
-## GNOME tweaks
-
-```sh
-sudo apt install gnome-tweaks
-```
-
----
-
-## Extension Manager
-
-```sh
-flatpak install flathub com.mattjakeman.ExtensionManager
-```
-
----
-
-## Rofi
-
-```sh
-sudo apt install rofi
-```
-
-Settings in [config.rasi](https://github.com/matheus-ft/dotfiles/blob/master/.config/rofi/config.rasi)
-
----
-
-## Visual Studio Code
+### Visual Studio Code
 
 ```sh
 sudo apt install code
+```
+
+### Python
+
+```sh
+sudo apt install python3-venv python3-pip
 ```
 
 ---
 
 ## Desktop
 
-- Configs in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.dconf-configs): `dconf dump / > pop-os-<specifier>.ini`
+### GNOME tweaks
+
+```sh
+sudo apt install gnome-tweaks
+```
+
+### Extension Manager
+
+```sh
+flatpak install flathub com.mattjakeman.ExtensionManager
+```
+
+Extensions added:
+
+- User Themes
+
+- Vitals
+
+- Dash to Panel
+
+### Dconf
+
+- Configs in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.dconf-configs): `dconf dump / > pop-os-{specifier}.ini`
 
 How to:
 
@@ -112,11 +104,13 @@ dconf load path < config-name.ini
 
 ## To do
 
-- add extensions and *rice*
+- *rice*
 
   - customize starship
 
   - customize themes and stuff
   
 - get a "less bloated neoftech"
+
+- startup script to load dconf configs automatically
 
