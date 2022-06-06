@@ -38,18 +38,19 @@ sudo apt install htop
 
 ## Programming
 
-### Vim and Neovim
+### Neovim
 
 ```sh
 sudo apt install vim neovim
 ```
 
-Configs in [.vimrc](https://github.com/matheus-ft/dotfiles/blob/master/.vimrc) and [init.vim](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.vim)
+Config in [init.vim](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.vim)
 
-### Visual Studio Code
+#### Vim-plug
 
 ```sh
-sudo apt install code
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
 ### Python
@@ -76,15 +77,17 @@ flatpak install flathub com.mattjakeman.ExtensionManager
 
 Extensions added:
 
-- User Themes
+- [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 
-- Vitals
+- [Vitals](https://extensions.gnome.org/extension/1460/vitals/)
 
-- Dash to Panel
+- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)
+
+- [Auto Move Windows](https://extensions.gnome.org/extension/16/auto-move-windows/)
 
 ### Dconf
 
-- Configs in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.dconf-configs): `dconf dump / > pop-os-{specifier}.ini`
+- Configs in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs): `dconf dump / > pop-os-{specifier}.ini`
 
 How to:
 
@@ -104,12 +107,8 @@ dconf load path < config-name.ini
 
 ## To do
 
-- *rice*
+- customize starship
 
-  - customize starship
-
-  - customize themes and stuff
-  
 - get a "less bloated neoftech"
 
 - startup script to load dconf configs automatically
