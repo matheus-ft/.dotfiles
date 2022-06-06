@@ -16,7 +16,7 @@ alias clean='sudo apt autoremove && sudo apt autoclean'
 alias update='sudo apt update && sudo apt upgrade'
 alias upgrade='update && clean'
 alias full-update='sudo apt update && sudo apt dist-upgrade'
-alias full-upgrade='full-update && clean && reboot'
+alias full-upgrade='full-update && clean'
 
 
 # Apps
