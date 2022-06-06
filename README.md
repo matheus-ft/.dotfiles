@@ -89,6 +89,8 @@ Extensions added:
 
 - Configs in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs): `dconf dump / > pop-os-{specifier}.ini`
 
+- [gnome-terminal keybindings]((https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs/gnome-terminal-keybindings.ini) are updated more often, so always load them after the theme `dconf load /org/gnome/terminal/legacy/keybindings/ < gnome-terminal-keybindings.ini`
+
 How to:
 
 - save
@@ -109,7 +111,7 @@ dconf load path < config-name.ini
 
 - customize starship
 
-- get a "less bloated neoftech"
-
 - startup script to load dconf configs automatically
+
+- script to create projects (auto adding a .vimrc and other special configs)
 

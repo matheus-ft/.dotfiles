@@ -1,22 +1,24 @@
-# Dracula
+# Themes
+
+## Dracula
 
 - [theme and icons](https://draculatheme.com/gtk)
 
-# WhiteSur
+## WhiteSur
 
 - [theme](https://github.com/vinceliuice/WhiteSur-gtk-theme):
 
 ```sh
-./install.sh -o normal -c Dark -t blue -t purple -i popos -N glassy -l
+./install.sh -d ~/.themes -o normal -c Dark -i popos -l -N glassy
 ```
 
 - [icons](https://github.com/vinceliuice/WhiteSur-icon-theme):
 
 ```sh
-./install.sh -t default -t purple -t grey
+./install.sh -d ~/.icons -a
 ```
 
-# Orchis
+## Orchis
 
 - [theme](https://github.com/vinceliuice/Orchis-theme)
 
