@@ -41,7 +41,7 @@ sudo apt install htop
 ### Neovim
 
 ```sh
-sudo apt install vim neovim
+sudo apt install neovim
 ```
 
 Config in [init.vim](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.vim)
@@ -109,9 +109,7 @@ dconf load path < config-name.ini
 
 ## To do
 
-- customize starship
-
-- startup script to load dconf configs automatically
+- startup script to load dconf configs automatically and also changes starship.toml, theme.vim and gnome-terminal profile based on the current colorscheme
 
 - script to create projects (auto adding a .vimrc and other special configs)
 
