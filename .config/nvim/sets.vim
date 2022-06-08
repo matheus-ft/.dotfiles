@@ -3,7 +3,6 @@ set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-map <S-Tab> <<
 
 set number
 
@@ -18,6 +17,8 @@ set scrolloff=8
 set signcolumn=yes  " add sidecolumn for git gutter and stuff
 
 set clipboard+=unnamedplus  " to copy and paste easily
+
+set wildmenu
 
 set completeopt=menuone,noinsert,noselect,preview
 

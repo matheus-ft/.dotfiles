@@ -1,4 +1,5 @@
 " Jedi
+
 " Keybindings
 nnoremap <leader>o <C-o>
 let g:jedi#goto_command = "<leader>d"
@@ -10,6 +11,7 @@ let g:jedi#rename_command = "<leader>r"
 
 " opens a new tab when going to deifnitions
 let g:jedi#use_tabs_not_buffers = 1
+
 
 " Semshi
 " Personalized syntax highlighting

@@ -1,4 +1,4 @@
-nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>m :NERDTree<CR>
 
 " Start NERDTree. If a file is specified, move the cursor to its window.
