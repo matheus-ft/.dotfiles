@@ -59,6 +59,12 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 sudo apt install python3-venv python3-pip
 ```
 
+### Octave
+
+```sh
+sudo apt install octave
+```
+
 ---
 
 ## Desktop
@@ -109,7 +115,5 @@ dconf load path < config-name.ini
 
 ## To do
 
-- startup script to load dconf configs automatically and also changes starship.toml, theme.vim and gnome-terminal profile based on the current colorscheme
-
-- script to create projects (auto adding a .vimrc and other special configs)
+- startup script to load dconf configs automatically and also change starship.toml, theme.vim and gnome-terminal profile based on the current colorscheme
 

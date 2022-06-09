@@ -26,3 +26,9 @@
 ./install.sh -d ~/.themes  -t orange -c dark --tweaks compact -l
 ```
 
+---
+
+### Note
+
+- [gnome-terminal keybindings]((https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs/gnome-terminal-keybindings.ini) are updated more often, so always load them after the theme `dconf load /org/gnome/terminal/legacy/keybindings/ < gnome-terminal-keybindings.ini`
+
