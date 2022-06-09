@@ -1,28 +1,28 @@
 # Themes
 
-## Dracula
+## Dracula `pop-os-dracula.ini`
 
-- [theme and icons](https://draculatheme.com/gtk)
+- [Dracula theme and Nord icons](https://draculatheme.com/gtk)
 
-## WhiteSur
+## BigSur-like `pop-os-mac.ini`
 
-- [theme](https://github.com/vinceliuice/WhiteSur-gtk-theme):
+- [WhiteSur theme](https://github.com/vinceliuice/WhiteSur-gtk-theme):
 
 ```sh
 ./install.sh -d ~/.themes -o normal -c Dark -i popos -l -N glassy
 ```
 
-- [icons](https://github.com/vinceliuice/WhiteSur-icon-theme):
+- [Colloid icons](https://github.com/vinceliuice/Colloid-icon-theme):
 
 ```sh
-./install.sh -d ~/.icons -a
+./install.sh -d ~/.icons
 ```
 
-## Orchis
+## Cosmic-like `pop-os-rice.ini`
 
-- [theme](https://github.com/vinceliuice/Orchis-theme)
+- [Orchis theme and standard Pop icons](https://github.com/vinceliuice/Orchis-theme)
 
 ```sh
-./install.sh -t orange -t purple -c dark --tweaks compact -l
+./install.sh -d ~/.themes  -t orange -c dark --tweaks compact -l
 ```
 
