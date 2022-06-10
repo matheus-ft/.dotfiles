@@ -20,12 +20,14 @@ nnoremap <C-l>      <C-w>l
 " Tab navigation
 nnoremap <silent> <leader><Tab> :tabnext<CR>
 nnoremap <leader>t              :tabnew<Space>
-nnoremap <leader><S-c>          :tabclose<CR>
+nnoremap <leader><S-q>          :tabclose<CR>
 
-" Exiting and saving
-nnoremap <leader>c  :q<CR>
+"Exiting and saving
+nnoremap <leader>q  :q<CR>
 nnoremap <S-q>      :q!<CR>
 nnoremap <C-q>      :wq<CR>
+inoremap <C-q>      <Esc>:wq<CR>
+vnoremap <C-q>      <Esc>:wq<CR>
 nnoremap <C-s>      :w<CR>
 inoremap <C-s>      <Esc>:w<CR>
 vnoremap <C-s>      <Esc>:w<CR>
@@ -44,4 +46,9 @@ vnoremap <S-Tab>    <gv
 
 " Cut - copy/paste enabled with clipboard+=unnamedplus in ./sets.vim
 vnoremap <C-x> c<Esc>
+
+" Searching
+nnoremap <C-f> /
+inoremap <C-f> <Esc>/
+vnoremap <C-f> <Esc>/
 
