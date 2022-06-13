@@ -1,5 +1,13 @@
 # Themes
 
+## Basic `pop-os-basic.ini` 
+
+First bits of personalization after clean install
+
+## Custom `pop-os-custom.ini`
+
+Full customization of vanilla Pop!_OS
+
 ## Dracula `pop-os-dracula.ini`
 
 - [Dracula theme and Nord icons](https://draculatheme.com/gtk)
@@ -18,7 +26,7 @@
 ./install.sh -d ~/.icons
 ```
 
-## Cosmic-like `pop-os-rice.ini`
+## Better Cosmic `pop-os-rice.ini`
 
 - [Orchis theme and standard Pop icons](https://github.com/vinceliuice/Orchis-theme)
 
