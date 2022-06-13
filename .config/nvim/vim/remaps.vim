@@ -1,4 +1,4 @@
-let mapleader = " "
+let mapleader = ' ' 
 
 " To move between splits in vim
 nnoremap <leader>h  <C-w>h
@@ -11,11 +11,11 @@ nnoremap <C-k>      <C-w>k
 nnoremap <C-l>      <C-w>l
 
 
-" There are remaps in ./vim/nerdtree.vim for the file tree
+" There are remaps in ./vim/plugins/nerdtree.vim for the file tree
 
-" There are remaps in ./vim/python.vim for code navigation
+" There are remaps in ./vim/plugins/python.vim for code navigation
 
-" There are remaps in ./vim/finder.vim for CtrlP
+" There are remaps in ./vim/plugins/finder.vim for CtrlP
 
 " Tab navigation
 nnoremap <silent> <leader><Tab> :tabnext<CR>
@@ -44,7 +44,7 @@ inoremap <S-Tab>    <Esc><<i
 vnoremap <Tab>      >gv
 vnoremap <S-Tab>    <gv
 
-" Cut - copy/paste enabled with clipboard+=unnamedplus in ./sets.vim
+" Cut - copy/paste enabled with clipboard+=unnamedplus in ./vim/sets.vim
 vnoremap <C-x> c<Esc>
 
 " Searching

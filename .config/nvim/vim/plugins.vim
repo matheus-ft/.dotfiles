@@ -29,10 +29,10 @@ call plug#end()
 filetype plugin indent on
 
 source ~/.config/nvim/lua/git.lua
-source ~/.config/nvim/vim/python.vim
-source ~/.config/nvim/vim/finder.vim
-source ~/.config/nvim/vim/autopairs.vim
-source ~/.config/nvim/vim/airline.vim
-source ~/.config/nvim/vim/nerdtree.vim
-source ~/.config/nvim/vim/themes.vim
+source ~/.config/nvim/vim/plugins/python.vim
+source ~/.config/nvim/vim/plugins/finder.vim
+source ~/.config/nvim/vim/plugins/autopairs.vim
+source ~/.config/nvim/vim/plugins/airline.vim
+source ~/.config/nvim/vim/plugins/nerdtree.vim
+source ~/.config/nvim/vim/plugins/themes.vim
 
