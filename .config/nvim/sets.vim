@@ -5,6 +5,7 @@ set expandtab
 set smartindent
 
 set number
+set relativenumber  " to easily jump vertically in the file
 
 set hidden  " hides recovery menu or sth like that
 
