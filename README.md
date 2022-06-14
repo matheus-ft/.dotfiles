@@ -1,9 +1,16 @@
 # Pop!_OS 22.04 with GNOME 42.1
 
-## Gdebi
+```sh
+git clone --bare https://github.com/matheus-ft/.dotfiles $HOME/.dotfiles
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+config checkout
+```
+
+If there's conflict, put such files in a separate `.backup` folder and then run
 
 ```sh
-sudo apt install gdebi-core
+config checkout
+config config --local status.showUntrackedFiles no
 ```
 
 ---
@@ -25,14 +32,6 @@ curl -sS https://starship.rs/install.sh | sh
 `starship` is set to be the shell prompt in line 1 of [bash_init](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/init)
 
 Settings are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
-
----
-
-## htop
-
-```sh
-sudo apt install htop
-```
 
 ---
 
