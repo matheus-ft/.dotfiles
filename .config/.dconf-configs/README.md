@@ -6,7 +6,7 @@ First bits of personalization after clean install
 
 ## Custom `pop-os-custom.ini`
 
-Full customization of vanilla Pop!_OS
+Same as the basic setup, but with the extensions.
 
 ## Dracula `pop-os-dracula.ini`
 
@@ -38,5 +38,8 @@ Full customization of vanilla Pop!_OS
 
 ### Note
 
-- [gnome-terminal keybindings]((https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs/gnome-terminal-keybindings.ini) are updated more often, so always load them after the theme `dconf load /org/gnome/terminal/legacy/keybindings/ < gnome-terminal-keybindings.ini`
+- [gnome-terminal keybindings]((https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs/gnome-terminal-keybindings.ini) are updated more often, so always load them after the theme
 
+```sh
+dconf load /org/gnome/terminal/legacy/keybindings/ < gnome-terminal-keybindings.ini
+```
