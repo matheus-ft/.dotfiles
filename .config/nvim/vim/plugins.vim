@@ -11,6 +11,9 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " Octave
 Plug 'https://github.com/McSinyx/vim-octave.git', {'for': 'octave'}
 
+" C/C++
+Plug 'bfrg/vim-cpp-modern'
+
 " Fuzzy finder 
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -20,7 +23,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'preservim/nerdtree'
 
 " Themes
-Plug 'joshdick/onedark.vim'
+Plug 'navarasu/onedark.nvim'
 Plug 'Mofiqul/dracula.nvim'
 Plug 'gruvbox-community/gruvbox'
 
@@ -28,11 +31,7 @@ call plug#end()
 
 filetype plugin indent on
 
-source ~/.config/nvim/lua/git.lua
-source ~/.config/nvim/vim/plugins/python.vim
-source ~/.config/nvim/vim/plugins/finder.vim
-source ~/.config/nvim/vim/plugins/autopairs.vim
-source ~/.config/nvim/vim/plugins/airline.vim
-source ~/.config/nvim/vim/plugins/nerdtree.vim
-source ~/.config/nvim/vim/plugins/themes.vim
+for file in split(glob('~/.config/nvim/vim/plugins/*.vim'), '\n')
+    exe 'source' file
+endfor
 
