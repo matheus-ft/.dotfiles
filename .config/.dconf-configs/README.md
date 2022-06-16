@@ -36,10 +36,19 @@ Same as the basic setup, but with the extensions.
 
 ---
 
-### Note
+### Gnome-terminal
 
-- [gnome-terminal keybindings]((https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs/gnome-terminal-keybindings.ini) are updated more often, so always load them after the theme
+- Gnome terminal settings are updated more often, so make sure you run
 
 ```sh
-dconf load /org/gnome/terminal/legacy/keybindings/ < gnome-terminal-keybindings.ini
+dconf load /org/gnome/terminal/ < gnome-terminal.ini
 ```
+
+after dumping the whole theme.
+
+    - terminal theme
+
+```sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/denysdovhan/gnome-terminal-one/master/one-dark.sh)"
+```
+
