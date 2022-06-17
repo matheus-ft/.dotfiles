@@ -14,7 +14,7 @@ disabled = false
 
 # Third param
 [directory]
-style = "bold blue"
+style = "bold cyan"
 truncation_length = 4
 truncate_to_repo = false
 truncation_symbol = ".../"
@@ -36,7 +36,7 @@ error_symbol = " [╰─](bold purple)[λ](bold red)"
 disabled = true
 
 [git_branch]
-symbol = "branch "
+symbol = ""
 style = "bold yellow"
 
 [nodejs]
@@ -45,5 +45,8 @@ style = "bold green"
 
 [python]
 symbol = "🐍 "
-style = "bold green"
+style = "bold blue"
+
+[c]
+style = "bold blue"
 
