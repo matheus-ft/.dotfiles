@@ -28,7 +28,7 @@ Same as the basic setup, but with the extensions.
 
 ## Better Cosmic `pop-os-rice.ini`
 
-- [Orchis theme and standard Pop icons](https://github.com/vinceliuice/Orchis-theme)
+- [Orchis theme and standard Pop icons](https://github.com/vinceliuice/Orchis-theme):
 
 ```sh
 ./install.sh -d ~/.themes  -t orange -c dark --tweaks compact -l
@@ -46,7 +46,7 @@ dconf load /org/gnome/terminal/ < gnome-terminal.ini
 
 after dumping the whole theme.
 
-    - terminal theme
+- Terminal onedark theme
 
 ```sh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/denysdovhan/gnome-terminal-one/master/one-dark.sh)"

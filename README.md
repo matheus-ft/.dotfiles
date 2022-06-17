@@ -33,7 +33,7 @@ sudo apt install exa
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-`starship` is set to be the shell prompt in line 1 of [bash_init](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/init)
+`starship` is set to be the shell prompt in line 1 of [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
 
 Settings are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
@@ -105,8 +105,6 @@ Extensions added:
 ### Dconf
 
 - Configs in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs): `dconf dump / > pop-os-{specifier}.ini`
-
-- [gnome-terminal keybindings]((https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs/gnome-terminal-keybindings.ini) are updated more often, so always load them after the theme `dconf load /org/gnome/terminal/legacy/keybindings/ < gnome-terminal-keybindings.ini`
 
 How to:
 
