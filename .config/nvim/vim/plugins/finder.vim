@@ -3,7 +3,7 @@
 let g:ctrlp_by_filename = 1  " search for filename
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']  " ignore files in .gitignore
 let g:ctrlp_show_hidden = 1  " to also show dotfiles and dotfolders
-let g:ctrlp_working_path_mode = 'ra'  " to start the search from repo root or current folder 
+let g:ctrlp_working_path_mode = 'ra'  " to start the search from repo root or current folder
 
 " new keybindings
 "   Enter || Double-click           -> opens the selected file in a new tab

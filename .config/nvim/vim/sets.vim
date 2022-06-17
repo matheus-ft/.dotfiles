@@ -7,7 +7,9 @@ set smartindent
 set number
 set relativenumber  " to easily jump vertically in the file
 
-set hidden  " hides recovery menu or sth like that
+set hidden  " keeps edited buffers in the background, so there's no need to always save before navigating away from it
+set noswapfile
+set nobackup
 
 " for searching
 set ignorecase smartcase
@@ -24,4 +26,6 @@ set wildmenu
 set completeopt=menuone,noinsert,noselect,preview
 
 set title  " to show file name in titlebar
+
+set cmdheight=2  " more space to display messages
 

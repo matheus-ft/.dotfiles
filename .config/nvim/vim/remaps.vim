@@ -1,9 +1,9 @@
-let mapleader = ' ' 
+let mapleader = ' '
 
 " To move between splits
 nnoremap <leader>h  <C-w>h
 nnoremap <leader>j  <C-w>j
-nnoremap <leader>k  <C-w>k   
+nnoremap <leader>k  <C-w>k
 nnoremap <leader>l  <C-w>l
 nnoremap <C-h>      <C-w>h
 nnoremap <C-j>      <C-w>j
@@ -24,12 +24,12 @@ nnoremap <leader>v  <C-w>v
 nnoremap <silent> <leader><Tab> :tabnext<CR>
 nnoremap <leader>t              :tabnew<Space>
 nnoremap <leader><S-q>          :tabclose<CR>
-nnoremap <leader>q              :q<CR>
 nnoremap <S-q>                  :q!<CR>
-
+nnoremap <leader>q              :q<CR>
+nnoremap <leader>wq             :wq<CR>
+nnoremap <leader>w              :w<CR>
 
 " VS Code like shortcuts for saving, undoing, cutting and searching
-nnoremap <leader>w      :w<CR>
 nnoremap <leader>z      :u<CR>
 vnoremap <leader>x      c<Esc>
 nnoremap <leader>f      /
