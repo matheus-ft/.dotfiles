@@ -2,6 +2,7 @@ call plug#begin()
     " Git
     "Plug 'airblade/vim-gitgutter'
     Plug 'lewis6991/gitsigns.nvim'
+    Plug 'tpope/vim-fugitive'
 
     " Python
     Plug 'davidhalter/jedi-vim'
