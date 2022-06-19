@@ -44,7 +44,9 @@ Settings are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/mast
 ### Neovim
 
 ```sh
-sudo apt install neovim
+mkdir ~/Applications && cd ~/Applications
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
 ```
 
 Config in [init.vim](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.vim)
