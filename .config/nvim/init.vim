@@ -8,7 +8,6 @@ call plug#begin()
 
     " Python
     Plug 'davidhalter/jedi-vim'
-    Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
     " Octave
     Plug 'jvirtanen/vim-octave'
@@ -16,9 +15,17 @@ call plug#begin()
     " C/C++
     Plug 'bfrg/vim-cpp-modern'
 
-    " Fuzzy finder
+    " Neovim Tree sitter
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/playground'
+    Plug 'romgrk/nvim-treesitter-context'
+    " after, for each language, do :TSInstall <language>
+
+    " Telescope
+    Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
     " Useful aesthetics
     Plug 'jiangmiao/auto-pairs'
@@ -32,26 +39,30 @@ call plug#end()
 
 syntax on
 filetype plugin indent on
+lua require'nvim-treesitter.configs'.setup { highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remaps
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ' '
 
+inoremap <C-c>  <Esc>
+
 " To move between splits
-nnoremap <leader>h    <C-w>h
-nnoremap <leader>j    <C-w>j
-nnoremap <leader>k    <C-w>k
-nnoremap <leader>l    <C-w>l
-nnoremap <C-h>        <C-w>h
-nnoremap <C-j>        <C-w>j
-nnoremap <C-k>        <C-w>k
-nnoremap <C-l>        <C-w>l
+nnoremap <leader>h  <C-w>h
+nnoremap <leader>j  <C-w>j
+nnoremap <leader>k  <C-w>k
+nnoremap <leader>l  <C-w>l
+nnoremap <C-h>      <C-w>h
+nnoremap <C-j>      <C-w>j
+nnoremap <C-k>      <C-w>k
+nnoremap <C-l>      <C-w>l
 
 " To make splits
-nnoremap <leader>s    <C-w>s
-nnoremap <leader>v    <C-w>v
+nnoremap <leader>s  <C-w>s
+nnoremap <leader>v  <C-w>v
 
+" There are remaps in ./plugin/telescope.vim for fuzzy finding
 " There are remaps in ./plugin/nerdtree.vim for the file tree
 " There are remaps in ./plugin/python.vim for code navigation
 
@@ -65,25 +76,25 @@ nnoremap <leader>z             :wq<CR>
 nnoremap <leader>w             :w<CR>
 
 " VS Code like shortcuts for searching, replacing, and cutting
-nnoremap <leader>f    /
-nnoremap <leader>r    :%s/
-vnoremap <leader>x    c<Esc>
+nnoremap <leader>f  /
+nnoremap <leader>r  :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+vnoremap <leader>x  c<Esc>
 
 " VS Code shortcuts
 " Saving
-nnoremap <C-s>    :w<CR>
-inoremap <C-s>    <Esc>:w<CR>
-vnoremap <C-s>    <Esc>:w<CR>
+nnoremap <C-s>  :w<CR>
+inoremap <C-s>  <Esc>:w<CR>
+vnoremap <C-s>  <Esc>:w<CR>
 " Undoing
-nnoremap <C-z>    :u<CR>
-inoremap <C-z>    <Esc>:u<CR>i
-vnoremap <C-z>    <Esc>:u<CR>v
+nnoremap <C-z>  :u<CR>
+inoremap <C-z>  <Esc>:u<CR>i
+vnoremap <C-z>  <Esc>:u<CR>v
 " Searching
-nnoremap <C-f>    /
-inoremap <C-f>    <Esc>/
-vnoremap <C-f>    <Esc>/
-" Cut - copy/pasteed with clipboard+=unnamedplus in ./vim/sets.vim
-vnoremap <C-x>    c<Esc>
+nnoremap <C-f>  /
+inoremap <C-f>  <Esc>/
+vnoremap <C-f>  <Esc>/
+" Cut - copy/pased with clipboard+=unnamedplus in ./vim/sets.vim
+vnoremap <C-x>  c<Esc>
 
 " indent/unindent with tab/shift-tab
 nnoremap <Tab>      >>
@@ -91,8 +102,6 @@ nnoremap <S-tab>    <<
 inoremap <S-Tab>    <Esc><<i
 vnoremap <Tab>      >gv
 vnoremap <S-Tab>    <gv
-
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto commands
