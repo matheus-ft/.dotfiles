@@ -3,7 +3,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin()
     " Git
-    "Plug 'airblade/vim-gitgutter'
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'tpope/vim-fugitive'
 
@@ -18,7 +17,8 @@ call plug#begin()
     Plug 'bfrg/vim-cpp-modern'
 
     " Fuzzy finder
-    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
 
     " Useful aesthetics
     Plug 'jiangmiao/auto-pairs'
@@ -54,7 +54,6 @@ nnoremap <leader>v    <C-w>v
 
 " There are remaps in ./plugin/nerdtree.vim for the file tree
 " There are remaps in ./plugin/python.vim for code navigation
-" There are remaps in ./plugin/finder.vim for CtrlP
 
 " Tab navigation and exiting
 nnoremap <silent><leader><Tab> :tabnext<CR>
@@ -92,6 +91,8 @@ nnoremap <S-tab>    <<
 inoremap <S-Tab>    <Esc><<i
 vnoremap <Tab>      >gv
 vnoremap <S-Tab>    <gv
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto commands

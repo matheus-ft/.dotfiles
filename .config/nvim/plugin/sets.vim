@@ -21,6 +21,8 @@ set signcolumn=yes  " add sidecolumn for git gutter and stuff
 
 set clipboard+=unnamedplus  " to copy and paste easily
 
+" allows for 'native fuzzy finding' if nvim is opened at project root
+set path+=**
 set wildmenu
 
 set completeopt=menuone,noinsert,noselect,preview
