@@ -2,23 +2,23 @@
 # First param ─┌
 [username]
 format = " [╭─$user]($style)@"
-style_user = "bold purple"
+style_user = "bold cyan"
 show_always = true
 
 # Second param
 [hostname]
 format = "[$hostname]($style) in "
-style = "bold dimmed purple"
+style = "bold dimmed yellow"
 ssh_only = false
 disabled = false
 
 # Third param
 [directory]
-style = "bold cyan"
+style = "bold purple"
 truncation_length = 4
 truncate_to_repo = false
 truncation_symbol = ".../"
-repo_root_style = "bold yellow"
+repo_root_style = "bold red"
 
 # Before all the version info (python, nodejs, php, etc.)
 [git_status]
@@ -29,15 +29,15 @@ behind = "⇣${count}"
 
 # Prompt: param 2 └─
 [character]
-success_symbol = " [╰─](bold purple)[λ](bold green)"
-error_symbol = " [╰─](bold purple)[λ](bold red)"
+success_symbol = " [╰─](bold cyan)[λ](bold green)"
+error_symbol = " [╰─](bold cyan)[λ](bold red)"
 
 [cmd_duration]
 disabled = true
 
 [git_branch]
 symbol = ""
-style = "bold yellow"
+style = "bold red"
 
 [nodejs]
 symbol = "⬢ "

@@ -33,7 +33,7 @@ sudo apt install exa
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-`starship` is set to be the shell prompt in line 1 of [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
+`starship` is set to be the shell prompt os the last line of [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
 
 Settings are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
