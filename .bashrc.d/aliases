@@ -9,6 +9,9 @@ alias vim=nvim
 # General
 alias ls='exa -lahF --color=auto'
 alias dir='exa --color=auto'
+alias tree='exa --tree -F'
+alias ltree='tree --long'
+alias lt=ltree
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
