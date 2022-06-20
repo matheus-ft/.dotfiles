@@ -4,7 +4,18 @@
 call plug#begin()
     " Git
     Plug 'lewis6991/gitsigns.nvim'
+
+    " TPOPE
     Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-endwise'
+    Plug 'tpope/vim-commentary'
+
+    " Floating terminal
+    Plug 'numToStr/FTerm.nvim'
+
+    " Text: markdown, latex
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+    "Plug 'lervag/vimtex'
 
     " Python
     Plug 'davidhalter/jedi-vim'
@@ -19,14 +30,14 @@ call plug#begin()
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
     Plug 'romgrk/nvim-treesitter-context'
-    " after, for each language, do :TSInstall <language>
+    " after, relaunch nvim and, for each language, do :TSInstall <language>
 
     " Telescope
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzy-native.nvim'
-    " install 'github.com/BurntSushi/ripgrep'
+    " also install 'github.com/BurntSushi/ripgrep'
 
     " Useful aesthetics
     Plug 'jiangmiao/auto-pairs'
@@ -40,7 +51,8 @@ call plug#end()
 
 syntax on
 filetype plugin indent on
-lua require'nvim-treesitter.configs'.setup { highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }}
+lua require('nvim-treesitter.configs').setup({ highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }})
+let g:mkdp_auto_start = 1  " so markdown preview always opens if the filetype is markdown and closes when changing buffers
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remaps
@@ -72,15 +84,18 @@ nnoremap <leader>to     :tabonly<CR>
 " Buffer navigation
 nnoremap <leader>o      <C-o>
 nnoremap <leader>e      :edit<Space>
-nnoremap <leader>c      :bdelete<CR>
-nnoremap <leader><S-c>  :bdelete!<CR>
+nnoremap <leader>c      :bd<CR>
+nnoremap <leader><S-c>  :bd!<CR>
 nnoremap <leader><S-q>  :q!<CR>
 nnoremap <leader>q      :q<CR>
-nnoremap <leader>z      :w<CR>:bd<CR>
+nnoremap <leader>z      :w<CR>
 nnoremap <leader>w      :w<CR>
 
+nnoremap <leader>bb     <C-o>
+nnoremap <leader>bd     :bd<CR>
+
 " Replacing
-nnoremap <leader>r  :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+nnoremap <leader>r      :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 
 " indent/unindent with tab/shift-tab
 nnoremap <Tab>      >>

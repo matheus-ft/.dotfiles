@@ -7,12 +7,12 @@ let b:AutoPairs = AutoPairsDefine({"f'" : "'", "r'" : "'", "b'" : "'"})
 " Jedi settings
 
 " Keybindings
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader><S-r>"
+let b:jedi#goto_command = "<leader>d"
+let b:jedi#goto_assignments_command = "<leader>g"
+let b:jedi#documentation_command = "K"
+let b:jedi#usages_command = "<leader>n"
+let b:jedi#completions_command = "<C-Space>"
+let b:jedi#rename_command = "<leader><S-r>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

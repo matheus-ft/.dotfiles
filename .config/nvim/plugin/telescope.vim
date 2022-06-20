@@ -2,7 +2,7 @@ nnoremap <leader>f      :call FindFiles()<CR>
 nnoremap <leader>ps     <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>pu     :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
 nnoremap <leader><Tab>  <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>hh     <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>a      <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 fun! FindFiles()
     silent! !git rev-parse --is-inside-work-tree
