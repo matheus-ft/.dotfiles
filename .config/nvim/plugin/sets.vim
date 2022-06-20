@@ -4,16 +4,18 @@ set shiftwidth=4
 set expandtab
 set smartindent
 
-set number
-set relativenumber  " to easily jump vertically in the file
+set number relativenumber  " to easily jump vertically in the file
 
 set hidden  " keeps edited buffers in the background, so there's no need to always save before navigating away from it
 set noswapfile
 set nobackup
+set undofile
+set undodir=~/.vim/undodir
 
 " for searching
 set ignorecase smartcase
 set incsearch
+set nohlsearch
 
 set scrolloff=8
 
