@@ -21,7 +21,7 @@ set scrolloff=8
 
 set signcolumn=yes  " add sidecolumn for git gutter and stuff
 
-set clipboard+=unnamedplus  " to copy and paste easily
+set clipboard+=unnamedplus  " to copy and paste easily - but will change <C-c> and <C-v> from nvim to <C><S-c> and <C><S-v>
 
 " allows for 'native fuzzy finding' if nvim is opened at project root
 set path+=**

@@ -2,47 +2,34 @@
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin()
+    " Useful things
+    Plug 'vim-airline/vim-airline' " status line
+    Plug 'preservim/nerdtree' " file tree
+    Plug 'jiangmiao/auto-pairs' " automatically add the pairing char for surroundign chars
+    Plug 'numToStr/Comment.nvim' " toggle comments eadily
+    Plug 'tpope/vim-surround' " to change surroundign characters easily
+    Plug 'numToStr/FTerm.nvim' " floating terminal
+
     " Git
     Plug 'lewis6991/gitsigns.nvim'
-
-    " TPOPE
     Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-endwise'
-    Plug 'tpope/vim-commentary'
 
-    " Floating terminal
-    Plug 'numToStr/FTerm.nvim'
+    " Neovim Tree sitter - sintax highlighting
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " after, relaunch nvim and, for each language, do :TSInstall <language>
+    Plug 'romgrk/nvim-treesitter-context' " show context (function, class, conditional, etc.) scope in the top of the file
 
-    " Text: markdown, latex
-    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-    "Plug 'lervag/vimtex'
-
-    " Python
-    Plug 'davidhalter/jedi-vim'
-
-    " Octave
+    " Octave (tree shitter don support matlab-like languages apparently)
     Plug 'jvirtanen/vim-octave'
+    Plug 'tpope/vim-endwise' " useful for other languages too
 
-    " C/C++
-    Plug 'bfrg/vim-cpp-modern'
-
-    " Neovim Tree sitter
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/playground'
-    Plug 'romgrk/nvim-treesitter-context'
-    " after, relaunch nvim and, for each language, do :TSInstall <language>
+    " Markdown, latex, etc.
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
     " Telescope
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzy-native.nvim'
-    " also install 'github.com/BurntSushi/ripgrep'
-
-    " Useful aesthetics
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'vim-airline/vim-airline'
-    Plug 'preservim/nerdtree'
+    Plug 'nvim-lua/plenary.nvim' " dependency
+    Plug 'nvim-telescope/telescope.nvim' " best fuzzy finder ever
+    Plug 'nvim-telescope/telescope-fzy-native.nvim' " sorts the findings
+    " also install 'github.com/BurntSushi/ripgrep' to use live_grep func
 
     " Themes
     Plug 'navarasu/onedark.nvim'
@@ -59,10 +46,6 @@ let g:mkdp_auto_start = 1  " so markdown preview always opens if the filetype is
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ' '
 
-" There are remaps in ./plugin/telescope.vim for fuzzy finding
-" There are remaps in ./plugin/nerdtree.vim for the file tree
-" There are remaps in ./plugin/python.vim for code navigation
-
 " Splits navigation
 nnoremap <leader>s      <C-w>s<C-w>j
 nnoremap <leader>v      <C-w>v<C-w>l
@@ -74,12 +57,7 @@ nnoremap <C-h>          <C-w>h
 nnoremap <C-j>          <C-w>j
 nnoremap <C-k>          <C-w>k
 nnoremap <C-l>          <C-w>l
-nnoremap <leader>so     <C-w>o
-
-" Tab navigation
-nnoremap <leader>tn     :tabnew<Space>
-nnoremap <leader>tq     :tabclose<CR>
-nnoremap <leader>to     :tabonly<CR>
+nnoremap <leader>bo     <C-w>o
 
 " Buffer navigation
 nnoremap <leader>o      <C-o>
@@ -88,21 +66,29 @@ nnoremap <leader>c      :bd<CR>
 nnoremap <leader><S-c>  :bd!<CR>
 nnoremap <leader><S-q>  :q!<CR>
 nnoremap <leader>q      :q<CR>
-nnoremap <leader>z      :w<CR>
+nnoremap <leader>z      :w<CR>bd<CR>
 nnoremap <leader>w      :w<CR>
 
-nnoremap <leader>bb     <C-o>
-nnoremap <leader>bd     :bd<CR>
+nnoremap <leader>bd     :bdelete<CR>
+nnoremap <leader>bn     :bnext<CR>
+nnoremap <leader>bp     :bprevious<CR>
+
+" Tab navigation
+nnoremap <leader>tN     :tabnew<Space>
+nnoremap <leader>tq     :tabclose<CR>
+nnoremap <leader>to     :tabonly<CR>
+nnoremap <leader>tn     :tabnext<CR>
+nnoremap <leader>tp     :tabprevious<CR>
 
 " Replacing
 nnoremap <leader>r      :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 
 " indent/unindent with tab/shift-tab
-nnoremap <Tab>      >>
-nnoremap <S-tab>    <<
-inoremap <S-Tab>    <Esc><<i
-vnoremap <Tab>      >gv
-vnoremap <S-Tab>    <gv
+nnoremap <Tab>          >>
+nnoremap <S-tab>        <<
+inoremap <S-Tab>        <Esc><<i
+vnoremap <Tab>          >gv
+vnoremap <S-Tab>        <gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto commands

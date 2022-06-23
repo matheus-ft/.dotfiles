@@ -22,5 +22,6 @@ vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 
 vim.keymap.set('n', '<leader>tt', '<CMD>FTermOpen<CR>')
+vim.keymap.set('n', '<leader><Enter>', '<CMD>FTermOpen<CR>')
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n><CMD>FTermClose<CR>')
 
