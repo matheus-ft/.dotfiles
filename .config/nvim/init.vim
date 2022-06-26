@@ -14,6 +14,9 @@ call plug#begin()
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'tpope/vim-fugitive'
 
+    " Language server protocol
+    Plug 'neovim/nvim-lspconfig'
+
     " Neovim Tree sitter - sintax highlighting
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " after, relaunch nvim and, for each language, do :TSInstall <language>
     Plug 'romgrk/nvim-treesitter-context' " show context (function, class, conditional, etc.) scope in the top of the file
@@ -66,7 +69,6 @@ nnoremap <leader>c      :bd<CR>
 nnoremap <leader><S-c>  :bd!<CR>
 nnoremap <leader><S-q>  :q!<CR>
 nnoremap <leader>q      :q<CR>
-nnoremap <leader>z      :w<CR>bd<CR>
 nnoremap <leader>w      :w<CR>
 
 nnoremap <leader>bd     :bdelete<CR>

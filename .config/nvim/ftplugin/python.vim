@@ -1,8 +1,11 @@
 " General settings
 setlocal colorcolumn=80
-:hi colorcolumn guibg='yellow'
+highlight colorcolumn guibg='yellow'
 setlocal nowrap
 let b:AutoPairs = AutoPairsDefine({"f'" : "'", "r'" : "'", "b'" : "'"})
+
+lua require('lspconfig').pyright.setup{}
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Jedi settings
 
