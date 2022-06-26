@@ -9,7 +9,7 @@ alias vim=nvim
 # General
 alias ls='exa -lahF --color=auto'
 alias dir='exa --color=auto'
-alias tree='exa --tree -F'
+alias tree='exa --tree --level=3 -F'
 alias ltree='tree --long'
 alias lt=ltree
 alias ..='cd ..'
