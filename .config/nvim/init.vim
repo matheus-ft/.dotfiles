@@ -6,9 +6,9 @@ call plug#begin()
     Plug 'vim-airline/vim-airline' " status line
     Plug 'preservim/nerdtree' " file tree
     Plug 'jiangmiao/auto-pairs' " automatically add the pairing char for surroundign chars
+    Plug 'numToStr/FTerm.nvim' " floating terminal
     Plug 'numToStr/Comment.nvim' " toggle comments eadily
     Plug 'tpope/vim-surround' " to change surroundign characters easily
-    Plug 'numToStr/FTerm.nvim' " floating terminal
 
     " Git
     Plug 'lewis6991/gitsigns.nvim'
@@ -49,38 +49,30 @@ let g:mkdp_auto_start = 1  " so markdown preview always opens if the filetype is
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ' '
 
+" Make splits
+nnoremap <leader>v      <C-w>v
+nnoremap <leader>s      <C-w>s
+nnoremap <leader>o      <C-w>o
+
 " Splits navigation
-nnoremap <leader>s      <C-w>s<C-w>j
-nnoremap <leader>v      <C-w>v<C-w>l
-nnoremap <leader>h      <C-w>h
-nnoremap <leader>j      <C-w>j
-nnoremap <leader>k      <C-w>k
-nnoremap <leader>l      <C-w>l
 nnoremap <C-h>          <C-w>h
 nnoremap <C-j>          <C-w>j
 nnoremap <C-k>          <C-w>k
 nnoremap <C-l>          <C-w>l
-nnoremap <leader>bo     <C-w>o
 
-" Buffer navigation
-nnoremap <leader>o      <C-o>
-nnoremap <leader>e      :edit<Space>
-nnoremap <leader>c      :bd<CR>
-nnoremap <leader><S-c>  :bd!<CR>
+" Buffer handling
+nnoremap <leader>h      :bprevious<CR>
+nnoremap <leader>l      :bnext<CR>
+nnoremap <leader>c      :bdelete<CR>
+nnoremap <leader><S-c>  :bdelete!<CR>
 nnoremap <leader><S-q>  :q!<CR>
 nnoremap <leader>q      :q<CR>
 nnoremap <leader>w      :w<CR>
+nnoremap <leader>e      :edit<Space>
 
-nnoremap <leader>bd     :bdelete<CR>
-nnoremap <leader>bn     :bnext<CR>
-nnoremap <leader>bp     :bprevious<CR>
-
-" Tab navigation
-nnoremap <leader>tN     :tabnew<Space>
-nnoremap <leader>tq     :tabclose<CR>
-nnoremap <leader>to     :tabonly<CR>
-nnoremap <leader>tn     :tabnext<CR>
-nnoremap <leader>tp     :tabprevious<CR>
+" nnoremap <leader>bp     :bprevious<CR>
+" nnoremap <leader>bn     :bnext<CR>
+" nnoremap <leader>bd     :bdelete<CR>
 
 " Replacing
 nnoremap <leader>r      :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
@@ -91,6 +83,20 @@ nnoremap <S-tab>        <<
 inoremap <S-Tab>        <Esc><<i
 vnoremap <Tab>          >gv
 vnoremap <S-Tab>        <gv
+
+" Move the page but not the cursor with the arrow keys
+nnoremap <Down>  <C-e>
+nnoremap <Up>    <C-y>
+
+" Opens line below or above the current line
+inoremap <S-CR>  <C-O>o
+inoremap <C-CR>  <C-O>O
+
+" Move lines up and down
+inoremap <A-j>   <Esc>:m .+1<CR>==gi
+inoremap <A-k>   <Esc>:m .-2<CR>==gi
+vnoremap <A-j>   :m '>+1<CR>gv=gv
+vnoremap <A-k>   :m '<-2<CR>gv=gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto commands

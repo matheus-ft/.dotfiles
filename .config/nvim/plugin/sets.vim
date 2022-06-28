@@ -33,3 +33,5 @@ set title  " to show file name in titlebar
 
 set cmdheight=2  " more space to display messages
 
+set splitbelow splitright
+
