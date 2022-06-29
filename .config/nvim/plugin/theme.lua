@@ -1,4 +1,5 @@
--- Lua
+-- Onedark theme
+
 require('onedark').setup {
     -- Main options --
     style = 'dark', -- Default: dark. Options: 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'

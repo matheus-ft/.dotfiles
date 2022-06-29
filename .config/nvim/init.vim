@@ -7,8 +7,8 @@ call plug#begin()
     Plug 'preservim/nerdtree' " file tree
     Plug 'jiangmiao/auto-pairs' " automatically add the pairing char for surroundign chars
     Plug 'numToStr/FTerm.nvim' " floating terminal
-    Plug 'numToStr/Comment.nvim' " toggle comments eadily
-    Plug 'tpope/vim-surround' " to change surroundign characters easily
+    Plug 'numToStr/Comment.nvim' " toggle comments easily
+    Plug 'tpope/vim-surround' " to change surrounding characters easily
 
     " Git
     Plug 'lewis6991/gitsigns.nvim'
@@ -17,11 +17,11 @@ call plug#begin()
     " Language server protocol
     Plug 'neovim/nvim-lspconfig'
 
-    " Neovim Tree sitter - sintax highlighting
+    " Sintax highlighting
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " after, relaunch nvim and, for each language, do :TSInstall <language>
     Plug 'romgrk/nvim-treesitter-context' " show context (function, class, conditional, etc.) scope in the top of the file
 
-    " Octave (tree shitter don support matlab-like languages apparently)
+    " Octave (neovim treesitter don support matlab-like languages apparently)
     Plug 'jvirtanen/vim-octave'
     Plug 'tpope/vim-endwise' " useful for other languages too
 
@@ -61,8 +61,8 @@ nnoremap <C-k>          <C-w>k
 nnoremap <C-l>          <C-w>l
 
 " Buffer handling
-nnoremap <leader>h      :bprevious<CR>
-nnoremap <leader>l      :bnext<CR>
+nnoremap <A-h>          :bprevious<CR>
+nnoremap <A-l>          :bnext<CR>
 nnoremap <leader>c      :bdelete<CR>
 nnoremap <leader><S-c>  :bdelete!<CR>
 nnoremap <leader><S-q>  :q!<CR>
