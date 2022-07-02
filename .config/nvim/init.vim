@@ -14,8 +14,14 @@ call plug#begin()
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'tpope/vim-fugitive'
 
-    " Language server protocol
+    " Language server protocol stuff
     Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'L3MON4D3/LuaSnip'
+    Plug 'saadparwaiz1/cmp_luasnip'
 
     " Sintax highlighting
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " after, relaunch nvim and, for each language, do :TSInstall <language>
@@ -30,7 +36,7 @@ call plug#begin()
 
     " Telescope
     Plug 'nvim-lua/plenary.nvim' " dependency
-    Plug 'nvim-telescope/telescope.nvim' " best fuzzy finder ever
+    Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzy-native.nvim' " sorts the findings
     " also install 'github.com/BurntSushi/ripgrep' to use live_grep func
 
@@ -39,9 +45,12 @@ call plug#begin()
     Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
+lua require('matheus')
+
 syntax on
 filetype plugin indent on
 lua require('nvim-treesitter.configs').setup({ highlight = { enable = true }, incremental_selection = { enable = true }, textobjects = { enable = true }})
+
 let g:mkdp_auto_start = 1  " so markdown preview always opens if the filetype is markdown and closes when changing buffers
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -76,6 +85,8 @@ nnoremap <leader>e      :edit<Space>
 
 " Replacing
 nnoremap <leader>r      :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+
+nnoremap <leader><leader> :
 
 " indent/unindent with tab/shift-tab
 nnoremap <Tab>          >>
