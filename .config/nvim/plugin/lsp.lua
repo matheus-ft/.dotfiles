@@ -71,7 +71,7 @@ cmp.setup({
 cmp.setup.filetype('lua', {
   sources = {
     { name = 'nvim_lua' },
-    { name = 'buffer', keyword_length = 5 },
+    { name = 'buffer' },
   }
 })
 
