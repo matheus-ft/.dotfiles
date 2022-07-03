@@ -3,33 +3,36 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin()
     " Useful things
-    Plug 'vim-airline/vim-airline' " status line
-    Plug 'preservim/nerdtree' " file tree
-    Plug 'jiangmiao/auto-pairs' " automatically add the pairing char for surroundign chars
-    Plug 'numToStr/FTerm.nvim' " floating terminal
-    Plug 'numToStr/Comment.nvim' " toggle comments easily
-    Plug 'tpope/vim-surround' " to change surrounding characters easily
+    Plug 'vim-airline/vim-airline'      " status line
+    Plug 'preservim/nerdtree'           " file tree
+    Plug 'jiangmiao/auto-pairs'         " automatically add the pairing char for surroundign chars
+    Plug 'numToStr/FTerm.nvim'          " floating terminal
+    Plug 'numToStr/Comment.nvim'        " toggle comments easily
+    Plug 'tpope/vim-surround'           " to change surrounding characters easily
 
     " Git
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'tpope/vim-fugitive'
 
-    " Language server protocol stuff
+    " LSP and autocomplete stuff
     Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'L3MON4D3/LuaSnip'
     Plug 'saadparwaiz1/cmp_luasnip'
+    Plug 'L3MON4D3/LuaSnip'
 
     " Sintax highlighting
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " after, relaunch nvim and, for each language, do :TSInstall <language>
-    Plug 'romgrk/nvim-treesitter-context' " show context (function, class, conditional, etc.) scope in the top of the file
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'romgrk/nvim-treesitter-context'
 
     " Octave (neovim treesitter don support matlab-like languages apparently)
     Plug 'jvirtanen/vim-octave'
     Plug 'tpope/vim-endwise' " useful for other languages too
+
+    " Lua
+    Plug 'hrsh7th/cmp-nvim-lua'
 
     " Markdown, latex, etc.
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }

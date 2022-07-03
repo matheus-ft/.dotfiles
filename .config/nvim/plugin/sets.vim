@@ -27,7 +27,7 @@ set clipboard+=unnamedplus  " to copy and paste easily - but will change <C-c> a
 set path+=**
 set wildmenu
 
-set completeopt=menu,menuone,noselect,noinsert,preview
+set completeopt=menuone,preview,noinsert
 
 set title  " to show file name in titlebar
 

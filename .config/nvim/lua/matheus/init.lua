@@ -1,3 +1,3 @@
 require('matheus.telescope-config')
-require('matheus.lsp')
+require('matheus.onedark')
 
