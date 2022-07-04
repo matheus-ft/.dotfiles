@@ -2,7 +2,7 @@
 
 How to manage:
 
-After an OS clean install, do
+After a clean install, do
 
 ```sh
 git clone --bare https://github.com/matheus-ft/.dotfiles $HOME/.dotfiles
@@ -39,7 +39,7 @@ curl -sS https://starship.rs/install.sh | sh
 
 `starship` is set to be the shell prompt os the last line of [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
 
-Settings are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
+Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
 ---
 
@@ -47,15 +47,15 @@ Settings are in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/mast
 
 ### Neovim
 
+Using an AppImage because Ubuntu likes the past, and I, the future
+
 ```sh
-mkdir ~/Applications && cd ~/Applications
+mkdir -p ~/Applications && cd ~/Applications
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 ```
 
-Config in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.lua)
-
-Alias in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
+Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.lua) and simple alias in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases)
 
 #### Vim-plug
 
@@ -119,7 +119,7 @@ Extensions added:
 
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 
-- [Vitals](https://extensions.gnome.org/extension/1460/vitals/) - no need for htop anymore
+- [Vitals](https://extensions.gnome.org/extension/1460/vitals/) - no need for `htop` anymore
 
 - [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)
 
@@ -129,7 +129,7 @@ Extensions added:
 
 - Settings are in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs) : `pop-os-{specifier}.ini`
 
-How to:
+How to
 
 - save
 
