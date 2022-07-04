@@ -1,5 +1,9 @@
 # Pop!_OS 22.04 with GNOME 42.1
 
+How to manage:
+
+After an OS clean install, do
+
 ```sh
 git clone --bare https://github.com/matheus-ft/.dotfiles $HOME/.dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -49,11 +53,13 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 ```
 
-Config in [init.vim](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.vim)
+Config in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.lua)
+
+Alias in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
 
 #### Vim-plug
 
-Plugin manager for nvim
+Plugin manager for Neovim
 
 ```sh
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -62,6 +68,8 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 ### Node.js 16
 
+For Typescript programming and to use pyright language server in Neovim
+
 ```sh
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 sudo apt instal nodejs
@@ -69,7 +77,7 @@ sudo apt instal nodejs
 
 #### Yarn
 
-Dependency for markdown preview plugin for Neovim
+Dependency for Neovim's plugin for markdown preview
 
 ```sh
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
@@ -84,6 +92,8 @@ sudo apt install python3-venv python3-pip
 ```
 
 ### Octave
+
+Because matlab is exxxpensive
 
 ```sh
 sudo apt install octave
@@ -109,33 +119,33 @@ Extensions added:
 
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 
-- [Vitals](https://extensions.gnome.org/extension/1460/vitals/)
+- [Vitals](https://extensions.gnome.org/extension/1460/vitals/) - no need for htop anymore
 
 - [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)
 
-- [Auto Move Windows](https://extensions.gnome.org/extension/16/auto-move-windows/)
+- [Auto Move Windows](https://extensions.gnome.org/extension/16/auto-move-windows/) - didn't actually use yet
 
 ### Dconf
 
-- Configs in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs): `dconf dump / > pop-os-{specifier}.ini`
+- Settings are in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs) : `pop-os-{specifier}.ini`
 
 How to:
 
 - save
 
 ```sh
-dconf dump path > config-name.ini
+dconf dump <path> > config-name.ini
 ```
 
-- load
+- apply
 
 ```sh
-dconf load path < config-name.ini
+dconf load <path> < config-name.ini
 ```
 
 ---
 
 ## To do
 
-- startup script to load dconf configs automatically and also change starship.toml, theme.vim and gnome-terminal profile based on the current colorscheme
+- startup script to load dconf configs automatically and also change starship.toml, theme.lua and gnome-terminal profile based on the current colorscheme
 
