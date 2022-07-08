@@ -1,4 +1,6 @@
 LS_COLORS="di=1;35"  # directories will be bold purple on exa call
 
+PATH=”$PATH:/usr/local/bin/python”
+
 eval "$(starship init bash)"
 

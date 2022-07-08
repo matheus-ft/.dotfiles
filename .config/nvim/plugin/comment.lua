@@ -1,21 +1,17 @@
-require('Comment').setup({ -- this is the default config
-    ---Add a space b/w comment and the line
-    ---@type boolean|fun():boolean
-    padding = true,
+require('Comment').setup({
+    mappings = {
+        ---Operator-pending mapping
+        ---Includes `gcc`, `gbc`, `gc[count]{motion}` and `gb[count]{motion}`
+        ---NOTE: These mappings can be changed individually by `opleader` and `toggler` config
+        basic = true,
 
-    ---Whether the cursor should stay at its position
-    ---NOTE: This only affects NORMAL mode mappings and doesn't work with dot-repeat
-    ---@type boolean
-    sticky = true,
+        extra = true,
 
-    ---Lines to be ignored while comment/uncomment.
-    ---Could be a regex string or a function that returns a regex string.
-    ---Example: Use '^$' to ignore empty lines
-    ---@type string|fun():string
-    ignore = nil,
+        ---Disabled by default. Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
+        extended = true,
+    },
 
     ---LHS of toggle mappings in NORMAL + VISUAL mode
-    ---@type table
     toggler = {
         ---Line-comment toggle keymap
         line = 'gcc',
@@ -24,7 +20,6 @@ require('Comment').setup({ -- this is the default config
     },
 
     ---LHS of operator-pending mappings in NORMAL + VISUAL mode
-    ---@type table
     opleader = {
         ---Line-comment keymap
         line = 'gc',
@@ -32,8 +27,7 @@ require('Comment').setup({ -- this is the default config
         block = 'gb',
     },
 
-    ---LHS of extra mappings
-    ---@type table
+    ---LHS of the extra mappings
     extra = {
         ---Add comment on the line above
         above = 'gcO',
@@ -43,28 +37,19 @@ require('Comment').setup({ -- this is the default config
         eol = 'gcA',
     },
 
-    ---Create basic (operator-pending) and extended mappings for NORMAL + VISUAL mode
-    ---NOTE: If `mappings = false` then the plugin won't create any mappings
-    ---@type boolean|table
-    mappings = {
-        ---Operator-pending mapping
-        ---Includes `gcc`, `gbc`, `gc[count]{motion}` and `gb[count]{motion}`
-        ---NOTE: These mappings can be changed individually by `opleader` and `toggler` config
-        basic = true,
-        ---Extra mapping
-        ---Includes `gco`, `gcO`, `gcA`
-        extra = true,
-        ---Extended mapping
-        ---Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
-        extended = false,
-    },
-
-    ---Pre-hook, called before commenting the line
-    ---@type fun(ctx: CommentCtx):string
-    pre_hook = nil,
-
-    ---Post-hook, called after commenting is done
-    ---@type fun(ctx: CommentCtx)
-    post_hook = nil,
+    -- extended (examples from the readme)
+    -- # Linewise
+    -- gcw - Toggle from the current cursor position to the next word
+    -- gc$ - Toggle from the current cursor position to the end of line
+    -- gc} - Toggle until the next blank line
+    -- gc5j - Toggle 5 lines after the current cursor position
+    -- gc8k - Toggle 8 lines before the current cursor position
+    -- gcip - Toggle inside of paragraph
+    -- gca} - Toggle around curly brackets
+    --
+    -- # Blockwise
+    -- gb2} - Toggle until the 2 next blank line
+    -- gbaf - Toggle comment around a function (w/ LSP/treesitter support)
+    -- gbac - Toggle comment around a class (w/ LSP/treesitter support)
 })
 

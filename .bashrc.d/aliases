@@ -4,6 +4,7 @@ alias py3=python3
 alias gpp=g++
 alias nvim=~/Applications/nvim.appimage
 alias vim=nvim
+alias v=nvim
 
 
 # General

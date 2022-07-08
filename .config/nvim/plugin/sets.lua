@@ -20,9 +20,7 @@ vim.opt.hlsearch = false
 
 vim.opt.scrolloff = 10
 
-vim.opt.signcolumn = "yes"  -- add sidecolumn for git gutter and stuff
-
-vim.opt.clipboard:append { "unnamedplus" }  -- to copy and paste easily - but will change <C-c> and <C-v> from nvim to <C><S-c> and <C><S-v>
+vim.opt.clipboard:append { "unnamedplus" }  -- to copy and paste easily - but will change <C-v> from nvim to <C><S-v> or <C-q>
 
 -- .llows for 'native fuzzy finding' if nvim is opened at project root
 vim.opt.path:append { "**" }
