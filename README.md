@@ -57,13 +57,13 @@ chmod u+x nvim.appimage
 
 Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.lua) and simple alias in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases)
 
-#### Vim-plug
+#### Packer
 
 Plugin manager for Neovim
 
 ```sh
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 ```
 
 ### Node.js 16
