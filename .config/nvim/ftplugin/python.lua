@@ -8,3 +8,11 @@ vim.opt_local.cursorcolumn = true
 
 PYTHON = augroup("PYTHON", { clear = true })
 
+-- this formats all python files in the current vim session
+-- make sure your virtual environment is called .env
+autocmd({"BufWritePost"}, {
+        pattern = "*.py",
+        command = "!source .env/bin/activate && docformatter -ir . && black .",
+        group = PYTHON
+  })
+
