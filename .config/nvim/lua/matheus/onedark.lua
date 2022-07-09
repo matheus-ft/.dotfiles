@@ -7,7 +7,7 @@ require('onedark').setup {
         comments = 'italic',
         keywords = 'none',
         functions = 'none',
-        strings = 'italic',
+        strings = 'none',
         variables = 'none'
     },
 }

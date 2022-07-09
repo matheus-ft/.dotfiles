@@ -1,18 +1,27 @@
--- ESSENTIAL: run `:PackerCompile` or `:PackerSync` everytime this file changes
+-- ESSENTIAL: run `:PackerSync` everytime this file changes
+
+-- Bootstrapping
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
+-- Plugins
 return require('packer').startup{function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
   -- Useful things
   use {
-    'windwp/nvim-autopairs',        -- automatically add the pairing char for surroundign chars
+    'windwp/nvim-autopairs',                -- completes the pair of surrounding chars
     config = function() require('nvim-autopairs').setup {} end
   }
-  use 'tpope/vim-surround'          -- to change surrounding characters easily
-  use 'numToStr/Comment.nvim'       -- toggle comments easily
-  use 'numToStr/FTerm.nvim'         -- floating terminal
-  use 'vim-airline/vim-airline'     -- status line
-  use 'preservim/nerdtree'          -- file tree
+  use 'tpope/vim-surround'                  -- to change surrounding characters easily
+  use 'numToStr/Comment.nvim'               -- toggle comments easily
+  use 'numToStr/FTerm.nvim'                 -- floating terminal
+  use 'vim-airline/vim-airline'             -- status line
+  use 'preservim/nerdtree'                  -- file tree
+  use 'lukas-reineke/indent-blankline.nvim' -- indentation lines
 
   -- Git
   use 'lewis6991/gitsigns.nvim'
@@ -30,8 +39,9 @@ return require('packer').startup{function()
   -- Sintax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'romgrk/nvim-treesitter-context'
+  -- relaunch neovim and run `:TSInstall lua python julia`
 
-  -- Octave (neovim treesitter don support matlab-like languages apparently)
+  -- Octave (treesitter don support matlab-like languages apparently)
   use 'jvirtanen/vim-octave'
   use 'tpope/vim-endwise' -- useful for other languages too (i guess...)
 
@@ -39,7 +49,7 @@ return require('packer').startup{function()
   use 'hrsh7th/cmp-nvim-lua'
 
   -- Markdown, latex, etc.
-  use({ 'iamcco/markdown-preview.nvim', run = 'cd app && npm install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, })
+  use { 'iamcco/markdown-preview.nvim', run = 'cd app && npm install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, }
 
   -- Telescope
   use {
@@ -52,5 +62,9 @@ return require('packer').startup{function()
   -- Themes
   use 'gruvbox-community/gruvbox'
   use 'navarasu/onedark.nvim'
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end}
 
