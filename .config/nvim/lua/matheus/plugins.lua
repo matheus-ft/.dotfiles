@@ -60,7 +60,6 @@ return require('packer').startup{function()
   -- also install 'github.com/BurntSushi/ripgrep' to use live_grep func
 
   -- Themes
-  use 'gruvbox-community/gruvbox'
   use 'navarasu/onedark.nvim'
 
   if packer_bootstrap then

@@ -4,6 +4,8 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
+vim.opt.wrap = false
+
 vim.opt.nu = true
 vim.opt.relativenumber = true  -- to easily jump vertically in the file
 
@@ -20,9 +22,9 @@ vim.opt.hlsearch = false
 
 vim.opt.scrolloff = 10
 
-vim.opt.clipboard:append { "unnamedplus" }  -- to copy and paste easily - but will change <C-v> from nvim to <C><S-v> or <C-q>
+vim.opt.clipboard:append { "unnamedplus" }  -- to copy and paste easily
 
--- .llows for 'native fuzzy finding' if nvim is opened at project root
+-- allows for 'native fuzzy finding' if nvim is opened at project root
 vim.opt.path:append { "**" }
 vim.opt.wildmenu = true
 
@@ -37,5 +39,5 @@ vim.opt.splitright = true
 vim.opt.equalalways = false
 
 vim.opt.cursorline = true
-vim.opt.mouse = "niv"
+vim.opt.mouse = "n"
 
