@@ -1,4 +1,4 @@
-# Pop!_OS 22.04 with GNOME 42.1
+# Pop!_OS 22.04 with GNOME 42
 
 How to manage:
 
@@ -18,6 +18,47 @@ config config --local status.showUntrackedFiles no
 ```
 
 and finally resolve those conflicts as you like.
+
+Note that `config` is the alias for this bare repo, so `git` won't work.
+
+---
+
+## Kitty
+
+Installation
+
+```sh
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+```
+
+Desktop integration
+
+```sh
+# Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
+# your system-wide PATH)
+ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+# Place the kitty.desktop file somewhere it can be found by the OS
+cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+# If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
+cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+# Update the paths to the kitty and its icon in the kitty.desktop file(s)
+sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+```
+
+These commands are from the [website](https://sw.kovidgoyal.net/kitty/binary/)
+
+Settings in kitty.conf
+
+### Fira Code
+
+Font with ligatures
+
+```sh
+sudo apt install fonts-firacode
+```
+
+Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic)
 
 ---
 
@@ -87,8 +128,26 @@ curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /us
 
 ### Python
 
+Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkinter`.
+
+- `pip` is the python package manager
+
+- `venv` is the tool to manage virtual environments
+
+- `tkinter` is a GUI backend installed to use matplotlib
+
 ```sh
-sudo apt install python3-venv python3-pip
+sudo apt install python3-pip python3-venv python3-tk
+```
+
+System-wide virtual environments
+
+```sh
+mkdir -p ~/.local/venv && cd ~/.local/venv
+python3 -m venv <env-name>
+cd <env-name>
+. ./bin/activate
+pip install <packages>
 ```
 
 ### Octave
@@ -119,7 +178,7 @@ Extensions added:
 
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 
-- [Vitals](https://extensions.gnome.org/extension/1460/vitals/) - no need for `htop` anymore
+- [Vitals](https://extensions.gnome.org/extension/1460/vitals/)
 
 - [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)
 
