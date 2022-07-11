@@ -1,4 +1,4 @@
--- ESSENTIAL: run `:PackerSync` everytime this file changes
+-- ESSENTIAL: run `:so % | PackerSync` everytime this file changes
 
 -- Bootstrapping
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -8,20 +8,25 @@ end
 
 -- Plugins
 return require('packer').startup{function()
-  -- Packer can manage itself
+  -- Packer manages itself
   use 'wbthomason/packer.nvim'
 
   -- Useful things
+  use 'lukas-reineke/indent-blankline.nvim'   -- indentation lines
   use {
-    'windwp/nvim-autopairs',                -- completes the pair of surrounding chars
-    config = function() require('nvim-autopairs').setup {} end
+    'windwp/nvim-autopairs',                  -- completes the pair of surrounding chars
+    config = function()
+      require('nvim-autopairs').setup {}
+    end
   }
-  use 'tpope/vim-surround'                  -- to change surrounding characters easily
-  use 'numToStr/Comment.nvim'               -- toggle comments easily
-  use 'numToStr/FTerm.nvim'                 -- floating terminal
-  use 'vim-airline/vim-airline'             -- status line
-  use 'preservim/nerdtree'                  -- file tree
-  use 'lukas-reineke/indent-blankline.nvim' -- indentation lines
+  use 'tpope/vim-surround'                    -- to change surrounding characters easily
+  use 'numToStr/Comment.nvim'                 -- toggle comments easily
+  use 'numToStr/FTerm.nvim'                   -- floating terminal
+  use 'vim-airline/vim-airline'               -- status line
+  use {
+    'kyazdani42/nvim-tree.lua',               -- file tree
+    requires = { 'kyazdani42/nvim-web-devicons', },
+  }
 
   -- Git
   use 'lewis6991/gitsigns.nvim'
@@ -33,20 +38,26 @@ return require('packer').startup{function()
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
-  use 'saadparwaiz1/cmp_luasnip'
-  use 'L3MON4D3/LuaSnip'
+  use 'hrsh7th/cmp-nvim-lua'
+  -- use 'saadparwaiz1/cmp_luasnip'
+  -- use 'L3MON4D3/LuaSnip'
+  -- use 'rafamadriz/friendly-snippets'
+  use {
+    'williamboman/nvim-lsp-installer',
+    config = function()
+      require('nvim-lsp-installer').setup {
+        automatic_installtion = true,
+      }
+    end,
+  }
 
   -- Sintax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'romgrk/nvim-treesitter-context'
-  -- relaunch neovim and run `:TSInstall lua python julia`
 
   -- Octave (treesitter don support matlab-like languages apparently)
   use 'jvirtanen/vim-octave'
   use 'tpope/vim-endwise' -- useful for other languages too (i guess...)
-
-  -- Lua
-  use 'hrsh7th/cmp-nvim-lua'
 
   -- Markdown, latex, etc.
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && npm install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, }
@@ -54,10 +65,12 @@ return require('packer').startup{function()
   -- Telescope
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = {
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-fzy-native.nvim'} -- sorts the findings
+      -- also install 'github.com/BurntSushi/ripgrep' to use live_grep function
+    }
   }
-  use 'nvim-telescope/telescope-fzy-native.nvim' -- sorts the findings
-  -- also install 'github.com/BurntSushi/ripgrep' to use live_grep func
 
   -- Themes
   use 'navarasu/onedark.nvim'
