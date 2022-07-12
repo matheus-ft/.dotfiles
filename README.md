@@ -19,40 +19,19 @@ config config --local status.showUntrackedFiles no
 
 and finally resolve those conflicts as you like.
 
-Note that `config` is the alias for this bare repo, so `git` won't work.
+Note that `config` is the alias for this *bare repo*, so `git` won't work.
 
 ---
 
 ## Kitty
 
-Installation
+Instructions are very clear on the [website](https://sw.kovidgoyal.net/kitty/binary/)
 
-```sh
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-```
-
-Desktop integration
-
-```sh
-# Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
-# your system-wide PATH)
-ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-# Place the kitty.desktop file somewhere it can be found by the OS
-cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-# If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
-cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-# Update the paths to the kitty and its icon in the kitty.desktop file(s)
-sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
-```
-
-These commands are from the [website](https://sw.kovidgoyal.net/kitty/binary/)
-
-Settings in kitty.conf
+Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty)
 
 ### Fira Code
 
-Font with ligatures
+Cool font with ligatures (and apparently the only one working properly with my terminal)
 
 ```sh
 sudo apt install fonts-firacode
@@ -98,7 +77,7 @@ chmod u+x nvim.appimage
 
 For the nightly version: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 
-Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.lua) and simple alias in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases)
+Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases)
 
 #### Packer
 
