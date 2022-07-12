@@ -79,7 +79,7 @@ cmp.setup.filetype('lua', {
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 ---------------------------------------------------------------------------------------
--- LSP Configs
+-- LSP general configs
 ---------------------------------------------------------------------------------------
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
@@ -104,15 +104,26 @@ local on_attach = function(client, bufnr)
 end
 
 ---------------------------------------------------------------------------------------
--- LANGUAGES
+-- LSP language specific configs
 ---------------------------------------------------------------------------------------
+require('nvim-lsp-installer').setup { -- this has to be done before any servers are set
+  automatic_installtion = true,
+  ui = {
+    icons = {
+      server_installed = "✓",
+      server_pending = "➜",
+      server_uninstalled = "✗"
+    }
+  }
+}
+
 require('lspconfig')['pyright'].setup {
   capabilities = capabilities,
   on_attach = on_attach,
 }
 
 ---------------------------------------------------------------------------------------
--- SNIPPETS
+-- Snippets
 ---------------------------------------------------------------------------------------
 
 -- TODO

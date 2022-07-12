@@ -22,18 +22,19 @@ return require('packer').startup{function()
   use 'tpope/vim-surround'                    -- to change surrounding characters easily
   use 'numToStr/Comment.nvim'                 -- toggle comments easily
   use 'numToStr/FTerm.nvim'                   -- floating terminal
-  use 'vim-airline/vim-airline'               -- status line
   use {
-    'kyazdani42/nvim-tree.lua',               -- file tree
-    requires = { 'kyazdani42/nvim-web-devicons', },
+    'nvim-lualine/lualine.nvim',              -- status line
+    { 'akinsho/bufferline.nvim',              -- buffer line
+      tag = 'v2.*' },
+    { 'kyazdani42/nvim-tree.lua',             -- file tree
+      requires = { 'kyazdani42/nvim-web-devicons', }, }
   }
 
   -- Git
   use 'lewis6991/gitsigns.nvim'
   use 'tpope/vim-fugitive'
 
-  -- LSP and autocomplete stuff
-  use 'neovim/nvim-lspconfig'
+  -- Autocompletion stuff
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
@@ -42,14 +43,11 @@ return require('packer').startup{function()
   -- use 'saadparwaiz1/cmp_luasnip'
   -- use 'L3MON4D3/LuaSnip'
   -- use 'rafamadriz/friendly-snippets'
-  use {
-    'williamboman/nvim-lsp-installer',
-    config = function()
-      require('nvim-lsp-installer').setup {
-        automatic_installtion = true,
-      }
-    end,
-  }
+
+  -- LSP stuff
+  use 'neovim/nvim-lspconfig'
+  use 'williamboman/nvim-lsp-installer'
+  -- use { "glepnir/lspsaga.nvim", branch = "main", }
 
   -- Sintax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
