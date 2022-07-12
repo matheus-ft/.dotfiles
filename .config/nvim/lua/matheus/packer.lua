@@ -24,8 +24,7 @@ return require('packer').startup{function()
   use 'numToStr/FTerm.nvim'                   -- floating terminal
   use {
     'nvim-lualine/lualine.nvim',              -- status line
-    { 'akinsho/bufferline.nvim',              -- buffer line
-      tag = 'v2.*' },
+    'akinsho/bufferline.nvim',
     { 'kyazdani42/nvim-tree.lua',             -- file tree
       requires = { 'kyazdani42/nvim-web-devicons', }, }
   }

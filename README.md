@@ -96,6 +96,8 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 ```
 
+For the nightly version: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+
 Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim/init.lua) and simple alias in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases)
 
 #### Packer
