@@ -4,12 +4,6 @@
 vim.opt_local.colorcolumn = "80"
 vim.highlight.create("ColorColumn", {guibg="yellow"}, false)
 
-----------------------
--- Syntax highlighting
-----------------------
--- local hasTreesitter = pcall(require, 'nvim-treesitter')
--- if hasTreesitter then vim.cmd('TSInstall python') end
-
 -------------
 -- Auto pairs
 -------------
@@ -36,9 +30,9 @@ PYTHON = augroup("PYTHON", { clear = true })
 
 -- this formats all python files in the current vim session
 -- make sure your local virtual environment is named .env
-autocmd({"BufWritePost"}, {
+autocmd("BufWritePost", {
         pattern = "*.py",
         command = "!source .env/bin/activate && docformatter -ir . && black .",
         group = PYTHON
-  })
+})
 

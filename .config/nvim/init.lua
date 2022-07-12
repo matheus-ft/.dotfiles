@@ -10,8 +10,8 @@ vim.g.mapleader = ' '
 
 local noremap = { noremap = true }
 
+vim.keymap.set('i', '<C-c>', '<Esc>', noremap)
 vim.keymap.set('n', '<leader><leader>', ':', noremap)
-vim.keymap.set('n', '<C-c>', '<Esc>', noremap)
 
 -- Make splits
 vim.keymap.set('n', '<leader>v', '<C-w>v', noremap)

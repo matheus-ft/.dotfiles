@@ -32,7 +32,7 @@ vim.opt.completeopt = { "menuone", "preview", "noinsert"}
 
 vim.opt.title = true -- to show file name in titlebar
 
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 2
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true

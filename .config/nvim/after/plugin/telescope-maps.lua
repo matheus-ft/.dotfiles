@@ -6,5 +6,4 @@ vim.keymap.set('n', '<leader>pu', ':lua require("telescope.builtin").grep_string
 vim.keymap.set('n', '<leader>b',  ':lua require("telescope.builtin").buffers()<CR>', noremap)
 vim.keymap.set('n', '<leader>a',  ':lua require("telescope.builtin").help_tags()<CR>', noremap)
 vim.keymap.set('n', '<leader>pd', ':Telescope diagnostics<CR>', noremap)
-vim.keymap.set('n', '<leader>pc', ':Telescope neoclip<CR>', noremap)
 
