@@ -39,6 +39,14 @@ sudo apt install fonts-firacode
 
 Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic)
 
+### Neofetch
+
+Yeah... I'm ashamed...
+
+```sh
+sudo apt install neofetch
+```
+
 ---
 
 ## Exa
@@ -57,7 +65,7 @@ sudo apt install exa
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-`starship` is set to be the shell prompt os the last line of [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
+`starship` is set to be the shell prompt on [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
 
 Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
@@ -124,7 +132,7 @@ sudo apt install python3-pip python3-venv python3-tk
 System-wide virtual environments
 
 ```sh
-mkdir -p ~/.local/venv && cd ~/.local/venv
+mkdir -p ~/.local/envs && cd ~/.local/envs
 python3 -m venv <env-name>
 cd <env-name>
 . ./bin/activate
