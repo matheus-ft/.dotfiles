@@ -65,7 +65,7 @@ sudo apt install exa
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-`starship` is set to be the shell prompt on [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish)
+`starship` is set to be the shell prompt on [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish.sh)
 
 Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
@@ -85,7 +85,7 @@ chmod u+x nvim.appimage
 
 For the nightly version: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 
-Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases)
+Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases.sh)
 
 #### Packer
 
