@@ -23,8 +23,8 @@ return require('packer').startup{function()
   use 'numToStr/Comment.nvim'                 -- toggle comments easily
   use 'numToStr/FTerm.nvim'                   -- floating terminal
   use {
-    'nvim-lualine/lualine.nvim',              -- status line
-    'akinsho/bufferline.nvim',
+    'nvim-lualine/lualine.nvim',              -- status bar
+    'akinsho/bufferline.nvim',                -- "tab bar"
     { 'kyazdani42/nvim-tree.lua',             -- file tree
       requires = { 'kyazdani42/nvim-web-devicons', }, }
   }

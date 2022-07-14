@@ -18,7 +18,7 @@ vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = tr
 vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
 
 vim.keymap.set('n', '<leader>tt', '<CMD>FTermOpen<CR>')
-vim.keymap.set('n', '<A-t>', '<CMD>FTermToggle<CR>')
-vim.keymap.set('t', '<A-t>', '<C-\\><C-n><CMD>FTermToggle<CR>')
+vim.keymap.set('n', '<A-i>', '<CMD>FTermToggle<CR>')
+vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>FTermToggle<CR>')
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n><CMD>FTermExit<CR>')
 

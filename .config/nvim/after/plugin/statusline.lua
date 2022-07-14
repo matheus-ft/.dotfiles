@@ -1,8 +1,9 @@
+vim.opt.laststatus = 3 -- same as `globalstatus = true` but should work for any status bar
+
 require('lualine').setup {
   options = {
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
-    globalstatus = true,
   },
 
   sections = {

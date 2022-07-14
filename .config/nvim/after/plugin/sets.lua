@@ -18,7 +18,6 @@ vim.opt.backup = false
 vim.opt.ignorecase = true -- ignore case while searching...
 vim.opt.smartcase = true -- ... unless there's a capital letter
 vim.opt.incsearch = true
-vim.opt.hlsearch = false
 
 vim.opt.scrolloff = 10
 

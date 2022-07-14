@@ -12,6 +12,7 @@ local noremap = { noremap = true }
 
 vim.keymap.set('i', '<C-c>', '<Esc>', noremap)
 vim.keymap.set('n', '<leader><leader>', ':', noremap)
+vim.keymap.set('n', '<Esc>', '<cmd>noh<cr>', noremap)
 
 -- Make splits
 vim.keymap.set('n', '<leader>v', '<C-w>v', noremap)
@@ -61,6 +62,14 @@ vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi', noremap)
 vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==gi', noremap)
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv",    noremap)
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv",    noremap)
+
+-- Some insert mode keybindings that might be useful
+vim.keymap.set('i', '<C-b>', '<Esc>^i', noremap)
+vim.keymap.set('i', '<C-f>', '<Esc>$a', noremap)
+vim.keymap.set('i', '<C-h>', '<Left>',  noremap)
+vim.keymap.set('i', '<C-j>', '<Down>',  noremap)
+vim.keymap.set('i', '<C-k>', '<Up>',    noremap)
+vim.keymap.set('i', '<C-l>', '<Right>', noremap)
 
 --------------------------------------------------------------------------------------
 -- Auto commands
