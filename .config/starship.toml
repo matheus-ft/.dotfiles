@@ -36,17 +36,22 @@ error_symbol = " [╰─](bold cyan)[λ](bold red)"
 disabled = true
 
 [git_branch]
-symbol = ""
+symbol = " "
 style = "bold red"
 
 [nodejs]
-symbol = "⬢ "
+symbol = " "
 style = "bold green"
 
 [python]
-symbol = "🐍 "
+symbol = " "
 style = "bold blue"
 
 [c]
+symbol = " "
+style = "bold blue"
+
+[lua]
+symbol = " "
 style = "bold blue"
 
