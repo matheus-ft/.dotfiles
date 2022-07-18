@@ -9,41 +9,22 @@ cmp.setup({
   mapping = {
       ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert }, -- default vim behavior
       ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert }, -- default vim behavior
+      ["<Tab>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+      ["<S-Tab>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
 
-      -- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-u>"] = cmp.mapping.scroll_docs(-4),
       ["<C-d>"] = cmp.mapping.scroll_docs(4),
 
       ["<C-e>"] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = false }), -- accept the explicitly selected item
 
-      ---------------------
-      -- borrowed from Teej
-      ---------------------
-      ["<c-y>"] = cmp.mapping(
+      ["<c-y>"] = cmp.mapping( -- borrowed from Teej
         cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Insert,
           select = true,
         },
         { "i", "c" }
       ),
-
-      ["<c-space>"] = cmp.mapping {
-        i = cmp.mapping.complete(),
-        c = function(
-          _ --[[fallback]]
-        )
-          if cmp.visible() then
-            if not cmp.confirm { select = true } then
-              return
-            end
-          else
-            cmp.complete()
-          end
-        end,
-      },
-      ---------------------
   },
 
   -- sources of autocompletion (in order of priority)
@@ -85,8 +66,14 @@ local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
+
+  require('illuminate').on_attach(client)
+
+
+  -- Mappings
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', '<A-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', bufopts)
+  vim.keymap.set('n', '<A-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', bufopts)
   vim.keymap.set('n', '<S-k>', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)

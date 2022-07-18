@@ -1,4 +1,4 @@
-vim.opt.laststatus = 3 -- same as `globalstatus = true` but should work for any status bar
+vim.opt.laststatus = 3 -- globalstatus for any status bar
 
 require('lualine').setup {
   options = {
