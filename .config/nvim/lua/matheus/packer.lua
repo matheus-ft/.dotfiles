@@ -106,10 +106,6 @@ return packer.startup{function()
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'romgrk/nvim-treesitter-context'
 
-  -- Octave (treesitter don support matlab-like languages apparently)
-  use 'jvirtanen/vim-octave'
-  use 'tpope/vim-endwise' -- useful for other languages too (i guess...)
-
   -- Markdown, latex, etc.
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && npm install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, }
 

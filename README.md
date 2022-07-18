@@ -139,14 +139,6 @@ cd <env-name>
 pip install <packages>
 ```
 
-### Octave
-
-Because matlab is exxxpensive
-
-```sh
-sudo apt install octave
-```
-
 ---
 
 ## Desktop
