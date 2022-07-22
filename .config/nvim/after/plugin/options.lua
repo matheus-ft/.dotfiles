@@ -20,6 +20,7 @@ vim.opt.smartcase = true -- ... unless there's a capital letter
 vim.opt.incsearch = true
 
 vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 8
 
 vim.opt.clipboard:append { "unnamedplus" }  -- to copy and paste easily
 
@@ -37,4 +38,6 @@ vim.opt.equalalways = false
 
 vim.opt.cursorline = true
 vim.opt.mouse = "n"
+vim.opt.showmode = false
+vim.cmd [[set iskeyword+=-]] -- makes hifen separated "words" a single word
 

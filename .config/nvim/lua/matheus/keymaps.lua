@@ -55,8 +55,10 @@ vim.keymap.set('v', '<Tab>',    '>gv',      noremap)
 vim.keymap.set('v', '<S-Tab>',  '<gv',      noremap)
 
 -- Move the page but not the cursor with the arrow keys
-vim.keymap.set('n', '<Down>', '<C-e>', noremap)
-vim.keymap.set('n', '<Up>',   '<C-y>', noremap)
+vim.keymap.set('n', '<Down>',   '<C-e>', noremap)
+vim.keymap.set('n', '<Up>',     '<C-y>', noremap)
+vim.keymap.set('n', '<Left>',   'nop',   noremap)
+vim.keymap.set('n', '<Right>',  'nop',   noremap)
 
 -- Opens line below or above the current line
 vim.keymap.set('i', '<S-CR>', '<C-O>o', noremap)
@@ -78,6 +80,7 @@ vim.keymap.set('i', '<C-f>', '<Esc>$a', noremap)
 
 vim.keymap.set(visual, 'H', '^', noremap)
 vim.keymap.set(visual, 'L', '$', noremap)
-vim.keymap.set('n', 'dH', 'd^', noremap)
-vim.keymap.set('n', 'dL', 'd$', noremap)
+vim.keymap.set('n', 'yH', 'y^', noremap) -- Y already does y$
+vim.keymap.set('n', 'dH', 'd^', noremap) -- D already does d$
+vim.keymap.set('n', 'cH', 'c^', noremap) -- C already does c$
 
