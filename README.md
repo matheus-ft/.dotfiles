@@ -25,7 +25,9 @@ Note that `config` is the alias for this *bare repo*, so `git` won't work.
 
 ## Kitty
 
-Instructions are very clear on the [website](https://sw.kovidgoyal.net/kitty/binary/)
+```sh
+sudo apt install kitty
+```
 
 Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty)
 
@@ -39,13 +41,17 @@ sudo apt install fonts-firacode
 
 Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic)
 
-### Neofetch
+---
 
-Yeah... I'm ashamed...
+## Starship
 
 ```sh
-sudo apt install neofetch
+curl -sS https://starship.rs/install.sh | sh
 ```
+
+`starship` is set to be the shell prompt on [finish.sh](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish.sh)
+
+Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
 ---
 
@@ -59,18 +65,6 @@ sudo apt install exa
 
 ---
 
-## Starship
-
-```sh
-curl -sS https://starship.rs/install.sh | sh
-```
-
-`starship` is set to be the shell prompt on [bash_finish](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish.sh)
-
-Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
-
----
-
 ## Programming
 
 ### Neovim
@@ -81,39 +75,37 @@ Using an AppImage because Ubuntu likes the past, and I, the future
 mkdir -p ~/Applications && cd ~/Applications
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
+cd ~/.config/nvim/lua/matheus/
+nvim packer.lua
 ```
+
+Then just do `:w` and all plugins will be handled. Exit neovim and the next relaunch should be all good.
 
 For the nightly version: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 
-Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [bash_aliases](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases.sh)
+Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases.sh)
 
-#### Packer
+#### Rip grep
 
-Plugin manager for Neovim
+Essential for a good telescope experience
 
 ```sh
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+sudo apt install ripgrep
 ```
 
-### Node.js 16
+### Node.js 16 and Yarn
 
-For Typescript programming and to use pyright language server in Neovim
+For Typescript programming and to use pyright language server in Neovim (also, Yarn is a dependency for the markdown
+preview plugin in neovim).
 
 ```sh
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
-sudo apt instal nodejs
-```
-
-#### Yarn
-
-Dependency for Neovim's plugin for markdown preview
-
-```sh
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
      echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
      sudo apt-get update && sudo apt-get install yarn
 ```
+
+`sudo apt instal nodejs` is not necessary, but can be run just to be sure.
 
 ### Python
 
@@ -127,16 +119,6 @@ Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkint
 
 ```sh
 sudo apt install python3-pip python3-venv python3-tk
-```
-
-System-wide virtual environments
-
-```sh
-mkdir -p ~/.local/envs && cd ~/.local/envs
-python3 -m venv <env-name>
-cd <env-name>
-. ./bin/activate
-pip install <packages>
 ```
 
 ---

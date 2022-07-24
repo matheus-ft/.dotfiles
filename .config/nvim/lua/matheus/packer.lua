@@ -1,7 +1,7 @@
 -- Bootstrapping
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  BOOTSTRAP = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
 -- This way the plugins are updated everytime this file is writen
@@ -28,7 +28,7 @@ packer.init {
 -----------------------------------
 
 -- Plugins
-return packer.startup{function()
+return packer.startup{function(use)
   -- Packer manages itself
   use 'wbthomason/packer.nvim'
 
@@ -36,7 +36,7 @@ return packer.startup{function()
   use {
     'lewis6991/impatient.nvim',
     config = function()
-      require('impatient') -- this has to be called early in the config
+      require('impatient') -- this has to be called early in the config without `.setup{}`
     end
   }
 
@@ -115,14 +115,13 @@ return packer.startup{function()
     requires = {
       {'nvim-lua/plenary.nvim'},
       {'nvim-telescope/telescope-fzy-native.nvim'} -- sorts the findings
-      -- also install 'github.com/BurntSushi/ripgrep' to use live_grep function
     }
   }
 
   -- Themes
   use 'navarasu/onedark.nvim'
 
-  if packer_bootstrap then
+  if BOOTSTRAP then
     require('packer').sync()
   end
 end}
