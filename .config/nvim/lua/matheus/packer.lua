@@ -53,10 +53,7 @@ return packer.startup{function(use)
     'nacro90/numb.nvim',                    -- to peek line jumps with `:<number>`
     config = function() require('numb').setup{} end
   }
-  use {
-    'karb94/neoscroll.nvim',                -- smooth scrolling with <C-u> and <C-d>
-    config = function() require('neoscroll').setup{} end
-  }
+  use 'karb94/neoscroll.nvim'               -- smooth scrolling with <C-u> and <C-d> in terminal
 
   -- Actually useful
   use {

@@ -12,7 +12,7 @@ vim.opt.relativenumber = true  -- to easily jump vertically in the file
 vim.opt.hidden = true  -- keeps edited buffers in the background, so there's no need to always save before navigating away from it
 vim.opt.swapfile = false
 vim.opt.backup = false
--- vim.opt.undofile = true
+vim.opt.undofile = true
 -- vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
 vim.opt.ignorecase = true -- ignore case while searching...
@@ -37,7 +37,13 @@ vim.opt.splitright = true
 vim.opt.equalalways = false
 
 vim.opt.cursorline = true
-vim.opt.mouse = "n"
+vim.opt.mouse = "nv"
 vim.opt.showmode = false
 vim.cmd [[set iskeyword+=-]] -- makes hifen separated "words" a single word
+
+if vim.g.neovide then
+  require("matheus.neovide")
+else
+  require('neoscroll').setup{}
+end
 
