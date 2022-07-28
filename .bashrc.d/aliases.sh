@@ -2,9 +2,13 @@
 alias python=python3
 alias py3=python3
 alias gpp=g++
-alias nvim=~/Applications/nvim.appimage
-alias vim=nvim
+
+
+# Text editor
+alias nvim=neovide # to open neovim in the GUI client
+alias vim=/usr/bin/nvim # to open neovim in the terminal
 alias v=nvim
+# vi is the alias for the pre-installed 'tiny-vim'
 
 
 # General
@@ -16,15 +20,6 @@ alias lt=ltree
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias clean='sudo apt autoremove && sudo apt autoclean'
-alias update='sudo apt update && sudo apt upgrade'
-alias upgrade='update && clean'
-alias full-update='sudo apt update && sudo apt dist-upgrade'
-alias full-upgrade='full-update && clean'
-
-
-# Apps
-alias ff='firefox &'
 
 
 # DANGEROUS (putting -i flag asks for confirmation)

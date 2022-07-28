@@ -1,0 +1,11 @@
+[Default Applications]
+text/plain=neovide.desktop
+text/x-chdr=neovide.desktop
+text/x-csrc=neovide.desktop
+text/x-dtd=neovide.desktop
+text/x-java=neovide.desktop
+text/mathml=neovide.desktop
+text/x-python=neovide.desktop
+text/x-sql=neovide.desktop
+text/xml=neovide.desktop
+

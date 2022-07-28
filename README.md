@@ -23,27 +23,17 @@ Note that `config` is the alias for this *bare repo*, so `git` won't work.
 
 ---
 
-## Kitty
+## Terminal
+
+### Exa
+
+Better `ls` command
 
 ```sh
-sudo apt install kitty
+sudo apt install exa
 ```
 
-Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty)
-
-### Fira Code
-
-Cool font with ligatures (and apparently the only one working properly with my terminal)
-
-```sh
-sudo apt install fonts-firacode
-```
-
-Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic)
-
----
-
-## Starship
+### Starship
 
 ```sh
 curl -sS https://starship.rs/install.sh | sh
@@ -53,44 +43,46 @@ curl -sS https://starship.rs/install.sh | sh
 
 Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
----
-
-## Exa
-
-Better `ls` command
+### Kitty
 
 ```sh
-sudo apt install exa
+sudo apt install kitty
+```
+
+Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty)
+
+#### Fira Code
+
+Cool font with ligatures (and apparently the only one working properly with my terminal)
+
+```sh
+sudo apt install fonts-firacode
+```
+
+Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic)
+
+### Htop
+
+```sh
+sudo apt install htop
 ```
 
 ---
 
 ## Programming
 
-### Neovim
+### Python
 
-Using an AppImage because Ubuntu likes the past, and I, the future
+Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkinter`.
 
-```sh
-mkdir -p ~/Applications && cd ~/Applications
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod u+x nvim.appimage
-cd ~/.config/nvim/lua/matheus/
-nvim packer.lua
-```
+- `pip` is the python package manager
 
-Then just do `:w` and all plugins will be handled. Exit neovim and the next relaunch should be all good.
+- `venv` is the tool to manage virtual environments
 
-For the nightly version: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-
-Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases.sh)
-
-#### Rip grep
-
-Essential for a good telescope experience
+- `tkinter` is a GUI backend installed to use matplotlib
 
 ```sh
-sudo apt install ripgrep
+sudo apt install python3-pip python3-venv python3-tk
 ```
 
 ### Node.js 16 and Yarn
@@ -107,18 +99,84 @@ curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /us
 
 `sudo apt instal nodejs` is not necessary, but can be run just to be sure.
 
-### Python
+### Rust
 
-Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkinter`.
-
-- `pip` is the python package manager
-
-- `venv` is the tool to manage virtual environments
-
-- `tkinter` is a GUI backend installed to use matplotlib
+Because it's cool... and because Neovide requires it.
 
 ```sh
-sudo apt install python3-pip python3-venv python3-tk
+curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" | sh
+cargo install cargo-update
+```
+
+### Neovim
+
+To get recent versions with APT, do
+
+```sh
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt update
+sudo apt install neovim
+```
+
+Then just do `:w` and all plugins will be handled. Exit neovim and the next relaunch should be all good.
+
+For the nightly version: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+
+Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases.sh)
+
+Also possible to use an AppImage because Ubuntu likes the past, and I, the future
+
+```sh
+mkdir -p ~/Applications && cd ~/Applications
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+cd ~/.config/nvim/lua/matheus/
+nvim packer.lua
+```
+
+#### Rip grep
+
+Essential for a good Telescope experience
+
+```sh
+sudo apt install ripgrep
+```
+
+#### Neovide
+
+GUI client. Building from source:
+
+```sh
+sudo apt install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
+    libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
+    libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev
+cd Downloads
+git clone "https://github.com/neovide/neovide"
+cd neovide && cargo build --release
+sudo cp ./target/release/neovide /usr/bin/
+```
+
+#### Default editor
+
+##### In terminal
+
+```sh
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100
+sudo update-alternatives --config editor
+```
+
+##### In gnome
+
+Done with the files in [.local/share/applications](https://github.com/matheus-ft/.dotfiles/tree/master/.local/share/applications)
+
+---
+
+## Topgrade
+
+A freaking cool way to upgrade the shit out of your system
+
+```sh
+cargo install topgrade
 ```
 
 ---
@@ -164,10 +222,4 @@ dconf dump <path> > config-name.ini
 ```sh
 dconf load <path> < config-name.ini
 ```
-
----
-
-## To do
-
-- startup script to load dconf configs automatically and also change starship.toml, theme.lua and gnome-terminal profile based on the current colorscheme
 

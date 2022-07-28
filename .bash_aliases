@@ -2,10 +2,10 @@
 # but Fedora's one looks for a .bashrc.d/ directory
 # so this way I can have a distro agnostic bash config
 if [ -d ~/.bashrc.d ]; then
-	for rc in ~/.bashrc.d/*; do
-		if [ -f "$rc" ]; then
-			. "$rc"
-		fi
-	done
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            source "$rc"
+        fi
+    done
 fi
 
