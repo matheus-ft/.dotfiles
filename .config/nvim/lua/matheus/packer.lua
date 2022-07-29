@@ -4,7 +4,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   BOOTSTRAP = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
--- This way the plugins are updated everytime this file is writen
+-- This way the plugins are updated everytime this file is writen (don't know why, but it seems to not work if done purely in Lua)
 vim.cmd [[
   augroup packer
     autocmd!
@@ -32,7 +32,7 @@ return packer.startup{function(use)
   -- Packer manages itself
   use 'wbthomason/packer.nvim'
 
-  -- To make neovim start faster
+  -- To make neovim start faster (not sure it actually helps, tho)
   use {
     'lewis6991/impatient.nvim',
     config = function()
@@ -95,7 +95,7 @@ return packer.startup{function(use)
     config = function() require('lsp_signature').setup{} end
   }
   use {
-    'rmagatti/goto-preview',    -- opens a preview window when going to definition/declaration/etc.
+    'rmagatti/goto-preview',    -- opens definitions/declarations/etc in a pop-up window
     config = function() require('goto-preview').setup{ default_mappings=true } end
   }
 
