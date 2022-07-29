@@ -25,12 +25,22 @@ Note that `config` is the alias for this *bare repo*, so `git` won't work.
 
 ## Terminal
 
+### Nala
+
+Better package manager interface.
+
+```sh
+echo "deb https://deb.volian.org/volian/ scar main" | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
+wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null
+sudo apt update && sudo apt install nala
+```
+
 ### Exa
 
 Better `ls` command
 
 ```sh
-sudo apt install exa
+sudo nala install exa
 ```
 
 ### Starship
@@ -46,7 +56,7 @@ Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.co
 ### Kitty
 
 ```sh
-sudo apt install kitty
+sudo nala install kitty
 ```
 
 Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty)
@@ -56,7 +66,7 @@ Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.con
 Cool font with ligatures (and apparently the only one working properly with my terminal)
 
 ```sh
-sudo apt install fonts-firacode
+sudo nala install fonts-firacode
 ```
 
 Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic)
@@ -64,7 +74,7 @@ Also installed a non-offical version of the italics manually from [github](https
 ### Htop
 
 ```sh
-sudo apt install htop
+sudo nala install htop
 ```
 
 ---
@@ -82,7 +92,7 @@ Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkint
 - `tkinter` is a GUI backend installed to use matplotlib
 
 ```sh
-sudo apt install python3-pip python3-venv python3-tk
+sudo nala install python3-pip python3-venv python3-tk
 ```
 
 ### Node.js 16 and Yarn
@@ -94,10 +104,10 @@ preview plugin in neovim).
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
      echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-     sudo apt-get update && sudo apt-get install yarn
+     sudo nala update && sudo nala install yarn
 ```
 
-`sudo apt instal nodejs` is not necessary, but can be run just to be sure.
+`sudo nala instal nodejs` is not necessary, but can be run just to be sure.
 
 ### Rust
 
@@ -114,8 +124,8 @@ To get recent versions with APT, do
 
 ```sh
 sudo add-apt-repository ppa:neovim-ppa/unstable
-sudo apt update
-sudo apt install neovim
+sudo nala update
+sudo nala install neovim
 ```
 
 Then just do `:w` and all plugins will be handled. Exit neovim and the next relaunch should be all good.
@@ -139,7 +149,7 @@ nvim packer.lua
 Essential for a good Telescope experience
 
 ```sh
-sudo apt install ripgrep
+sudo nala install ripgrep
 ```
 
 #### Neovide
@@ -147,7 +157,7 @@ sudo apt install ripgrep
 GUI client. Building from source:
 
 ```sh
-sudo apt install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
+sudo nala install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
     libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
     libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev
 cd Downloads
@@ -186,7 +196,7 @@ cargo install topgrade
 ### GNOME tweaks
 
 ```sh
-sudo apt install gnome-tweaks
+sudo nala install gnome-tweaks
 ```
 
 ### Extension Manager
