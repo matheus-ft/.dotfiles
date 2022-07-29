@@ -5,7 +5,7 @@ alias gpp=g++
 
 
 # Text editor
-alias nvim=neovide # to open neovim in the GUI client
+# alias nvim=neovide # to open neovim in the GUI client
 alias vim=/usr/bin/nvim # to open neovim in the terminal
 alias v=nvim
 # vi is the alias for the pre-installed 'tiny-vim'
