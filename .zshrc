@@ -6,8 +6,6 @@ if [ -d ~/.config/shell ]; then
     done
 fi
 
-eval "$(starship init bash)"
-
-echo "Loading ZSH..."
-zsh
+eval "$(starship init zsh)"
+set -o vi # starship kinda hints the mode, so vim bindings are cool
 

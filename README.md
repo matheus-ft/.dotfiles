@@ -35,6 +35,12 @@ wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gp
 sudo apt update && sudo apt install nala
 ```
 
+### Z Shell
+
+```sh
+sudo nala install zsh
+```
+
 ### Exa
 
 Better `ls` command
