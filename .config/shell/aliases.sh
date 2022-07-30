@@ -5,24 +5,25 @@ alias gpp=g++
 
 
 # Text editor
-# alias nvim=neovide # to open neovim in the GUI client
-alias vim=/usr/bin/nvim # to open neovim in the terminal
-alias v=nvim
+# alias nvim=$HOME/Applications/nvim.appimage
+alias vim=nvim # to open neovim in the terminal
+alias v=vim
 # vi is the alias for the pre-installed 'tiny-vim'
 
 
 # General
 alias ls='exa -lahF --color=auto'
 alias dir='exa --color=auto'
-alias tree='exa --tree --level=3 -F'
-alias ltree='tree --long'
-alias lt=ltree
+alias tree='exa -aT --level=3'
+alias lt='tree --long'
+alias l.='exa -a | egrep "^\."' # find dotfiles
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
 
 # DANGEROUS (putting -i flag asks for confirmation)
+alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 

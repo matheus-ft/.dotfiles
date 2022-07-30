@@ -35,11 +35,33 @@ wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gp
 sudo apt update && sudo apt install nala
 ```
 
-### Z Shell
+### Z shell
 
 ```sh
 sudo nala install zsh
 ```
+
+#### Oh My Zsh
+
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+##### Powerlevel10k
+
+```sh
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+### Starship
+
+Prompt that works with any shell.
+
+```sh
+curl -sS https://starship.rs/install.sh | sh
+```
+
+Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
 ### Exa
 
@@ -48,16 +70,6 @@ Better `ls` command
 ```sh
 sudo nala install exa
 ```
-
-### Starship
-
-```sh
-curl -sS https://starship.rs/install.sh | sh
-```
-
-`starship` is set to be the shell prompt on [finish.sh](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/finish.sh)
-
-Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
 
 ### Kitty
 
