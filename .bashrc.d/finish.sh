@@ -7,7 +7,5 @@ if [ -d ~/.config/shell ]; then
 fi
 
 eval "$(starship init bash)"
-
-echo "Loading ZSH..."
-zsh
+set -o vi
 

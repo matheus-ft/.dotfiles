@@ -1,53 +1,101 @@
-## FIRST LINE/ROW: Info & Status
-# First param ─┌
-[username]
-format = " [╭─$user]($style)@"
-style_user = "bold cyan"
-show_always = true
+format = """
+[](#9A348E)\
+$shell\
+[](bg:#DA627D fg:#9A348E)\
+$directory\
+[](fg:#DA627D bg:#FCA17D)\
+$git_branch\
+$git_status\
+[](fg:#FCA17D bg:#86BBD8)\
+$package\
+$c\
+$golang\
+$java\
+$julia\
+$nodejs\
+$rust\
+$python\
+$lua\
+[](fg:#86BBD8 bg:#06969A)\
+[](fg:#06969A bg:#33658A)\
+[ ](fg:#33658A)\
+"""
 
-# Second param
-[hostname]
-format = "[$hostname]($style) in "
-style = "bold dimmed yellow"
-ssh_only = false
+[shell]
+format = "[$indicator]($style)"
+style = "bg:#9A348E fg:#0b1114"
 disabled = false
 
-# Third param
 [directory]
-style = "bold purple"
+style = "bg:#DA627D fg:#0b1114"
+format = "[ $path ]($style)"
 truncation_length = 4
+truncation_symbol = "…/"
 truncate_to_repo = false
-truncation_symbol = ".../"
-repo_root_style = "bold red"
 
-# Before all the version info (python, nodejs, php, etc.)
-[git_status]
-style = "white"
-ahead = "⇡${count}"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-behind = "⇣${count}"
-
-# Prompt: param 2 └─
-[character]
-success_symbol = " [╰─](bold cyan)[λ](bold green)"
-error_symbol = " [╰─](bold cyan)[λ](bold red)"
-
-[cmd_duration]
-disabled = true
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = ""
+"Downloads" = ""
+"Music" = ""
+"Pictures" = ""
+# Keep in mind that the order matters. For example:
+# "Important Documents" = "  "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important  " = "  "
 
 [git_branch]
-symbol = " "
-style = "bold red"
+symbol = ""
+style = "bg:#FCA17D fg:#0b1114"
+format = '[[ $symbol $branch ](bg:#FCA17D fg:#0b1114)]($style)'
 
-[nodejs]
-symbol = "⬢ "
-style = "bold green"
+[git_status]
+style = "bg:#FCA17D fg:#0b1114"
+format = '[[($all_status$ahead_behind )](bg:#FCA17D fg:#0b1114)]($style)'
 
-[python]
-symbol = "🐍 "
-style = "bold blue"
+[package]
+symbol = ""
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
 
 [c]
-symbol = " "
-style = "bold blue"
+symbol = ""
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
+
+[java]
+symbol = ""
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
+
+[julia]
+symbol = ""
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
+
+[python]
+symbol = ""
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
+
+[lua]
+style = "bg:#86BBD8 fg:#0b1114"
+format = '[[ $symbol ($version) ](bg:#86BBD8 fg:#0b1114)]($style)'
 

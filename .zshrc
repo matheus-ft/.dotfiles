@@ -7,5 +7,5 @@ if [ -d ~/.config/shell ]; then
 fi
 
 eval "$(starship init zsh)"
-set -o vi # starship kinda hints the mode, so vim bindings are cool
+bindkey -v
 
