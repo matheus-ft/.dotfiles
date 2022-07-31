@@ -45,6 +45,8 @@ sudo nala install exa
 
 ### Kitty
 
+Better terminal emulator.
+
 ```sh
 sudo nala install kitty
 ```
@@ -146,13 +148,12 @@ To get recent versions with APT, do
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo nala update
 sudo nala install neovim
+nvim +PackerSync
 ```
 
-Then just do `:w` and all plugins will be handled. Exit neovim and the next relaunch should be all good.
+For the nightly version use https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 
-For the nightly version: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-
-Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.config/shell/aliases.sh).
+Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple alias in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.config/shell/aliases.sh).
 
 Also possible to use an AppImage
 
@@ -160,8 +161,7 @@ Also possible to use an AppImage
 mkdir -p ~/Applications && cd ~/Applications
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
-cd ~/.config/nvim/lua/matheus/
-nvim packer.lua
+nvim +PackerSync
 ```
 
 #### Rip grep
