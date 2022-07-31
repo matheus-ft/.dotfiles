@@ -7,5 +7,10 @@ if [ -d ~/.config/shell ]; then
     done
 fi
 
-eval "$(starship init bash)"
+# zsh can hint the vim mode, so this is very practical
+bindkey -v
+
+# next level tab completion
+autoload -U compinit
+compinit
 

@@ -12,6 +12,7 @@ alias v=vim
 
 
 # General
+alias so='source'
 alias ls='exa -lahF --color=auto'
 alias dir='exa --color=auto'
 alias tree='exa -aT --level=3'
