@@ -35,6 +35,32 @@ wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gp
 sudo apt update && sudo apt install nala
 ```
 
+### Exa
+
+Better `ls` command.
+
+```sh
+sudo nala install exa
+```
+
+### Kitty
+
+```sh
+sudo nala install kitty
+```
+
+Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty).
+
+#### Fira Code
+
+Cool font with ligatures (and apparently the only one working properly with my terminal).
+
+```sh
+sudo nala install fonts-firacode
+```
+
+Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic).
+
 ### Z shell
 
 ```sh
@@ -61,33 +87,9 @@ Prompt that works with any shell.
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml)
+Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml).
 
-### Exa
-
-Better `ls` command
-
-```sh
-sudo nala install exa
-```
-
-### Kitty
-
-```sh
-sudo nala install kitty
-```
-
-Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty)
-
-#### Fira Code
-
-Cool font with ligatures (and apparently the only one working properly with my terminal)
-
-```sh
-sudo nala install fonts-firacode
-```
-
-Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic)
+For zsh, Powerlevel10k does it better, but this is still set for bash.
 
 ### Htop
 
@@ -150,9 +152,9 @@ Then just do `:w` and all plugins will be handled. Exit neovim and the next rela
 
 For the nightly version: https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 
-Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.bashrc.d/aliases.sh)
+Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple aliases in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.config/shell/aliases.sh).
 
-Also possible to use an AppImage because Ubuntu likes the past, and I, the future
+Also possible to use an AppImage
 
 ```sh
 mkdir -p ~/Applications && cd ~/Applications
@@ -172,7 +174,7 @@ sudo nala install ripgrep
 
 #### Neovide
 
-GUI client. Building from source:
+GUI client. Building from source
 
 ```sh
 sudo nala install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
@@ -186,14 +188,14 @@ sudo cp ./target/release/neovide /usr/bin/
 
 #### Default editor
 
-##### In terminal
+##### In terminal emulator
 
 ```sh
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100
 sudo update-alternatives --config editor
 ```
 
-##### In gnome
+##### In Gnome
 
 Done with the files in [.local/share/applications](https://github.com/matheus-ft/.dotfiles/tree/master/.local/share/applications)
 
