@@ -153,7 +153,7 @@ nvim +PackerSync
 
 For the nightly version use https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 
-Settings in [init.lua](https://github.com/matheus-ft/dotfiles/blob/master/.config/nvim) and simple alias in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.config/shell/aliases.sh).
+Settings in [init.lua](https://github.com/matheus-ft/nvim) and simple alias in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.config/shell/aliases.sh).
 
 Also possible to use an AppImage
 
