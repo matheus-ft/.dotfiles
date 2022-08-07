@@ -75,7 +75,10 @@ Also installed a non-offical version of the italics manually from [github](https
 
 ```sh
 sudo nala install zsh
+chsh -s $(which zsh)
 ```
+
+Last line makes z-shell the default shell
 
 #### Oh My Zsh
 
@@ -191,7 +194,7 @@ sudo nala install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
 cd Downloads
 git clone "https://github.com/neovide/neovide"
 cd neovide && cargo build --release
-sudo cp ./target/release/neovide /usr/bin/
+sudo cp ./target/release/neovide $HOME/.local/bin/
 ```
 
 #### Default editor

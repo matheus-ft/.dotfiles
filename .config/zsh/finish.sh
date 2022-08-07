@@ -14,3 +14,5 @@ bindkey -v
 autoload -U compinit
 compinit
 
+SHELL=/usr/bin/zsh # this is here just so that nvim opens zsh
+
