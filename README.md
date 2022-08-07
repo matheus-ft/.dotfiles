@@ -261,6 +261,8 @@ dconf dump <path> > config-name.ini
 dconf load <path> < config-name.ini
 ```
 
+---
+
 ## Qtile
 
 Installation:
