@@ -1,4 +1,4 @@
-# Pop!_OS 22.04 with GNOME 42
+# Pop!_OS 22.04
 
 How to manage:
 
@@ -59,6 +59,14 @@ Cool font with ligatures (and apparently the only one working properly with my t
 
 ```sh
 sudo nala install fonts-firacode
+```
+
+#### JetBrains Mono Nerd Font
+
+Another cool nerd font
+
+```sh
+sudo nala install fonts-jetbrains-mono
 ```
 
 Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic).
@@ -211,7 +219,7 @@ cargo install topgrade
 
 ---
 
-## Desktop
+## GNOME Desktop
 
 ### GNOME tweaks
 
@@ -251,5 +259,102 @@ dconf dump <path> > config-name.ini
 
 ```sh
 dconf load <path> < config-name.ini
+```
+
+## Qtile
+
+Installation:
+
+```sh
+pip3 install xcffib
+pip3 install --no-cache-dir cairocffi
+pip3 install qtile
+```
+
+To login, create a `/usr/share/xsessions/qtile.desktop`:
+
+```
+[Desktop Entry]
+Name=Qtile
+Comment=Qtile Session
+Exec=qtile start
+Type=Application
+Keywords=wm;tiling
+```
+
+[config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/config.py) was heavily inspired by [DistroTube](https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile) and
+[David](https://github.com/david35mm/.files/tree/main/.config/qtile)
+
+[autostart.sh](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/autostart.sh) has autostart instructions (duh) - and don't forget to `chmod +x autostart.sh`
+
+## Additional software needed
+
+### Rofi
+
+Run prompt
+
+```sh
+sudo nala install rofi
+```
+
+### Vifm
+
+Terminal based file manager
+
+```sh
+sudo nala install rofi
+```
+
+### Brightnessctl
+
+To regulate the monitor backlight
+
+```sh
+sudo nala install brightnessctl
+```
+
+### Picom
+
+Compositor
+
+```sh
+sudo nala install picom
+```
+
+### Nitrogen
+
+To set wallpapers
+
+```sh
+sudo nala install nitrogen
+```
+
+### Lxpolkit
+
+Policy kit
+
+```sh
+sudo nala install lxpolkit
+```
+
+### Widgets dependencies
+
+#### Wifi
+
+```sh
+sudo nala install libw-dev
+pip install iwlib
+```
+
+#### CPU, RAM and stuff
+
+```sh
+pip install psutil
+```
+
+#### Thermal sensor
+
+```sh
+sudo nala install lm-sensors
 ```
 
