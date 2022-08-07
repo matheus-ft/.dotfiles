@@ -17,8 +17,7 @@ browser = "firefox"
 app_launcher = "rofi -show drun"
 run_prompt = "rofi -show run"
 window_switcher = "rofi -show window"
-ui_file_manager = "nautilus"
-file_manager = "vifm"
+gui_file_manager = "nautilus"  # because I already had it
 
 keys = [
     # Window controls
@@ -98,12 +97,11 @@ keys = [
         desc="Open app launcher",
     ),
     Key([modkey], "r", lazy.spawn(run_prompt), desc="Launch run prompt"),
-    Key([modkey], "f", lazy.spawn(ui_file_manager), desc="Open graphical file manager"),
     Key(
-        [modkey, "shift"],
+        [modkey],
         "f",
-        lazy.spawn(terminal + " -e" + file_manager),
-        desc="Launch terminal file manager",
+        lazy.spawn(gui_file_manager),
+        desc="Open graphical file manager",
     ),
     Key([alt], "Tab", lazy.spawn(window_switcher), desc="Launch window switcher"),
     # Qtile controls
@@ -200,29 +198,32 @@ def panel_widgets():
         widget.Sep(linewidth=0),
         widget.GroupBox(
             fontsize=14,
-            highlight_method="text",
-            active=colors["white"],
-            inactive=colors["dark_grey"],
-            this_current_screen_border=colors["purple"],
-            # # other design #
-            # highlight_method="line",
-            # highlight_color=colors["black"],
-            # # marks in the current screen's panel
-            # this_current_screen_border=colors["blue"],
-            # other_screen_border=colors["yellow"],
-            # # marks in the other screens' panel
-            # other_current_screen_border=colors["magenta"],
-            # this_screen_border=colors["green"],
             disable_drag=True,
             invert_mouse_wheel=True,
             margin=2,
             padding=0,
             rounded=True,
+            ###
+            # # design 1 #
+            # highlight_method="text",
+            # active=colors["white"],
+            # inactive=colors["dark_grey"],
+            # this_current_screen_border=colors["purple"],
+            ###
+            # design 2 #
+            highlight_method="line",
+            highlight_color=colors["black"],
+            # marks in the current screen's panel
+            this_current_screen_border=colors["blue"],
+            other_screen_border=colors["yellow"],
+            # marks in the other screens' panel
+            other_current_screen_border=colors["magenta"],
+            this_screen_border=colors["green"],
         ),
         widget.Sep(linewidth=1),
         widget.CurrentLayout(),
         widget.Sep(linewidth=1),
-        widget.WindowName(max_chars=50, foreground=colors["cyan"]),
+        widget.WindowName(foreground=colors["cyan"]),
         widget.Spacer(lenght=20),
         widget.Clock(
             format="%a, %b %d - %H:%M ",
@@ -234,16 +235,6 @@ def panel_widgets():
             },
         ),
         widget.Spacer(lenght=20),
-        widget.WidgetBox(
-            close_button_location="right",
-            text_closed="  ",
-            text_open="  ",
-            widgets=[
-                widget.Systray(
-                    icon_size=12,
-                ),
-            ],
-        ),
         widget.CPU(
             foreground=colors["green"],
             mouse_callbacks={
@@ -273,13 +264,6 @@ def panel_widgets():
             # configured_layouts=["us", "ptbr"],
         ),
         widget.Sep(linewidth=1),
-        widget.Wlan(
-            format=" {essid} {percent:2.0%}",
-            interface="wlo1",
-        ),
-        widget.Sep(linewidth=1),
-        # widget.Bluetooth(),
-        # widget.Sep(linewidth=1),
         widget.Volume(foreground=colors["purple"], fmt=" {}", padding=5),
         widget.Sep(linewidth=1),
         widget.Backlight(
@@ -302,18 +286,30 @@ def panel_widgets():
             show_short_text=False,
             notify_below=15,
         ),
+        widget.Sep(linewidth=1),
+        widget.Systray(
+            icon_size=12,
+            padding=3,
+        ),
+        widget.Sep(linewidth=0),
     ]
 
 
 def panel_without_systray():
-    no_systray = panel_widgets()
-    return no_systray[:11] + no_systray[12:]
+    no_systray = panel_widgets()[:-2]
+    no_systray.append(
+        widget.Wlan(
+            format=" {essid} {percent:2.0%}",
+            interface="wlo1",
+        ),
+    )
+    return no_systray
 
 
 def init_screens():
     return [
-        Screen(top=bar.Bar(widgets=panel_without_systray(), opacity=1.0, size=20)),
         Screen(top=bar.Bar(widgets=panel_widgets(), opacity=1.0, size=20)),
+        Screen(top=bar.Bar(widgets=panel_without_systray(), opacity=1.0, size=20)),
     ]
 
 

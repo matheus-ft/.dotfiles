@@ -331,12 +331,22 @@ To set wallpapers
 sudo nala install nitrogen
 ```
 
+Installed the [DT's wallpapers](https://gitlab.com/dwt1/wallpapers) repo
+
 ### Lxpolkit
 
 Policy kit
 
 ```sh
 sudo nala install lxpolkit
+```
+
+### Lxappearance
+
+LXDE GTK+ theme switcher
+
+```sh
+sudo nala install lxappearance
 ```
 
 ### Widgets dependencies
@@ -347,6 +357,8 @@ sudo nala install lxpolkit
 sudo nala install libw-dev
 pip install iwlib
 ```
+
+`nm-applet` was already installed apparently, but it's possible to manage network connection with `nmcli dev wifi`
 
 #### CPU, RAM and stuff
 
