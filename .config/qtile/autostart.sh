@@ -2,7 +2,6 @@
 
 lxpolkit &
 picom -b &
-# conky -c $HOME/.config/conky/qtile/doom-one-01.conkyrc
 nm-applet &
 nitrogen --restore &
 

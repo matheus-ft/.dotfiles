@@ -352,6 +352,14 @@ LXDE GTK+ theme switcher
 sudo nala install lxappearance
 ```
 
+### Arandr
+
+Simple visual front end for XRandR (to eadily align multiple monitors)
+
+```sh
+sudo nala install arandr
+```
+
 ### Widgets dependencies
 
 #### Wifi
@@ -374,4 +382,8 @@ pip install psutil
 ```sh
 sudo nala install lm-sensors
 ```
+
+#### Cool icons
+
+[Nerd fonts cheat sheet](https://www.nerdfonts.com/cheat-sheet)
 

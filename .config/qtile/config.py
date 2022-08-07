@@ -249,6 +249,7 @@ def panel_widgets():
             threshold=80,
             fmt="🌡 {}",
             tag_sensor="Core 0",
+            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
         ),
         widget.Sep(linewidth=1),
         widget.Memory(
@@ -289,7 +290,6 @@ def panel_widgets():
         widget.Sep(linewidth=1),
         widget.Systray(
             icon_size=12,
-            padding=3,
         ),
         widget.Sep(linewidth=0),
     ]
@@ -341,8 +341,7 @@ floating_layout = layout.Floating(
 )
 
 
-# @hook.subscribe.startup_once
-@hook.subscribe.restart
+@hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser("~")
     subprocess.run([home + "/.config/qtile/autostart.sh"])
