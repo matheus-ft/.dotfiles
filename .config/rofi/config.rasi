@@ -1,0 +1,6 @@
+configuration {
+ modi: "window,run,ssh,drun,windowcd";
+ font: "JetBrainsMono Nerd Font 12";
+ }
+@theme "~/.config/rofi/themes/dt-center.rasi"
+
