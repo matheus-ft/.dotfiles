@@ -16,11 +16,16 @@ terminal = "kitty"
 browser = "firefox"
 app_launcher = "rofi -show drun"
 run_prompt = "rofi -show run"
-window_switcher = "rofi -show window"
+power_menu = "rofi -show p -modi p:rofi-power-menu"
+window_switcher = "rofi -show windowcd"
+workspace_switcher = "rofi -show window"
 gui_file_manager = "nautilus"  # because I already had it
 
 keys = [
-    # Window controls
+    ### Window controls
+    Key([modkey], "period", lazy.next_screen(), desc="Move focus to next monitor"),
+    Key([modkey], "comma", lazy.prev_screen(), desc="Move focus to previous monitor"),
+    Key([modkey], "semicolon", lazy.layout.next(), desc="Move focus to next window"),
     Key([modkey], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([modkey], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([modkey], "j", lazy.layout.down(), desc="Move focus down"),
@@ -29,12 +34,14 @@ keys = [
         [modkey, "shift"],
         "h",
         lazy.layout.swap_left(),
+        lazy.layout.shuffle_left(),
         desc="Move window to the left",
     ),
     Key(
         [modkey, "shift"],
         "l",
         lazy.layout.swap_right(),
+        lazy.layout.shuffle_right(),
         desc="Move window to the right",
     ),
     Key(
@@ -49,24 +56,51 @@ keys = [
         lazy.layout.shuffle_up(),
         desc="Move window up",
     ),
-    Key([modkey], "i", lazy.layout.grow(), desc="Grow current panel"),
-    Key([modkey], "m", lazy.layout.shrink(), desc="Shrink current panel"),
+    Key(
+        [modkey, "control"],
+        "h",
+        lazy.layout.shrink_main(),  # monadtall
+        lazy.layout.grow_left(),  # columns
+        desc="Grow pane to the left",
+    ),
+    Key(
+        [modkey, "control"],
+        "l",
+        lazy.layout.grow_main(),  # monadtall
+        lazy.layout.grow_right(),  # columns
+        desc="Grow pane to the right",
+    ),
+    Key([modkey, "control"], "j", lazy.layout.grow_down(), desc="Grow pane downwards"),
+    Key([modkey, "control"], "k", lazy.layout.grow_up(), desc="Grow pane upwards"),
     Key([modkey], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key(
         [modkey],
-        "o",
+        "m",
         lazy.layout.maximize(),
         desc="Toggle window between minimum and maximum sizes",
     ),
     Key(
         [modkey, "shift"],
         "space",
-        lazy.layout.flip(),
-        desc="Switch which side main pane occupies (XmonadTall)",
+        lazy.layout.flip(),  # monadtall
+        lazy.layout.swap_column_left(),  # using only two columns, this works for both panes
+        desc="Switch which side current pane occupies",
     ),
-    Key([modkey], "s", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
-    Key([modkey], "t", lazy.window.toggle_floating(), desc="Toggle tiling/floating"),
+    Key(
+        [modkey],
+        "s",
+        lazy.layout.toggle_split(),
+        desc="Toggle stack/tab mode (Columns)",
+    ),
+    Key(
+        [modkey, "shift"],
+        "m",
+        lazy.window.toggle_fullscreen(),
+        desc="Toggle fullscreen",
+    ),
+    Key([modkey], "t", lazy.window.toggle_floating(), desc="Toggle tiling & floating"),
     Key([modkey, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
+    ### Desktop controls
     Key(
         [modkey],
         "space",
@@ -84,10 +118,10 @@ keys = [
         "XF86MonBrightnessDown",
         lazy.spawn("brightnessctl s 5%-", desc="Decrease brightness"),
     ),
-    # Key([], "XF86AudioMute", lazy.spawn("")),
-    # Key([], "XF86AudioRaiseVolume", lazy.spawn("")),
-    # Key([], "XF86AudioLowerVolume", lazy.spawn("")),
-    # Apps
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q sset Master 0%")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q sset Master 5%+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q sset Master 5%-")),
+    ### App launchers
     Key([modkey], "b", lazy.spawn(browser), desc="Launch browser"),
     Key([modkey], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key(
@@ -104,12 +138,24 @@ keys = [
         desc="Open graphical file manager",
     ),
     Key([alt], "Tab", lazy.spawn(window_switcher), desc="Launch window switcher"),
-    # Qtile controls
+    Key(
+        [alt, "shift"],
+        "Tab",
+        lazy.spawn(workspace_switcher),
+        desc="Launch workspace switcher",
+    ),
+    ### Qtile controls
     Key([modkey], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([modkey, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([modkey, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    # Key([modkey, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([modkey, "shift"], "q", lazy.spawn(power_menu), desc="Show power menu"),
 ]
+
+# Allow MODKEY+[1 through 8] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
+# MODKEY + index Number : Switch to Group[index]
+# MODKEY + shift + index Number : Send active window to Group[index]
+dgroups_key_binder = simple_key_binder(modkey)
 
 mouse = [
     Drag(
@@ -126,22 +172,6 @@ mouse = [
     ),
     Click([modkey], "Button2", lazy.window.bring_to_front()),
 ]
-
-groups = [
-    Group("", layout="monadtall"),
-    Group("", layout="monadtall"),
-    Group("拾", layout="monadtall"),
-    Group("", layout="monadtall"),
-    Group("", layout="max"),
-    Group("辶", layout="monadtall"),
-    Group("", layout="floating"),
-    Group("", layout="monadtall"),
-]
-
-# Allow MODKEY+[1 through 8] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
-# MODKEY + index Number : Switch to Group[index]
-# MODKEY + shift + index Number : Send active window to Group[index]
-dgroups_key_binder = simple_key_binder(modkey)
 
 colors = {
     "black": "#282c34",
@@ -160,15 +190,29 @@ colors = {
 
 layout_theme = {
     "border_width": 2,
-    "margin": 8,
+    "margin": 4,
     "border_focus": colors["purple"],
     "border_normal": colors["dark_grey"],
+    "border_focus_stack": colors["cyan"],
+    "border_normal_stack": colors["dark_grey"],
 }
 
 layouts = [
     layout.MonadTall(**layout_theme),
+    layout.Columns(**layout_theme, insert_position=1),
     layout.Max(**layout_theme),
     layout.Floating(**layout_theme),
+]
+
+groups = [
+    Group("", layout="monadtall"),
+    Group("", layout="monadtall"),
+    Group("拾", layout="monadtall"),
+    Group("", layout="monadtall"),
+    Group("", layout="max"),
+    Group("辶", layout="max", matches=[Match(wm_class="zoom")]),
+    Group("", layout="floating"),
+    Group("", layout="monadtall"),
 ]
 
 prompt = f"{os.environ['USER']}@{socket.gethostname()}: "
@@ -224,7 +268,7 @@ def panel_widgets():
         widget.CurrentLayout(),
         widget.Sep(linewidth=1),
         widget.WindowName(foreground=colors["cyan"]),
-        widget.Spacer(lenght=20),
+        widget.Spacer(lenght=1),  # this way the clock gets centralized
         widget.Clock(
             format="%a, %b %d - %H:%M ",
             padding=3,
@@ -234,7 +278,7 @@ def panel_widgets():
                 )
             },
         ),
-        widget.Spacer(lenght=20),
+        widget.Spacer(lenght=1),
         widget.CPU(
             foreground=colors["green"],
             mouse_callbacks={
@@ -262,7 +306,7 @@ def panel_widgets():
         widget.KeyboardLayout(
             foreground=colors["cyan"],
             fmt=" {}",
-            # configured_layouts=["us", "ptbr"],
+            configured_layouts=["us", "br"],  # but this sh*t doesn't work
         ),
         widget.Sep(linewidth=1),
         widget.Volume(foreground=colors["purple"], fmt=" {}", padding=5),
