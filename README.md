@@ -302,14 +302,6 @@ Run prompt
 sudo nala install rofi
 ```
 
-### Vifm
-
-Terminal based file manager
-
-```sh
-sudo nala install rofi
-```
-
 ### Brightnessctl
 
 To regulate the monitor backlight
@@ -334,7 +326,7 @@ To set wallpapers
 sudo nala install nitrogen
 ```
 
-Installed the [DT's wallpapers](https://gitlab.com/dwt1/wallpapers) repo
+Also, cloned [DT's wallpapers](https://gitlab.com/dwt1/wallpapers) repo into ~/Pictures
 
 ### Lxpolkit
 
@@ -354,11 +346,16 @@ sudo nala install lxappearance
 
 ### Arandr
 
-Simple visual front end for XRandR (to eadily align multiple monitors)
+Simple visual front end for XRandR (to easily align multiple monitors)
 
 ```sh
 sudo nala install arandr
 ```
+
+### Power Menu
+
+Copied the script from [`rofi-power-menu`](https://github.com/jluttine/rofi-power-menu) to `~/.local/bin`, did `chmod +x rofi-power-menu`
+and added a keybind to my qtile config.
 
 ### Widgets dependencies
 
