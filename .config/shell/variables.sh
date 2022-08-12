@@ -6,9 +6,6 @@ export VISUAL=neovide
 #############################################
 # Borrowed from Distro Tube
 #############################################
-### "nvim" as manpager
-export MANPAGER="nvim -c 'set ft=man' -"
-
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
