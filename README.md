@@ -357,6 +357,19 @@ sudo nala install arandr
 Copied the script from [`rofi-power-menu`](https://github.com/jluttine/rofi-power-menu) to `~/.local/bin`, did `chmod +x rofi-power-menu`
 and added a keybind to my qtile config.
 
+### Keyboard layout switcher
+
+Create `~/.local/bin/toggle_keyboard_layout` (which is in PATH) with
+
+```sh
+#!/usr/bin/bash
+
+case $(setxkbmap -query | grep layout | awk '{ print $2 }') in
+            us) setxkbmap br ;;
+            br) setxkbmap us ;;
+esac
+```
+
 ### Widgets dependencies
 
 #### Wifi
