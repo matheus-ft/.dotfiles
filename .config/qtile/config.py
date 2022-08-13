@@ -8,6 +8,7 @@ from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
 from typing import List
 from libqtile.dgroups import simple_key_binder
+from scripts import colorscheme
 
 super = "mod4"
 alt = "mod1"
@@ -104,7 +105,7 @@ keys = [
     Key(
         [modkey],
         "space",
-        lazy.widget["keyboardlayout"].next_keyboard(),
+        lazy.spawn("toggle_keyboard_layout"),
         desc="Next keyboard layout.",
     ),
     Key(
@@ -116,19 +117,17 @@ keys = [
     Key(
         [],
         "XF86MonBrightnessDown",
-        lazy.spawn("brightnessctl s 5%-", desc="Decrease brightness"),
+        lazy.spawn("brightnessctl s 5%-"),
+        desc="Decrease brightness",
     ),
-    Key([], "XF86AudioMute", lazy.spawn("amixer -q sset Master 0%")),
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q sset Master toggle")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q sset Master 5%+")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q sset Master 5%-")),
     ### App launchers
     Key([modkey], "b", lazy.spawn(browser), desc="Launch browser"),
     Key([modkey], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key(
-        [modkey, "shift"],
-        "Return",
-        lazy.spawn(app_launcher),
-        desc="Open app launcher",
+        [modkey, "shift"], "Return", lazy.spawn(app_launcher), desc="Open app launcher"
     ),
     Key([modkey], "r", lazy.spawn(run_prompt), desc="Launch run prompt"),
     Key(
@@ -139,13 +138,10 @@ keys = [
     ),
     Key([alt], "Tab", lazy.spawn(window_switcher), desc="Launch window switcher"),
     Key(
-        [alt, "shift"],
-        "Tab",
-        lazy.spawn(workspace_switcher),
-        desc="Launch workspace switcher",
+        [super], "Tab", lazy.spawn(workspace_switcher), desc="Launch workspace switcher"
     ),
     ### Qtile controls
-    Key([modkey], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([modkey], "w", lazy.next_layout(), desc="Toggle between layouts"),
     Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([modkey, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     # Key([modkey, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -173,20 +169,7 @@ mouse = [
     Click([modkey], "Button2", lazy.window.bring_to_front()),
 ]
 
-colors = {
-    "black": "#282c34",
-    "red": "#e06c75",
-    "green": "#98c379",
-    "yellow": "#e5c07b",
-    "blue": "#61afef",
-    "magenta": "#be5046",
-    "cyan": "#56b6c2",
-    "white": "#e6e6e6",
-    "light_grey": "#abb2bf",
-    "dark_grey": "#393e48",
-    "orange": "#d19a66",
-    "purple": "#c678dd",
-}
+colors = colorscheme.onedark()
 
 layout_theme = {
     "border_width": 2,
@@ -306,7 +289,6 @@ def panel_widgets():
         widget.KeyboardLayout(
             foreground=colors["cyan"],
             fmt=" {}",
-            configured_layouts=["us", "br"],  # but this sh*t doesn't work
         ),
         widget.Sep(linewidth=1),
         widget.Volume(foreground=colors["purple"], fmt=" {}", padding=5),
