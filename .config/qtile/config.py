@@ -1,18 +1,18 @@
 import os
 import socket
 import subprocess
+from typing import List
 from libqtile import qtile
 from libqtile.config import Click, Drag, Group, KeyChord, Key, Match, Screen
 from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
+from libqtile import layout, bar, hook
 from libqtile.lazy import lazy
-from typing import List
 from libqtile.dgroups import simple_key_binder
-from scripts import colorscheme
+from qtile_extras import widget
+from qtile_extras.widget.decorations import RectDecoration
 
-super = "mod4"
+modkey = super = "mod4"
 alt = "mod1"
-modkey = super
 terminal = "kitty"
 browser = "firefox"
 app_launcher = "rofi -show drun"
@@ -34,15 +34,15 @@ keys = [
     Key(
         [modkey, "shift"],
         "h",
-        lazy.layout.swap_left(),
-        lazy.layout.shuffle_left(),
+        lazy.layout.swap_left(),  # monadtall
+        lazy.layout.shuffle_left(),  # columns
         desc="Move window to the left",
     ),
     Key(
         [modkey, "shift"],
         "l",
-        lazy.layout.swap_right(),
-        lazy.layout.shuffle_right(),
+        lazy.layout.swap_right(),  # monadtall
+        lazy.layout.shuffle_right(),  # columns
         desc="Move window to the right",
     ),
     Key(
@@ -126,10 +126,8 @@ keys = [
     ### App launchers
     Key([modkey], "b", lazy.spawn(browser), desc="Launch browser"),
     Key([modkey], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key(
-        [modkey, "shift"], "Return", lazy.spawn(app_launcher), desc="Open app launcher"
-    ),
-    Key([modkey], "r", lazy.spawn(run_prompt), desc="Launch run prompt"),
+    Key([modkey, "shift"], "Return", lazy.spawn(run_prompt), desc="Launch run prompt"),
+    Key([modkey], "r", lazy.spawn(app_launcher), desc="Open app launcher"),
     Key(
         [modkey],
         "f",
@@ -144,7 +142,6 @@ keys = [
     Key([modkey], "w", lazy.next_layout(), desc="Toggle between layouts"),
     Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([modkey, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
-    # Key([modkey, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([modkey, "shift"], "q", lazy.spawn(power_menu), desc="Show power menu"),
 ]
 
@@ -169,7 +166,27 @@ mouse = [
     Click([modkey], "Button2", lazy.window.bring_to_front()),
 ]
 
-colors = colorscheme.onedark()
+
+def onedark() -> dict[str, str]:
+    return {
+        "black": "#282c34",
+        "dark_grey": "#393e48",
+        "grey": "#6c717a",
+        "light_grey": "#abb2bf",
+        "white": "#e6e6e6",
+        "magenta": "#be5046",
+        "red": "#e06c75",
+        "orange": "#d19a66",
+        "yellow": "#e5c07b",
+        "green": "#98c379",
+        "cyan": "#56b6c2",
+        "blue": "#61afef",
+        "violet": "#5c79d1",
+        "purple": "#c678dd",
+    }
+
+
+colors = onedark()
 
 layout_theme = {
     "border_width": 2,
@@ -200,29 +217,31 @@ groups = [
 
 prompt = f"{os.environ['USER']}@{socket.gethostname()}: "
 
-##### DEFAULT WIDGET SETTINGS #####
 widget_defaults = dict(
     font="JetBrainsMono Nerd Font",
     fontsize=12,
     padding=6,
-    background=colors["black"],
-    foreground=colors["white"],
+    background=colors["white"] + "00",  # transparent
 )
 extension_defaults = widget_defaults.copy()
 
 
-def panel_widgets():
+def widgets():
+    sys_monitor_color = colors["dark_grey"]
+    sys_configs_color = colors["dark_grey"]
     return [
-        widget.Sep(linewidth=0),
-        widget.Image(
-            filename="~/.config/qtile/icons/python.png",
-            scale="True",
+        widget.TextBox(
+            text="",
+            foreground=colors["black"],
+            fontsize=12,
             mouse_callbacks={
                 "Button1": lambda: qtile.cmd_spawn(app_launcher),
                 "Button3": lambda: qtile.cmd_spawn(terminal),
             },
+            decorations=[
+                RectDecoration(colour=colors["light_grey"], radius=10, filled=True)
+            ],
         ),
-        widget.Sep(linewidth=0),
         widget.GroupBox(
             fontsize=14,
             disable_drag=True,
@@ -230,28 +249,60 @@ def panel_widgets():
             margin=2,
             padding=0,
             rounded=True,
-            ###
-            # # design 1 #
-            # highlight_method="text",
-            # active=colors["white"],
-            # inactive=colors["dark_grey"],
-            # this_current_screen_border=colors["purple"],
-            ###
-            # design 2 #
+            active=colors["white"],
+            inactive=colors["grey"],
             highlight_method="line",
-            highlight_color=colors["black"],
+            highlight_color=colors["dark_grey"],
             # marks in the current screen's panel
             this_current_screen_border=colors["blue"],
             other_screen_border=colors["yellow"],
             # marks in the other screens' panel
             other_current_screen_border=colors["magenta"],
             this_screen_border=colors["green"],
+            decorations=[
+                RectDecoration(colour=colors["dark_grey"], radius=10, filled=True)
+            ],
         ),
-        widget.Sep(linewidth=1),
-        widget.CurrentLayout(),
-        widget.Sep(linewidth=1),
-        widget.WindowName(foreground=colors["cyan"]),
-        widget.Spacer(lenght=1),  # this way the clock gets centralized
+        widget.CurrentLayout(
+            foreground=colors["black"],
+            decorations=[
+                RectDecoration(colour=colors["light_grey"], radius=10, filled=True)
+            ],
+        ),
+        widget.CPU(
+            mouse_callbacks={
+                "Button1": lambda: qtile.cmd_spawn(terminal + " -e htop"),
+            },
+            format=" {load_percent}%",
+            foreground=colors["blue"],
+            decorations=[
+                RectDecoration(
+                    colour=sys_monitor_color, radius=[10, 0, 0, 10], filled=True
+                )
+            ],
+        ),
+        widget.ThermalSensor(
+            foreground_alert=colors["magenta"],
+            threshold=80,
+            fmt="🌡 {}",
+            tag_sensor="Core 0",
+            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
+            decorations=[
+                RectDecoration(colour=sys_monitor_color, radius=0, filled=True)
+            ],
+        ),
+        widget.Memory(
+            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
+            measure_mem="G",
+            format="﬙ {MemUsed:.2f}{mm}/{MemTotal:.1f}{mm}",
+            foreground=colors["green"],
+            decorations=[
+                RectDecoration(
+                    colour=sys_monitor_color, radius=[0, 10, 10, 0], filled=True
+                )
+            ],
+        ),
+        widget.Spacer(lenght=bar.STRETCH),
         widget.Clock(
             format="%a, %b %d - %H:%M ",
             padding=3,
@@ -260,86 +311,83 @@ def panel_widgets():
                     browser + " https://calendar.google.com/calendar/u/0/r"
                 )
             },
+            foreground=colors["black"],
+            decorations=[
+                RectDecoration(colour=colors["light_grey"], radius=10, filled=True)
+            ],
         ),
-        widget.Spacer(lenght=1),
-        widget.CPU(
-            foreground=colors["green"],
-            mouse_callbacks={
-                "Button1": lambda: qtile.cmd_spawn(terminal + " -e htop"),
-            },
-            format=" {load_percent}%",
+        widget.Spacer(lenght=bar.STRETCH),
+        widget.WidgetBox(
+            close_button_location="right",
+            text_closed="  ",
+            text_open="  ",
+            widgets=[widget.Systray(icon_size=12)],
         ),
-        widget.Sep(linewidth=1),
-        widget.ThermalSensor(
-            foreground=colors["white"],
-            foreground_alert=colors["red"],
-            threshold=80,
-            fmt="🌡 {}",
-            tag_sensor="Core 0",
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
-        ),
-        widget.Sep(linewidth=1),
-        widget.Memory(
-            foreground=colors["blue"],
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
-            measure_mem="G",
-            format="﬙ {MemUsed:.2f}{mm}/{MemTotal:.1f}{mm}",
-        ),
-        widget.Sep(linewidth=1),
         widget.KeyboardLayout(
-            foreground=colors["cyan"],
             fmt=" {}",
+            foreground=colors["cyan"],
+            decorations=[
+                RectDecoration(
+                    colour=sys_configs_color, radius=[10, 0, 0, 10], filled=True
+                )
+            ],
         ),
-        widget.Sep(linewidth=1),
-        widget.Volume(foreground=colors["purple"], fmt=" {}", padding=5),
-        widget.Sep(linewidth=1),
+        widget.Volume(
+            fmt=" {}",
+            padding=5,
+            foreground=colors["purple"],
+            decorations=[
+                RectDecoration(colour=sys_configs_color, radius=0, filled=True)
+            ],
+        ),
         widget.Backlight(
-            foreground=colors["yellow"],
             fmt=" {}",
             backlight_name="intel_backlight",
             change_command=None,  # this just works with `brightnessctl` lol
+            foreground=colors["yellow"],
+            decorations=[
+                RectDecoration(colour=sys_configs_color, radius=0, filled=True)
+            ],
         ),
-        widget.Sep(linewidth=1),
         widget.Battery(
             foreground=colors["green"],
-            low_foreground=colors["orange"],
+            low_foreground=colors["red"],
             format="{char}{percent:2.0%}",
             charge_char=" ",
             discharge_char=" ",
             empty_char=" ",
             full_char=" ",
             unknown_char=" ",
-            low_percentage=0.15,
+            low_percentage=0.35,
             show_short_text=False,
-            notify_below=15,
+            notify_below=35,
+            decorations=[
+                RectDecoration(colour=sys_configs_color, radius=0, filled=True)
+            ],
         ),
-        widget.Sep(linewidth=1),
-        widget.Systray(
-            icon_size=12,
-        ),
-        widget.Sep(linewidth=0),
-    ]
-
-
-def panel_without_systray():
-    no_systray = panel_widgets()[:-2]
-    no_systray.append(
         widget.Wlan(
             format=" {essid} {percent:2.0%}",
             interface="wlo1",
+            decorations=[
+                RectDecoration(
+                    colour=sys_configs_color, radius=[0, 10, 10, 0], filled=True
+                )
+            ],
         ),
-    )
-    return no_systray
-
-
-def init_screens():
-    return [
-        Screen(top=bar.Bar(widgets=panel_widgets(), opacity=1.0, size=20)),
-        Screen(top=bar.Bar(widgets=panel_without_systray(), opacity=1.0, size=20)),
     ]
 
 
-screens = init_screens()
+def main_panel():
+    return Screen(top=bar.Bar(widgets(), size=20, background=colors["white"] + "00"))
+
+
+def panel():
+    no_systray = widgets()
+    del no_systray[9]
+    return Screen(top=bar.Bar(no_systray, size=20, background=colors["white"] + "00"))
+
+
+screens = [main_panel(), panel()]
 
 dgroups_app_rules: List = []
 follow_mouse_focus = True
