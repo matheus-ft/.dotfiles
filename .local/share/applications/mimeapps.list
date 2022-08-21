@@ -9,3 +9,5 @@ text/x-python=neovide.desktop
 text/x-sql=neovide.desktop
 text/xml=neovide.desktop
 
+application/pdf=firefox.desktop
+
