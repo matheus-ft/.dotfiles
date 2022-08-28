@@ -23,11 +23,13 @@ Note that `config` is the alias for this *bare repo*, so `git` won't work.
 
 ---
 
-## Terminal
+## Package managers
+
+Language specific ones detailed under [programming](https://github.com/matheus-ft/.dotfiles#programming).
 
 ### Nala
 
-Better package manager interface.
+Better package manager interface for APT.
 
 ```sh
 echo "deb https://deb.volian.org/volian/ scar main" | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
@@ -35,13 +37,25 @@ wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gp
 sudo apt update && sudo apt install nala
 ```
 
-### Exa
+### Pacstall
 
-Better `ls` command.
+Debian based distros' AUR.
 
 ```sh
-sudo nala install exa
+sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh -O -)"
 ```
+
+### Topgrade
+
+A freaking cool way to upgrade the shit out of your system - make sure to have [Rust](https://github.com/matheus-ft/.dotfiles#rust) set up before.
+
+```sh
+cargo install topgrade
+```
+
+---
+
+## Terminal
 
 ### Kitty
 
@@ -61,15 +75,15 @@ Cool font with ligatures (and apparently the only one working properly with my t
 sudo nala install fonts-firacode
 ```
 
+Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic).
+
 #### JetBrains Mono Nerd Font
 
-Another cool nerd font
+Another cool nerd font.
 
 ```sh
 sudo nala install fonts-jetbrains-mono
 ```
-
-Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic).
 
 ### Z shell
 
@@ -78,7 +92,7 @@ sudo nala install zsh
 chsh -s $(which zsh)
 ```
 
-Last line makes z-shell the default shell
+Last line makes z shell the default shell.
 
 #### Oh My Zsh
 
@@ -104,6 +118,14 @@ Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.co
 
 For zsh, Powerlevel10k does it better, but this is still set for bash.
 
+### Exa
+
+Better `ls` command.
+
+```sh
+sudo nala install exa
+```
+
 ### Htop
 
 ```sh
@@ -124,8 +146,16 @@ Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkint
 
 - `tkinter` is a GUI backend installed to use matplotlib
 
+
 ```sh
 sudo nala install python3-pip python3-venv python3-tk
+```
+
+#### Jupyter notebooks
+
+```sh
+pip install jupyterlab
+pip install --upgrade jupyterlab-vim
 ```
 
 ### Node.js 16 and Yarn
@@ -209,16 +239,6 @@ sudo update-alternatives --config editor
 ##### In Gnome
 
 Done with the files in [.local/share/applications](https://github.com/matheus-ft/.dotfiles/tree/master/.local/share/applications)
-
----
-
-## Topgrade
-
-A freaking cool way to upgrade the shit out of your system
-
-```sh
-cargo install topgrade
-```
 
 ---
 
