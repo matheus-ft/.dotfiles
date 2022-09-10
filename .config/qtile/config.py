@@ -132,16 +132,6 @@ keys = [
     Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([modkey, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([modkey, "shift"], "q", lazy.spawn(power_menu), desc="Show power menu"),
-    Key(
-        [modkey],
-        "F1",
-        lazy.spawn(
-            "sh -c 'echo \""
-            + show_keys(keys)  # noqa
-            + '" | rofi -dmenu -i -mesg "Keyboard shortcuts"\''
-        ),
-        desc="Print keyboard bindings",
-    ),
 ]
 
 # Allow MODKEY+[1 through 8] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
@@ -487,3 +477,17 @@ def show_keys(keys):
         # debug_print(key_line)  # debug only
 
     return key_help
+
+
+keys.append(
+    Key(
+        [modkey],
+        "F1",
+        lazy.spawn(
+            "sh -c 'echo \""
+            + show_keys(keys)  # noqa
+            + '" | rofi -dmenu -i -mesg "Keyboard shortcuts"\''
+        ),
+        desc="Print keyboard bindings",
+    )
+)
