@@ -156,6 +156,14 @@ sudo nala install python3-pip python3-venv python3-tk
 ```sh
 pip install jupyterlab
 pip install --upgrade jupyterlab-vim
+pip install jupytext
+```
+
+#### Neovim integration
+
+```sh
+pip install --upgrade pynvim
+pip install ueberzug Pillow cairosvg pnglatex plotly kaleido
 ```
 
 ### Node.js 16 and Yarn
@@ -183,25 +191,23 @@ cargo install cargo-update
 
 ### Neovim
 
-To get recent versions with APT, do
-
 ```sh
-sudo add-apt-repository ppa:neovim-ppa/unstable
-sudo nala update
-sudo nala install neovim
-nvim +PackerSync
+mkdir -p ~/Applications && cd ~/Applications
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+./nvim.appimage +PackerSync
 ```
 
 For the nightly version use https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 
 Settings in [init.lua](https://github.com/matheus-ft/nvim) and simple alias in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.config/shell/aliases.sh).
 
-Also possible to use an AppImage
+Also possible to get bleeding edge versions with APT:
 
 ```sh
-mkdir -p ~/Applications && cd ~/Applications
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod u+x nvim.appimage
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo nala update
+sudo nala install neovim
 nvim +PackerSync
 ```
 

@@ -5,7 +5,7 @@ alias gpp=g++
 
 
 # Text editor
-# alias nvim=$HOME/Applications/nvim.appimage
+alias nvim=$HOME/Applications/nvim.appimage
 alias vim=nvim # to open neovim in the terminal
 alias v=vim
 # vi is the alias for the pre-installed 'tiny-vim'
