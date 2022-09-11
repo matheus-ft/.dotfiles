@@ -248,50 +248,6 @@ Done with the files in [.local/share/applications](https://github.com/matheus-ft
 
 ---
 
-## GNOME Desktop
-
-### GNOME tweaks
-
-```sh
-sudo nala install gnome-tweaks
-```
-
-### Extension Manager
-
-```sh
-flatpak install flathub com.mattjakeman.ExtensionManager
-```
-
-Extensions added:
-
-- [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
-
-- [Vitals](https://extensions.gnome.org/extension/1460/vitals/)
-
-- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)
-
-- [Auto Move Windows](https://extensions.gnome.org/extension/16/auto-move-windows/) - didn't actually use yet
-
-### Dconf
-
-- Settings are in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs) : `pop-os-{specifier}.ini`
-
-How to
-
-- save
-
-```sh
-dconf dump <path> > config-name.ini
-```
-
-- apply
-
-```sh
-dconf load <path> < config-name.ini
-```
-
----
-
 ## Qtile
 
 Installation:
@@ -316,7 +272,7 @@ Keywords=wm;tiling
 [config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/config.py) was heavily inspired by [DistroTube](https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile) and
 [David](https://github.com/david35mm/.files/tree/main/.config/qtile)
 
-[autostart.sh](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/autostart.sh) has autostart instructions (duh) - and don't forget to `chmod +x autostart.sh`
+[autostart.sh](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/scripts/autostart.sh) has autostart instructions (duh) - and don't forget to `chmod +x autostart.sh`
 
 ## Additional software needed
 
@@ -422,4 +378,48 @@ sudo nala install lm-sensors
 #### Cool icons
 
 [Nerd fonts cheat sheet](https://www.nerdfonts.com/cheat-sheet)
+
+---
+
+## GNOME Desktop
+
+### GNOME tweaks
+
+```sh
+sudo nala install gnome-tweaks
+```
+
+### Extension Manager
+
+```sh
+flatpak install flathub com.mattjakeman.ExtensionManager
+```
+
+Extensions added:
+
+- [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
+
+- [Vitals](https://extensions.gnome.org/extension/1460/vitals/)
+
+- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)
+
+- [Auto Move Windows](https://extensions.gnome.org/extension/16/auto-move-windows/) - didn't actually use yet
+
+### Dconf
+
+- Settings are in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs) : `pop-os-{specifier}.ini`
+
+How to
+
+- save
+
+```sh
+dconf dump <path> > config-name.ini
+```
+
+- apply
+
+```sh
+dconf load <path> < config-name.ini
+```
 
