@@ -23,6 +23,7 @@ power_menu = "rofi -show p -modi p:rofi-power-menu"
 window_switcher = "rofi -show windowcd"
 workspace_switcher = "rofi -show window"
 gui_file_manager = "nautilus"  # because I already had it
+screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good, tho
 
 keys.extend(
     [
@@ -158,6 +159,7 @@ keys.extend(
         Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
         Key([modkey, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
         Key([modkey, "shift"], "q", lazy.spawn(power_menu), desc="Show power menu"),
+        Key([modkey], "q", lazy.spawn(screen_locker), desc="Lock screen"),
         Key(
             [modkey],
             "F1",
