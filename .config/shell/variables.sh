@@ -3,15 +3,17 @@ LS_COLORS="di=1;35"  # directories will be bold purple on exa call
 export EDITOR=nvim
 export VISUAL=neovide
 
-#############################################
-# Borrowed from Distro Tube
-#############################################
+# some of this borrowed from Distro Tube
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
 if [ -d "$HOME/Applications" ] ;
   then PATH="$HOME/Applications:$PATH"
+fi
+
+if [ -d "$HOME/.cargo/bin" ] ;
+  then PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 ### SETTING OTHER ENVIRONMENT VARIABLES
@@ -24,5 +26,4 @@ fi
 if [ -z "$XDG_CACHE_HOME" ] ; then
     export XDG_CACHE_HOME="$HOME/.cache"
 fi
-#############################################
 
