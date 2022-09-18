@@ -162,9 +162,16 @@ pip install jupytext
 #### Neovim integration
 
 ```sh
+mkdir -p ~/.local/venv && cd ~/.local/venv
+python3 -m venv nvim
+cd nvim
+. ./bin/activate
 pip install --upgrade pynvim
-pip install ueberzug Pillow cairosvg pnglatex plotly kaleido
+pip install black
+pip install ueberzug Pillow cairosvg pnglatex plotly kaleido jupyter-client
 ```
+
+Last two lines are for Black (duh) and Magma, respectively.
 
 ### Node.js 16 and Yarn
 
@@ -191,25 +198,18 @@ cargo install cargo-update
 
 ### Neovim
 
-```sh
-mkdir -p ~/Applications && cd ~/Applications
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod u+x nvim.appimage
-./nvim.appimage +PackerSync
-```
-
-For the nightly version use https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-
-Settings in [init.lua](https://github.com/matheus-ft/nvim) and simple alias in [aliases.sh](https://github.com/matheus-ft/dotfiles/blob/master/.config/shell/aliases.sh).
-
-Also possible to get bleeding edge versions with APT:
+This way you get the latest release - which is way newer than the one from APT
 
 ```sh
-sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo add-apt-repository ppa:neovim-ppa/stable
 sudo nala update
 sudo nala install neovim
 nvim +PackerSync
 ```
+
+Settings in [init.lua](https://github.com/matheus-ft/nvim)
+
+Also possible to get bleeding edge versions with `ppa:neovim-ppa/unstable` or nightly appimage builds
 
 #### Rip grep
 
@@ -230,7 +230,7 @@ sudo nala install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
 cd Downloads
 git clone "https://github.com/neovide/neovide"
 cd neovide && cargo build --release
-sudo cp ./target/release/neovide $HOME/.local/bin/
+cp ./target/release/neovide $HOME/.local/bin/
 ```
 
 #### Default editor
@@ -339,11 +339,28 @@ sudo nala install arandr
 Copied the script from [`rofi-power-menu`](https://github.com/jluttine/rofi-power-menu) to `~/.local/bin`, did `chmod +x rofi-power-menu`
 and added a keybind to my qtile config.
 
+### Screen locker/saver
+
+```sh
+sudo nala install i3lock scrot
+```
+
+And add `~/.local/bin/i3lock-custom` with
+
+```bash
+#!/bin/bash
+scrot /tmp/screenshot.png
+convert /tmp/screenshot.png -blur 0x5 /tmp/screenshotblur.png
+i3lock -i /tmp/screenshotblur.png
+```
+
+and then `chmod u+x` it
+
 ### Keyboard layout switcher
 
 Create `~/.local/bin/toggle_keyboard_layout` (which is in PATH) with
 
-```sh
+```bash
 #!/usr/bin/bash
 
 case $(setxkbmap -query | grep layout | awk '{ print $2 }') in
