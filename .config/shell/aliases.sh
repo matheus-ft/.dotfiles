@@ -1,7 +1,7 @@
 # Programming
 alias python=python3
-alias py3=python3
 alias gpp=g++
+alias activate='source ./.env/bin/activate' # make sure your python venv is call .env
 
 
 # Text editor
