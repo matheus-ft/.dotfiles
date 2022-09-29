@@ -12,7 +12,6 @@ from qtile_extras.widget.decorations import RectDecoration
 from scripts import colorscheme
 from scripts.utils import show_keys
 
-keys = []
 modkey = super = "mod4"
 alt = "mod1"
 terminal = "kitty"
@@ -25,158 +24,155 @@ workspace_switcher = "rofi -show window"
 gui_file_manager = "nautilus"  # because I already had it
 screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good, tho
 
-keys.extend(
-    [
-        ### Window controls
-        Key([modkey], "period", lazy.next_screen(), desc="Move focus to next monitor"),
-        Key(
-            [modkey], "comma", lazy.prev_screen(), desc="Move focus to previous monitor"
-        ),
-        Key(
-            [modkey], "semicolon", lazy.layout.next(), desc="Move focus to next window"
-        ),
-        Key([modkey], "h", lazy.layout.left(), desc="Move focus to left"),
-        Key([modkey], "l", lazy.layout.right(), desc="Move focus to right"),
-        Key([modkey], "j", lazy.layout.down(), desc="Move focus down"),
-        Key([modkey], "k", lazy.layout.up(), desc="Move focus up"),
-        Key(
-            [modkey, "shift"],
-            "h",
-            lazy.layout.swap_left(),  # monadtall
-            lazy.layout.shuffle_left(),  # columns
-            desc="Move window to the left",
-        ),
-        Key(
-            [modkey, "shift"],
-            "l",
-            lazy.layout.swap_right(),  # monadtall
-            lazy.layout.shuffle_right(),  # columns
-            desc="Move window to the right",
-        ),
-        Key(
-            [modkey, "shift"],
-            "j",
-            lazy.layout.shuffle_down(),
-            desc="Move window down",
-        ),
-        Key(
-            [modkey, "shift"],
-            "k",
-            lazy.layout.shuffle_up(),
-            desc="Move window up",
-        ),
-        Key(
-            [modkey, "control"],
-            "h",
-            lazy.layout.shrink_main(),  # monadtall
-            lazy.layout.grow_left(),  # columns
-            desc="Grow pane to the left",
-        ),
-        Key(
-            [modkey, "control"],
-            "l",
-            lazy.layout.grow_main(),  # monadtall
-            lazy.layout.grow_right(),  # columns
-            desc="Grow pane to the right",
-        ),
-        Key(
-            [modkey, "control"],
-            "j",
-            lazy.layout.grow_down(),
-            desc="Grow pane downwards",
-        ),
-        Key([modkey, "control"], "k", lazy.layout.grow_up(), desc="Grow pane upwards"),
-        Key([modkey], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-        Key(
-            [modkey],
-            "m",
-            lazy.layout.maximize(),
-            desc="Toggle window between minimum and maximum sizes",
-        ),
-        Key(
-            [modkey, "shift"],
-            "space",
-            lazy.layout.flip(),  # monadtall
-            lazy.layout.swap_column_left(),  # using only two columns, this works for both panes
-            desc="Switch which side current pane occupies",
-        ),
-        Key(
-            [modkey],
-            "s",
-            lazy.layout.toggle_split(),
-            desc="Toggle stack/tab mode (Columns)",
-        ),
-        Key(
-            [modkey, "shift"],
-            "m",
-            lazy.window.toggle_fullscreen(),
-            desc="Toggle fullscreen",
-        ),
-        Key(
-            [modkey],
-            "t",
-            lazy.window.toggle_floating(),
-            desc="Toggle tiling & floating",
-        ),
-        Key([modkey, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
-        ### Desktop controls
-        Key(
-            [modkey],
-            "space",
-            lazy.spawn("toggle_keyboard_layout"),
-            desc="Next keyboard layout.",
-        ),
-        Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
-        Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
-        Key([], "XF86AudioMute", lazy.spawn("amixer -q sset Master toggle")),
-        Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q sset Master 5%+")),
-        Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q sset Master 5%-")),
-        ### App launchers
-        Key([modkey], "b", lazy.spawn(browser), desc="Launch browser"),
-        Key([modkey], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-        Key(
-            [modkey, "shift"],
-            "Return",
-            lazy.spawn(run_prompt),
-            desc="Launch run prompt",
-        ),
-        Key([modkey], "r", lazy.spawn(app_launcher), desc="Open app launcher"),
-        Key(
-            [modkey],
-            "f",
-            lazy.spawn(gui_file_manager),
-            desc="Open graphical file manager",
-        ),
-        Key([alt], "Tab", lazy.spawn(window_switcher), desc="Launch window switcher"),
-        Key(
-            [super],
-            "Tab",
-            lazy.spawn(workspace_switcher),
-            desc="Launch workspace switcher",
-        ),
-        ### Qtile controls
-        Key([modkey], "w", lazy.next_layout(), desc="Toggle between layouts"),
-        Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-        Key([modkey, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
-        Key([modkey, "shift"], "q", lazy.spawn(power_menu), desc="Show power menu"),
-        Key([modkey], "q", lazy.spawn(screen_locker), desc="Lock screen"),
-        Key(
-            [modkey],
-            "F1",
-            lazy.spawn(
-                "sh -c 'echo \""
-                + show_keys(keys)
-                + '" | rofi -dmenu -i -mesg "Keyboard shortcuts"\''
-            ),
-            desc="Show keybindings",
-        ),
-    ]
-)
+keys = [
+    ### Window controls
+    Key([modkey], "period", lazy.next_screen(), desc="Move focus to next monitor"),
+    Key([modkey], "comma", lazy.prev_screen(), desc="Move focus to previous monitor"),
+    Key([modkey], "semicolon", lazy.layout.next(), desc="Move focus to next window"),
+    Key([modkey], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([modkey], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([modkey], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([modkey], "k", lazy.layout.up(), desc="Move focus up"),
+    Key(
+        [modkey, "shift"],
+        "h",
+        lazy.layout.swap_left(),  # monadtall
+        lazy.layout.shuffle_left(),  # columns
+        desc="Move window to the left",
+    ),
+    Key(
+        [modkey, "shift"],
+        "l",
+        lazy.layout.swap_right(),  # monadtall
+        lazy.layout.shuffle_right(),  # columns
+        desc="Move window to the right",
+    ),
+    Key(
+        [modkey, "shift"],
+        "j",
+        lazy.layout.shuffle_down(),
+        desc="Move window down",
+    ),
+    Key(
+        [modkey, "shift"],
+        "k",
+        lazy.layout.shuffle_up(),
+        desc="Move window up",
+    ),
+    Key(
+        [modkey, "control"],
+        "h",
+        lazy.layout.shrink_main(),  # monadtall
+        lazy.layout.grow_left(),  # columns
+        desc="Grow pane to the left",
+    ),
+    Key(
+        [modkey, "control"],
+        "l",
+        lazy.layout.grow_main(),  # monadtall
+        lazy.layout.grow_right(),  # columns
+        desc="Grow pane to the right",
+    ),
+    Key(
+        [modkey, "control"],
+        "j",
+        lazy.layout.grow_down(),
+        desc="Grow pane downwards",
+    ),
+    Key([modkey, "control"], "k", lazy.layout.grow_up(), desc="Grow pane upwards"),
+    Key([modkey], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key(
+        [modkey],
+        "m",
+        lazy.layout.maximize(),
+        desc="Toggle window between minimum and maximum sizes",
+    ),
+    Key(
+        [modkey, "shift"],
+        "space",
+        lazy.layout.flip(),  # monadtall
+        lazy.layout.swap_column_left(),  # using only two columns, this works for both panes
+        desc="Switch which side current pane occupies",
+    ),
+    Key(
+        [modkey],
+        "s",
+        lazy.layout.toggle_split(),
+        desc="Toggle stack/tab mode (Columns)",
+    ),
+    Key(
+        [modkey, "shift"],
+        "m",
+        lazy.window.toggle_fullscreen(),
+        desc="Toggle fullscreen",
+    ),
+    Key(
+        [modkey],
+        "t",
+        lazy.window.toggle_floating(),
+        desc="Toggle tiling & floating",
+    ),
+    Key([modkey, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
+    ### Desktop controls
+    Key(
+        [modkey],
+        "space",
+        lazy.spawn("toggle_keyboard_layout"),
+        desc="Next keyboard layout.",
+    ),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
+    Key([], "XF86AudioMute", lazy.spawn("amixer -q sset Master toggle")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q sset Master 5%+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q sset Master 5%-")),
+    ### App launchers
+    Key([modkey], "b", lazy.spawn(browser), desc="Launch browser"),
+    Key([modkey], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key(
+        [modkey, "shift"],
+        "Return",
+        lazy.spawn(run_prompt),
+        desc="Launch run prompt",
+    ),
+    Key([modkey], "r", lazy.spawn(app_launcher), desc="Open app launcher"),
+    Key(
+        [modkey],
+        "f",
+        lazy.spawn(gui_file_manager),
+        desc="Open graphical file manager",
+    ),
+    Key([alt], "Tab", lazy.spawn(window_switcher), desc="Launch window switcher"),
+    Key(
+        [super],
+        "Tab",
+        lazy.spawn(workspace_switcher),
+        desc="Launch workspace switcher",
+    ),
+    ### Qtile controls
+    Key([modkey], "w", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([modkey, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
+    Key([modkey, "shift"], "q", lazy.spawn(power_menu), desc="Show power menu"),
+    Key([modkey], "q", lazy.spawn(screen_locker), desc="Lock screen"),
+]
 
 # Allow MODKEY+[1 through 8] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
 # MODKEY + index Number : Switch to Group[index]
 # MODKEY + shift + index Number : Send active window to Group[index]
 dgroups_key_binder = simple_key_binder(modkey)
+
+keys.append(
+    Key(
+        [modkey],
+        "F1",
+        lazy.spawn(
+            "sh -c 'echo \""
+            + show_keys(keys)
+            + '" | rofi -dmenu -i -mesg "Keyboard shortcuts"\''
+        ),
+        desc="Show keybindings",
+    )
+)
 
 mouse = [
     Drag(
@@ -206,17 +202,17 @@ layout_theme = {
 }
 
 layouts = [
-    layout.MonadTall(**layout_theme),
     layout.Columns(**layout_theme, insert_position=1),
+    layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
     layout.Floating(**layout_theme),
 ]
 
 groups = [
-    Group("", layout="monadtall"),
-    Group("", layout="monadtall"),
-    Group("拾", layout="monadtall"),
-    Group("", layout="monadtall"),
+    Group("", layout="columns"),
+    Group("", layout="columns"),
+    Group("拾", layout="columns"),
+    Group("", layout="columns"),
     Group("", layout="max"),
     Group("辶", layout="max", matches=[Match(wm_class="zoom")]),
     Group("", layout="floating"),
