@@ -8,6 +8,10 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -d "$HOME/.local/share/neovim/bin" ] ;
+  then PATH="$HOME/.local/share/neovim/bin:$PATH"
+fi
+
 if [ -d "$HOME/Applications" ] ;
   then PATH="$HOME/Applications:$PATH"
 fi

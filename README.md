@@ -167,11 +167,10 @@ python3 -m venv nvim
 cd nvim
 . ./bin/activate
 pip install --upgrade pynvim
-pip install black
 pip install ueberzug Pillow cairosvg pnglatex plotly kaleido jupyter-client
 ```
 
-Last two lines are for Black (duh) and Magma, respectively.
+Last line is for Magma.
 
 ### Node.js 16 and Yarn
 
@@ -189,7 +188,7 @@ curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /us
 
 ### Rust
 
-Because it's cool... and because Neovide requires it.
+Because it's cool... and because of Neovim (Bob and Neovide).
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" | sh
@@ -198,7 +197,7 @@ cargo install cargo-update
 
 ### Neovim
 
-This way you get the latest release - which is way newer than the one from APT
+This way you get the last release - which is way newer than the one from APT
 
 ```sh
 sudo add-apt-repository ppa:neovim-ppa/stable
@@ -210,6 +209,20 @@ nvim +PackerSync
 Settings in [init.lua](https://github.com/matheus-ft/nvim)
 
 Also possible to get bleeding edge versions with `ppa:neovim-ppa/unstable` or nightly appimage builds
+
+#### Bob
+
+Installing and managing versions:
+
+```sh
+cargo install -git https://github.com/MordechaiHadad/bob.git
+```
+
+Make sure to uninstall manually installed versions beforehand.
+
+```sh
+bob install <version>
+```
 
 #### Rip grep
 
