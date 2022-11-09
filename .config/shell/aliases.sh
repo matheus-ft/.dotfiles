@@ -1,12 +1,11 @@
 # Programming
-alias python=python3
 alias gpp=g++
+alias python=python3
 alias activate='source ./.env/bin/activate' # make sure your python venv is call .env
 
 
 # Text editor
-# alias nvim=nvim.appimage
-alias vim=nvim # to open neovim in the terminal
+alias vim=nvim
 # vi is the alias for the pre-installed 'tiny-vim'
 alias v=vim
 
