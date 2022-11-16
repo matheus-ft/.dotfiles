@@ -1,4 +1,8 @@
-.dotfiles  # to avoid possible recursion problems
+# to avoid possible recursion problems
+.dotfiles
+
+# no need to backup last wallpaper used
+bg-saved.cfg
 
 # for python configs
 .env
