@@ -29,7 +29,7 @@ Language specific ones detailed under [programming](https://github.com/matheus-f
 
 ### Nala
 
-Better package manager interface for APT.
+Better package manager interface for APT
 
 ```sh
 echo "deb https://deb.volian.org/volian/ scar main" | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
@@ -39,7 +39,7 @@ sudo apt update && sudo apt install nala
 
 ### Pacstall
 
-Debian based distros' AUR.
+Debian based distros' AUR
 
 ```sh
 sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh -O -)"
@@ -180,7 +180,7 @@ pip install ueberzug Pillow cairosvg pnglatex plotly kaleido jupyter-client
 
 Last line is for Magma.
 
-### Node.js 16 and Yarn
+### Node 16 and Yarn
 
 For Typescript programming and to use pyright language server in Neovim (also, Yarn is a dependency for the markdown
 preview plugin in neovim).
@@ -242,15 +242,15 @@ sudo nala install ripgrep
 
 #### Neovide
 
-GUI client. Building from source
+GUI client. Building from source (first line of dependencies might be redundant, but it's here anyway)
 
 ```sh
 sudo nala install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
     libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
     libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev
-cd Downloads
-git clone "https://github.com/neovide/neovide"
-cd neovide && cargo build --release
+cd ~/Downloads
+git clone "https://github.com/neovide/neovide" && cd neovide
+cargo build --release
 cp ./target/release/neovide $HOME/.local/bin/
 ```
 
@@ -337,7 +337,7 @@ To set wallpapers
 sudo nala install nitrogen
 ```
 
-Also, cloned [DT's wallpapers](https://gitlab.com/dwt1/wallpapers) repo into ~/Pictures
+Also, cloned [DT's](https://gitlab.com/dwt1/wallpapers) and [catppuccin](https://github.com/catppuccin/wallpapers) wallpapers into ~/Pictures/wallpapers/
 
 ### Lxpolkit
 
