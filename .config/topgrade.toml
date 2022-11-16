@@ -2,7 +2,7 @@
 #assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["git_repos"]
+# disable = ["git_repos"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
@@ -40,10 +40,12 @@ disable = ["git_repos"]
 [git]
 #max_concurrency = 5
 # Additional git repositories to pull
-#repos = [
-#    "~/src/*/",
-#    "~/.config/something"
-#]
+repos = [
+   "~/Downloads/neovide",
+   "~/Downloads/picom",
+   "~/Pictures/wallpapers/dt",
+   "~/Pictures/wallpapers/catppuccin",
+]
 
 # Don't pull the predefined git repos
 #pull_predefined = false
