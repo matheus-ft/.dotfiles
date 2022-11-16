@@ -53,6 +53,14 @@ A freaking cool way to upgrade the shit out of your system - make sure to have [
 cargo install topgrade
 ```
 
+### Build tools
+
+Some of the general build tools I had to get
+
+```sh
+sudo nala install meson ninja-build
+```
+
 ---
 
 ## Terminal
@@ -273,7 +281,7 @@ pip3 install qtile
 
 To login, create a `/usr/share/xsessions/qtile.desktop`:
 
-```
+```desktop
 [Desktop Entry]
 Name=Qtile
 Comment=Qtile Session
@@ -282,10 +290,10 @@ Type=Application
 Keywords=wm;tiling
 ```
 
-[config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/config.py) was heavily inspired by [DistroTube](https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile) and
-[David](https://github.com/david35mm/.files/tree/main/.config/qtile)
+[config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/config.py) was heavily inspired by [DistroTube](https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile)
+and [David](https://github.com/david35mm/.files/tree/main/.config/qtile)
 
-[autostart.sh](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/scripts/autostart.sh) has autostart instructions (duh) - and don't forget to `chmod +x autostart.sh`
+[autostart.sh](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/scripts/autostart.sh) has autostart instructions (duh) - and don't forget to `chmod +x autostart.sh`!!
 
 ## Additional software needed
 
@@ -310,8 +318,16 @@ sudo nala install brightnessctl
 Compositor
 
 ```sh
-sudo nala install picom
+cd ~/Downloads
+git clone https://github.com/yshui/picom && cd picom
+sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl-dev libegl-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev
+git submodule update --init --recursive
+meson --buildtype=release . build
+ninja -C build
+cp build/src/picom ~/.local/bin/
 ```
+
+This requires having meson and ninja available (as well as GCC obviously)
 
 ### Nitrogen
 
