@@ -1,8 +1,10 @@
 #!/usr/bin/bash
 
 lxpolkit &
-picom -b &
-nm-applet &
+picom -b & # nice windows
 source $HOME/.screenlayout/dual_monitors.sh &
-nitrogen --restore &
+nm-applet & # wifi
+blueman-applet & # bluetooth
+dunst & # notifications
+nitrogen --restore & # wallpaper
 

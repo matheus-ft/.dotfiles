@@ -319,8 +319,8 @@ Compositor
 
 ```sh
 cd ~/Downloads
-git clone https://github.com/yshui/picom && cd picom
 sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl-dev libegl-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev
+git clone https://github.com/yshui/picom && cd picom
 git submodule update --init --recursive
 meson --buildtype=release . build
 ninja -C build
@@ -328,6 +328,19 @@ cp build/src/picom ~/.local/bin/
 ```
 
 This requires having meson and ninja available (as well as GCC obviously)
+
+### Dunst
+
+Notifications
+
+```sh
+cd ~/Downloads
+sudo nala install libdbus-1-dev libx11-dev libxinerama-dev libxrandr-dev libxss-dev libglib2.0-dev libpango1.0-dev libgtk-3-dev libxdg-basedir-dev libnotify-dev
+git clone https://github.com/dunst-project/dunst.git
+cd dunst
+make
+sudo make install
+```
 
 ### Nitrogen
 
@@ -396,6 +409,14 @@ case $(setxkbmap -query | grep layout | awk '{ print $2 }') in
             us) setxkbmap br ;;
             br) setxkbmap us ;;
 esac
+```
+
+### Bluetooth
+
+Bluez was already installed, but let's get a GUI
+
+```sh
+sudo nala install blueman
 ```
 
 ### Widgets dependencies
