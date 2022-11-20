@@ -34,6 +34,8 @@ window_switcher = "rofi -show windowcd"
 workspace_switcher = "rofi -show window"
 gui_file_manager = "nautilus"  # because I already had it
 screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good, tho
+clipboard_manager = "copyq"
+clipboard_history = "copyq menu"
 
 HOME = os.path.expanduser("~")
 scripts = f"{HOME}/.config/qtile/scripts"
@@ -173,6 +175,7 @@ keys = [
         lazy.spawn(workspace_switcher),
         desc="Launch workspace switcher",
     ),
+    Key([modkey], "v", lazy.spawn(clipboard_history), desc="Shows clipboard history"),
     ### Qtile controls
     Key([modkey], "w", lazy.next_layout(), desc="Toggle between layouts"),
     Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
@@ -500,6 +503,7 @@ floating_layout = layout.Floating(
         Match(wm_class="kdenlive"),  # kdenlive
         Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
         Match(wm_class="zoom"),  # bc it is a pain - shows notifications as windows
+        Match(wm_class="copyq"),
     ]
 )
 

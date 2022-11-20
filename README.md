@@ -140,6 +140,23 @@ sudo nala install exa
 sudo nala install htop
 ```
 
+
+### Clipboard
+
+Clipbaord utility
+
+```sh
+sudo nala install xclip
+```
+
+Clipbaord manager
+
+```sh
+sudo add-apt-repository ppa:hluk/copyq
+sudo apt update
+sudo nala install copyq
+```
+
 ---
 
 ## Programming
@@ -249,7 +266,8 @@ sudo nala install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
     libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
     libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev
 cd ~/Downloads
-git clone "https://github.com/neovide/neovide" && cd neovide
+git clone "https://github.com/neovide/neovide"
+cd neovide
 cargo build --release
 cp ./target/release/neovide $HOME/.local/bin/
 ```
@@ -320,7 +338,8 @@ Compositor
 ```sh
 cd ~/Downloads
 sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl-dev libegl-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev
-git clone https://github.com/yshui/picom && cd picom
+git clone https://github.com/yshui/picom
+cd picom
 git submodule update --init --recursive
 meson --buildtype=release . build
 ninja -C build
