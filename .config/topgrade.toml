@@ -60,11 +60,11 @@ pull_predefined = false
 
 # Custom commands
 [commands]
-"Bob" = "bob use stable"
-"Pip Packages" = "pip install --upgrade jupyterlab jupyterlab-vim jupytext pynvim ueberzug Pillow cairosvg plotly kaleido jupyter-client xcffib cairocffi qtile iwlib psutil"
-"Neovide" = "cd $HOME/Downloads/neovide && cargo build --release && cp ./target/release/neovide $HOME/.local/bin/"
-"Picom" = "cd $HOME/Downloads/picom && git submodule update --init --recursive && meson --buildtype=release . build && ninja -C build && mv $HOME/.local/bin/picom $HOME/.local/bin/picom-old && cp build/src/picom $HOME/.local/bin/"
-"Dunst" = "cd $HOME/Downloads/dunst && make && sudo make install"
+"Neovim" = "bob use stable"
+"Python Packages" = "pip install --upgrade jupyterlab jupyterlab-vim jupytext pynvim ueberzug Pillow cairosvg plotly kaleido jupyter-client xcffib cairocffi qtile iwlib psutil"
+"Neovide" = "cd $HOME/Downloads/neovide && git pull && cargo build --release && cp ./target/release/neovide $HOME/.local/bin/"
+"Picom" = "cd $HOME/Downloads/picom && git pull && git submodule update --init --recursive && meson --buildtype=release . build && ninja -C build && mv $HOME/.local/bin/picom $HOME/.local/bin/picom-old && cp build/src/picom $HOME/.local/bin/"
+"Dunst" = "cd $HOME/Downloads/dunst && git pull && make && sudo make install"
 
 [brew]
 #greedy_cask = true
