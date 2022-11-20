@@ -41,8 +41,13 @@ cleanup = true
 #max_concurrency = 5
 # Additional git repositories to pull
 repos = [
-   "~/Pictures/wallpapers/dt",
-   "~/Pictures/wallpapers/catppuccin",
+    # if something interesting changes, I'll rebuild the programs
+    "~/Downloads/neovide",
+    "~/Downloads/picom",
+    "~/Downloads/dunst",
+
+    "~/Pictures/wallpapers/dt",
+    "~/Pictures/wallpapers/catppuccin",
 ]
 
 # Don't pull the predefined git repos
@@ -60,11 +65,9 @@ pull_predefined = false
 
 # Custom commands
 [commands]
-"Neovim" = "bob use stable"
-"Python Packages" = "pip install --upgrade jupyterlab jupyterlab-vim jupytext pynvim ueberzug Pillow cairosvg plotly kaleido jupyter-client xcffib cairocffi qtile iwlib psutil"
-"Neovide" = "cd $HOME/Downloads/neovide && git pull && cargo build --release && cp ./target/release/neovide $HOME/.local/bin/"
-"Picom" = "cd $HOME/Downloads/picom && git pull && git submodule update --init --recursive && meson --buildtype=release . build && ninja -C build && mv $HOME/.local/bin/picom $HOME/.local/bin/picom-old && cp build/src/picom $HOME/.local/bin/"
-"Dunst" = "cd $HOME/Downloads/dunst && git pull && make && sudo make install"
+"Neovim Version" = "bob use stable"
+# not sure if this is the best way to update python dependencies
+# "Python Packages" = "pip install --upgrade jupyterlab jupyterlab-vim jupytext pynvim ueberzug Pillow cairosvg plotly kaleido jupyter-client xcffib cairocffi qtile iwlib psutil"
 
 [brew]
 #greedy_cask = true
