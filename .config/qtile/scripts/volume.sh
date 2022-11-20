@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 # credits: https://gist.github.com/Blaradox/030f06d165a82583ae817ee954438f2e
+# modified by me
 
 function get_volume {
   amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1

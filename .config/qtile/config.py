@@ -3,16 +3,27 @@ import socket
 import subprocess
 from typing import List
 from libqtile import qtile
-from libqtile.config import Click, Drag, Group, KeyChord, Key, Match, Screen
+from libqtile.config import (
+    Click,
+    Drag,
+    DropDown,
+    Group,
+    KeyChord,
+    Key,
+    Match,
+    ScratchPad,
+    Screen,
+)
 from libqtile import layout, bar, hook
 from libqtile.lazy import lazy
-from libqtile.dgroups import simple_key_binder
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
 from scripts import colorscheme
-from scripts.utils import show_keys
+from scripts.utils import show_keys, get_num_monitors
 
-modkey = super = "mod4"
+# qtile_cmd = lambda x: CommandClient().call(x)
+
+modkey = super = "mod4"  # check `xmodmap`
 alt = "mod1"
 terminal = "kitty"
 browser = "firefox"
@@ -23,6 +34,15 @@ window_switcher = "rofi -show windowcd"
 workspace_switcher = "rofi -show window"
 gui_file_manager = "nautilus"  # because I already had it
 screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good, tho
+
+HOME = os.path.expanduser("~")
+scripts = f"{HOME}/.config/qtile/scripts"
+brightness_up = f"bash {scripts}/brightness.sh up"
+brightness_down = f"bash {scripts}/brightness.sh down"
+volume_up = f"bash {scripts}/volume.sh up"
+volume_down = f"bash {scripts}/volume.sh down"
+volume_mute = f"bash {scripts}/volume.sh mute"
+
 
 keys = [
     ### Window controls
@@ -120,11 +140,16 @@ keys = [
         lazy.spawn("toggle_keyboard_layout"),
         desc="Next keyboard layout.",
     ),
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s +5%")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
-    Key([], "XF86AudioMute", lazy.spawn("amixer -q sset Master toggle")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q sset Master 5%+")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q sset Master 5%-")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn(brightness_down)),
+    Key([], "XF86MonBrightnessUp", lazy.spawn(brightness_up)),
+    Key([], "XF86AudioMute", lazy.spawn(volume_mute)),
+    Key([], "XF86AudioLowerVolume", lazy.spawn(volume_down)),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn(volume_up)),
+    Key([alt], "F11", lazy.spawn(brightness_down)),
+    Key([alt], "F12", lazy.spawn(brightness_up)),
+    Key([alt], "F1", lazy.spawn(volume_mute)),
+    Key([alt], "F2", lazy.spawn(volume_down)),
+    Key([alt], "F3", lazy.spawn(volume_up)),
     ### App launchers
     Key([modkey], "b", lazy.spawn(browser), desc="Launch browser"),
     Key([modkey], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -155,24 +180,6 @@ keys = [
     Key([modkey, "shift"], "q", lazy.spawn(power_menu), desc="Show power menu"),
     Key([modkey], "q", lazy.spawn(screen_locker), desc="Lock screen"),
 ]
-
-# Allow MODKEY+[1 through 8] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
-# MODKEY + index Number : Switch to Group[index]
-# MODKEY + shift + index Number : Send active window to Group[index]
-dgroups_key_binder = simple_key_binder(modkey)
-
-keys.append(
-    Key(
-        [modkey],
-        "F1",
-        lazy.spawn(
-            "sh -c 'echo \""
-            + show_keys(keys)
-            + '" | rofi -dmenu -i -mesg "Keyboard shortcuts"\''
-        ),
-        desc="Show keybindings",
-    )
-)
 
 mouse = [
     Drag(
@@ -209,17 +216,89 @@ layouts = [
 ]
 
 groups = [
-    Group("", layout="columns"),
-    Group("", layout="columns"),
-    Group("拾", layout="columns"),
-    Group("", layout="columns"),
-    Group("", layout="max"),
-    Group("辶", layout="max", matches=[Match(wm_class="zoom")]),
-    Group("", layout="floating"),
-    Group("", layout="monadtall"),
+    Group(name="1", label="", layout="columns"),
+    Group(name="2", label="", layout="columns"),
+    Group(name="3", label="拾", layout="columns"),
+    Group(name="4", label="", layout="columns"),
+    Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
+    Group(name="6", label="辶", layout="max", matches=[Match(wm_class="zoom")]),
+    Group(name="7", label="", layout="floating"),
+    Group(name="8", label="", layout="columns"),
 ]
 
-prompt = f"{os.environ['USER']}@{socket.gethostname()}: "
+for workspace in groups:
+    keys.extend(
+        [
+            Key(
+                [modkey],
+                workspace.name,
+                lazy.group[workspace.name].toscreen(),
+                desc=f"Move to workspace {workspace.name}",
+            ),
+            Key(
+                [modkey, "shift"],
+                workspace.name,
+                lazy.window.togroup(workspace.name),
+                desc=f"Move focused window to workspace {workspace.name}",
+            ),
+        ]
+    )
+
+groups.append(
+    ScratchPad(
+        "scratchpad",
+        [
+            DropDown("terminal 0", terminal),
+            DropDown("terminal 1", terminal),
+            DropDown("terminal 2", terminal),
+            DropDown("terminal 3", terminal),
+        ],
+    ),
+)
+
+keys.extend(
+    [
+        Key(
+            [super],
+            "F10",
+            lazy.group["scratchpad"].dropdown_toggle("terminal 0"),
+            desc="Dropdown terminal",
+        ),
+        Key(
+            [super],
+            "F11",
+            lazy.group["scratchpad"].dropdown_toggle("terminal 1"),
+            desc="Dropdown terminal",
+        ),
+        Key(
+            [super],
+            "F12",
+            lazy.group["scratchpad"].dropdown_toggle("terminal 2"),
+            desc="Dropdown terminal",
+        ),
+        Key(
+            [super, alt],
+            "Return",
+            lazy.group["scratchpad"].dropdown_toggle("terminal 3"),
+            desc="Dropdown terminal",
+        ),
+    ]
+)
+
+keys.append(
+    Key(
+        [modkey],
+        "F1",
+        lazy.spawn(
+            "sh -c 'echo \""
+            + show_keys(keys)
+            + '" | rofi -dmenu -i -mesg "Keyboard shortcuts"\''
+        ),
+        desc="Show keybindings",
+    )
+)
+
+prompt = f"{os.environ['USER']}@{socket.gethostname()}: "  # actually useless
 
 widget_defaults = dict(
     font="JetBrainsMono Nerd Font",
@@ -273,6 +352,36 @@ def widgets():
                 RectDecoration(colour=colors["light_grey"], radius=10, filled=True)
             ],
         ),
+        widget.TaskList(
+            margin=0,
+            icon_size=16,
+            padding=1,
+            borderwidth=0,
+            decorations=[
+                RectDecoration(colour=colors["dark_grey"], radius=10, filled=True)
+            ],
+        ),
+        widget.Spacer(lenght=bar.STRETCH),
+        widget.Clock(
+            format="%a, %b %d - %H:%M ",
+            padding=3,
+            mouse_callbacks={
+                "Button1": lambda: qtile.cmd_spawn(
+                    browser + " https://calendar.google.com/calendar/u/0/r"
+                ),
+            },
+            foreground=colors["white"],
+            decorations=[
+                RectDecoration(colour=colors["dark_grey"], radius=10, filled=True)
+            ],
+        ),
+        widget.Spacer(lenght=bar.STRETCH),
+        widget.WidgetBox(
+            close_button_location="right",
+            text_closed="  ",
+            text_open="  ",
+            widgets=[widget.Systray(icon_size=12)],
+        ),
         widget.CPU(
             mouse_callbacks={
                 "Button1": lambda: qtile.cmd_spawn(terminal + " -e htop"),
@@ -305,27 +414,6 @@ def widgets():
                     colour=sys_monitor_color, radius=[0, 10, 10, 0], filled=True
                 )
             ],
-        ),
-        widget.Spacer(lenght=bar.STRETCH),
-        widget.Clock(
-            format="%a, %b %d - %H:%M ",
-            padding=3,
-            mouse_callbacks={
-                "Button1": lambda: qtile.cmd_spawn(
-                    browser + " https://calendar.google.com/calendar/u/0/r"
-                ),
-            },
-            foreground=colors["white"],
-            decorations=[
-                RectDecoration(colour=colors["dark_grey"], radius=10, filled=True)
-            ],
-        ),
-        widget.Spacer(lenght=bar.STRETCH),
-        widget.WidgetBox(
-            close_button_location="right",
-            text_closed="  ",
-            text_open="  ",
-            widgets=[widget.Systray(icon_size=12)],
         ),
         widget.KeyboardLayout(
             fmt=" {}",
@@ -369,15 +457,7 @@ def widgets():
                 RectDecoration(colour=sys_configs_color, radius=0, filled=True)
             ],
         ),
-        widget.Wlan(
-            format=" {essid} {percent:2.0%}",
-            interface="wlo1",
-            decorations=[
-                RectDecoration(
-                    colour=sys_configs_color, radius=[0, 10, 10, 0], filled=True
-                )
-            ],
-        ),
+        # widget.StatusNotifier(),
     ]
 
 
@@ -387,11 +467,15 @@ def main_panel():
 
 def panel():
     no_systray = widgets()
-    del no_systray[9]
-    return Screen(top=bar.Bar(no_systray, size=20, background=colors["white"] + "00"))
+    del no_systray[7]
+    return Screen(top=bar.Bar(no_systray, size=18, background=colors["white"] + "00"))
 
 
-screens = [main_panel(), panel()]
+screens = [main_panel()]
+n_monitors = get_num_monitors()
+if n_monitors == 2:
+    screens = [panel(), main_panel()]
+
 
 dgroups_app_rules: List = []  # this type hint is mandatory!
 follow_mouse_focus = True
@@ -415,14 +499,14 @@ floating_layout = layout.Floating(
         Match(title="Qalculate!"),  # qalculate-gtk
         Match(wm_class="kdenlive"),  # kdenlive
         Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
+        Match(wm_class="zoom"),  # bc it is a pain - shows notifications as windows
     ]
 )
 
 
 @hook.subscribe.startup_once
 def start_once():
-    home = os.path.expanduser("~")
-    subprocess.run([home + "/.config/qtile/scripts/autostart.sh"])
+    subprocess.run([f"{HOME}/.config/qtile/scripts/autostart.sh"])
 
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
