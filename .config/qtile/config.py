@@ -21,10 +21,16 @@ from qtile_extras.widget.decorations import RectDecoration
 from scripts import colorscheme
 from scripts.utils import show_keys, get_num_monitors
 
-# qtile_cmd = lambda x: CommandClient().call(x)
 
+# keys
 modkey = super = "mod4"  # check `xmodmap`
 alt = "mod1"
+left_click = "Button1"
+middle_click = "Button2"
+right_click = "Button3"
+
+
+# apps
 terminal = "kitty"
 browser = "firefox"
 app_launcher = "rofi -show drun"
@@ -33,8 +39,8 @@ power_menu = "rofi -show p -modi p:rofi-power-menu"
 window_switcher = "rofi -show windowcd"
 workspace_switcher = "rofi -show window"
 gui_file_manager = "nautilus"  # because I already had it
-screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good, tho
-clipboard_manager = "copyq"
+screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good enough
+keyboard_toggler = "toggle_keyboard_layout"
 clipboard_history = "copyq menu"
 
 HOME = os.path.expanduser("~")
@@ -139,8 +145,8 @@ keys = [
     Key(
         [modkey],
         "space",
-        lazy.spawn("toggle_keyboard_layout"),
-        desc="Next keyboard layout.",
+        lazy.spawn(keyboard_toggler),
+        desc="Next keyboard layout",
     ),
     Key([], "XF86MonBrightnessDown", lazy.spawn(brightness_down)),
     Key([], "XF86MonBrightnessUp", lazy.spawn(brightness_up)),
@@ -187,17 +193,17 @@ keys = [
 mouse = [
     Drag(
         [modkey],
-        "Button1",
+        left_click,
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
     Drag(
         [modkey],
-        "Button3",
+        right_click,
         lazy.window.set_size_floating(),
         start=lazy.window.get_size(),
     ),
-    Click([modkey], "Button2", lazy.window.bring_to_front()),
+    Click([modkey], middle_click, lazy.window.bring_to_front()),
 ]
 
 colors = colorscheme.onedark()
@@ -321,8 +327,8 @@ def widgets():
             foreground=colors["black"],
             fontsize=12,
             mouse_callbacks={
-                "Button1": lambda: qtile.cmd_spawn(app_launcher),
-                "Button3": lambda: qtile.cmd_spawn(terminal),
+                left_click: lambda: qtile.cmd_spawn(app_launcher),
+                right_click: lambda: qtile.cmd_spawn(terminal),
             },
             decorations=[
                 RectDecoration(colour=colors["light_grey"], radius=10, filled=True)
@@ -369,7 +375,7 @@ def widgets():
             format="%a, %b %d - %H:%M ",
             padding=3,
             mouse_callbacks={
-                "Button1": lambda: qtile.cmd_spawn(
+                left_click: lambda: qtile.cmd_spawn(
                     browser + " https://calendar.google.com/calendar/u/0/r"
                 ),
             },
@@ -387,7 +393,7 @@ def widgets():
         ),
         widget.CPU(
             mouse_callbacks={
-                "Button1": lambda: qtile.cmd_spawn(terminal + " -e htop"),
+                left_click: lambda: qtile.cmd_spawn(terminal + " -e htop"),
             },
             format=" {load_percent}%",
             foreground=colors["blue"],
@@ -402,13 +408,17 @@ def widgets():
             threshold=75,
             fmt="🌡 {}",
             tag_sensor="Core 0",
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
+            mouse_callbacks={
+                left_click: lambda: qtile.cmd_spawn(terminal + " -e htop")
+            },
             decorations=[
                 RectDecoration(colour=sys_monitor_color, radius=0, filled=True)
             ],
         ),
         widget.Memory(
-            mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")},
+            mouse_callbacks={
+                left_click: lambda: qtile.cmd_spawn(terminal + " -e htop")
+            },
             measure_mem="G",
             format="﬙ {MemUsed:.2f}{mm}/{MemTotal:.1f}{mm}",
             foreground=colors["green"],
