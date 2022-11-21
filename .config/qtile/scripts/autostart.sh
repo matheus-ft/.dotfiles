@@ -7,5 +7,6 @@ nm-applet & # wifi
 blueman-applet & # bluetooth
 dunst & # notifications
 copyq & # clipboard manager
+kdeconnect-indicator &
 nitrogen --restore & # wallpaper
 

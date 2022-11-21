@@ -140,7 +140,6 @@ sudo nala install exa
 sudo nala install htop
 ```
 
-
 ### Clipboard
 
 Clipbaord utility
@@ -155,6 +154,14 @@ Clipbaord manager
 sudo add-apt-repository ppa:hluk/copyq
 sudo apt update
 sudo nala install copyq
+```
+
+### Connection with Andorid device
+
+Yes, this is a KDE app, so be ready for a shit ton of dependencies
+
+```sh
+sudo nala install kdeconnect nautilus-kdeconnect
 ```
 
 ---

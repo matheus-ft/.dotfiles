@@ -514,6 +514,8 @@ floating_layout = layout.Floating(
         Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
         Match(wm_class="zoom"),  # bc it is a pain - shows notifications as windows
         Match(wm_class="copyq"),
+        Match(wm_class="kdeconnect-app"),
+        Match(wm_class="org.gnome.Nautilus"),
     ]
 )
 
