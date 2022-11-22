@@ -52,7 +52,7 @@ volume_down = f"bash {scripts}/volume.sh down"
 volume_mute = f"bash {scripts}/volume.sh mute"
 
 
-keys = [
+keys: list[Key | KeyChord] = [
     ### Window controls
     Key([modkey], "period", lazy.next_screen(), desc="Move focus to next monitor"),
     Key([modkey], "comma", lazy.prev_screen(), desc="Move focus to previous monitor"),
@@ -153,11 +153,6 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn(volume_mute)),
     Key([], "XF86AudioLowerVolume", lazy.spawn(volume_down)),
     Key([], "XF86AudioRaiseVolume", lazy.spawn(volume_up)),
-    Key([alt], "F11", lazy.spawn(brightness_down)),
-    Key([alt], "F12", lazy.spawn(brightness_up)),
-    Key([alt], "F1", lazy.spawn(volume_mute)),
-    Key([alt], "F2", lazy.spawn(volume_down)),
-    Key([alt], "F3", lazy.spawn(volume_up)),
     ### App launchers
     Key([modkey], "b", lazy.spawn(browser), desc="Launch browser"),
     Key([modkey], "Return", lazy.spawn(terminal), desc="Launch terminal"),
@@ -167,7 +162,7 @@ keys = [
         lazy.spawn(run_prompt),
         desc="Launch run prompt",
     ),
-    Key([modkey], "r", lazy.spawn(app_launcher), desc="Open app launcher"),
+    Key([modkey], "p", lazy.spawn(app_launcher), desc="Open app launcher"),
     Key(
         [modkey],
         "f",
@@ -181,7 +176,12 @@ keys = [
         lazy.spawn(workspace_switcher),
         desc="Launch workspace switcher",
     ),
-    Key([modkey], "v", lazy.spawn(clipboard_history), desc="Shows clipboard history"),
+    Key(
+        [modkey, "shift"],
+        "v",
+        lazy.spawn(clipboard_history),
+        desc="Shows clipboard history",
+    ),
     ### Qtile controls
     Key([modkey], "w", lazy.next_layout(), desc="Toggle between layouts"),
     Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
@@ -197,13 +197,13 @@ mouse = [
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
+    Click([modkey], middle_click, lazy.window.bring_to_front()),
     Drag(
         [modkey],
         right_click,
         lazy.window.set_size_floating(),
         start=lazy.window.get_size(),
     ),
-    Click([modkey], middle_click, lazy.window.bring_to_front()),
 ]
 
 colors = colorscheme.onedark()
@@ -230,7 +230,7 @@ groups = [
     Group(name="3", label="拾", layout="columns"),
     Group(name="4", label="", layout="columns"),
     Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
-    Group(name="6", label="辶", layout="max", matches=[Match(wm_class="zoom")]),
+    Group(name="6", label="辶", layout="floating", matches=[Match(wm_class="zoom")]),
     Group(name="7", label="", layout="floating"),
     Group(name="8", label="", layout="columns"),
 ]
@@ -253,14 +253,28 @@ for workspace in groups:
         ]
     )
 
+popup_config = dict(width=0.5, height=0.7, x=0.25, y=0.1, opacity=0.8)
+
+dropdown_config = dict(
+    width=0.67, height=0.4, x=0.16, y=0, opacity=0.8, on_focus_lost_hide=False
+)
+
+dropdown_right = dict(width=0.3, height=0.9, x=0.67, y=0, opacity=0.8)
+
+dropdown_center = dict(
+    width=0.5, height=0.5, x=0.25, y=0, opacity=0.8, on_focus_lost_hide=False
+)
+
 groups.append(
     ScratchPad(
         "scratchpad",
         [
-            DropDown("terminal 0", terminal),
-            DropDown("terminal 1", terminal),
-            DropDown("terminal 2", terminal),
-            DropDown("terminal 3", terminal),
+            DropDown("terminal 0", terminal, **dropdown_config),
+            DropDown("terminal 1", terminal, **dropdown_config),
+            DropDown("terminal 2", terminal, **dropdown_config),
+            DropDown("terminal center", terminal, **popup_config),
+            DropDown("htop", terminal + " -e htop", **dropdown_right),
+            DropDown("calendar", terminal + " -e calcurse", **dropdown_center),
         ],
     ),
 )
@@ -288,8 +302,14 @@ keys.extend(
         Key(
             [super, alt],
             "Return",
-            lazy.group["scratchpad"].dropdown_toggle("terminal 3"),
-            desc="Dropdown terminal",
+            lazy.group["scratchpad"].dropdown_toggle("terminal center"),
+            desc="Pop-up terminal",
+        ),
+        Key(
+            [super],
+            "F7",
+            lazy.group["scratchpad"].dropdown_toggle("calendar"),
+            desc="Dropdown calendar",
         ),
     ]
 )
@@ -305,6 +325,23 @@ keys.append(
         ),
         desc="Show keybindings",
     )
+)
+
+keys.extend(
+    [
+        KeyChord(
+            [],
+            "Menu",
+            [
+                Key([], "F11", lazy.spawn(brightness_down)),
+                Key([], "F12", lazy.spawn(brightness_up)),
+                Key([], "F1", lazy.spawn(volume_mute)),
+                Key([], "F2", lazy.spawn(volume_down)),
+                Key([], "F3", lazy.spawn(volume_up)),
+            ],
+            # this mimics the function key for multimedia in Dell laptop
+        ),
+    ]
 )
 
 prompt = f"{os.environ['USER']}@{socket.gethostname()}: "  # actually useless
@@ -366,6 +403,9 @@ def widgets():
             icon_size=16,
             padding=1,
             borderwidth=0,
+            txt_floating="🗗 ",
+            txt_maximized="🗖 ",
+            txt_minimized="🗕 ",
             decorations=[
                 RectDecoration(colour=colors["dark_grey"], radius=10, filled=True)
             ],
@@ -375,9 +415,7 @@ def widgets():
             format="%a, %b %d - %H:%M ",
             padding=3,
             mouse_callbacks={
-                left_click: lambda: qtile.cmd_spawn(
-                    browser + " https://calendar.google.com/calendar/u/0/r"
-                ),
+                left_click: lazy.group["scratchpad"].dropdown_toggle("calendar"),
             },
             foreground=colors["white"],
             decorations=[
@@ -393,7 +431,7 @@ def widgets():
         ),
         widget.CPU(
             mouse_callbacks={
-                left_click: lambda: qtile.cmd_spawn(terminal + " -e htop"),
+                left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
             },
             format=" {load_percent}%",
             foreground=colors["blue"],
@@ -409,7 +447,7 @@ def widgets():
             fmt="🌡 {}",
             tag_sensor="Core 0",
             mouse_callbacks={
-                left_click: lambda: qtile.cmd_spawn(terminal + " -e htop")
+                left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
             },
             decorations=[
                 RectDecoration(colour=sys_monitor_color, radius=0, filled=True)
@@ -417,7 +455,7 @@ def widgets():
         ),
         widget.Memory(
             mouse_callbacks={
-                left_click: lambda: qtile.cmd_spawn(terminal + " -e htop")
+                left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
             },
             measure_mem="G",
             format="﬙ {MemUsed:.2f}{mm}/{MemTotal:.1f}{mm}",
@@ -512,7 +550,6 @@ floating_layout = layout.Floating(
         Match(title="Qalculate!"),  # qalculate-gtk
         Match(wm_class="kdenlive"),  # kdenlive
         Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
-        Match(wm_class="zoom"),  # bc it is a pain - shows notifications as windows
         Match(wm_class="copyq"),
         Match(wm_class="kdeconnect-app"),
         Match(wm_class="org.gnome.Nautilus"),
