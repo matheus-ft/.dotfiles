@@ -553,6 +553,9 @@ floating_layout = layout.Floating(
         Match(wm_class="copyq"),
         Match(wm_class="kdeconnect-app"),
         Match(wm_class="org.gnome.Nautilus"),
+        Match(wm_class="blueman-manager"),
+        Match(wm_class="blueman-services"),
+        Match(wm_class="nm-connection-editor"),
     ]
 )
 
