@@ -1,5 +1,67 @@
 # Pop!_OS 22.04
 
+<!--toc:start-->
+- [Pop!_OS 22.04](#popos-2204)
+  - [Package managers](#package-managers)
+    - [Nala](#nala)
+    - [Pacstall](#pacstall)
+    - [Topgrade](#topgrade)
+    - [Build tools](#build-tools)
+    - [Homebrew](#homebrew)
+  - [Terminal](#terminal)
+    - [Kitty](#kitty)
+    - [Z shell](#z-shell)
+      - [Oh My Zsh](#oh-my-zsh)
+        - [Powerlevel10k](#powerlevel10k)
+        - [Syntax highlighting](#syntax-highlighting)
+    - [Starship](#starship)
+    - [Exa](#exa)
+    - [Htop](#htop)
+    - [Clipboard](#clipboard)
+  - [Fonts](#fonts)
+    - [Fira Code](#fira-code)
+    - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
+    - [Cascadia Code](#cascadia-code)
+  - [Connection with Andorid device](#connection-with-andorid-device)
+  - [Programming](#programming)
+    - [Python](#python)
+      - [Jupyter notebooks](#jupyter-notebooks)
+      - [Neovim integration](#neovim-integration)
+    - [Node 16 and Yarn](#node-16-and-yarn)
+    - [Rust](#rust)
+    - [Neovim](#neovim)
+      - [Bob](#bob)
+      - [Rip grep](#rip-grep)
+      - [Neovide](#neovide)
+      - [gonevim](#gonevim)
+      - [Default editor](#default-editor)
+        - [In terminal emulator](#in-terminal-emulator)
+        - [In Gnome](#in-gnome)
+  - [Qtile](#qtile)
+  - [Additional software needed](#additional-software-needed)
+    - [Rofi](#rofi)
+    - [Brightnessctl](#brightnessctl)
+    - [Picom](#picom)
+    - [Dunst](#dunst)
+    - [Nitrogen](#nitrogen)
+    - [Lxpolkit](#lxpolkit)
+    - [Lxappearance](#lxappearance)
+    - [Arandr](#arandr)
+    - [Power Menu](#power-menu)
+    - [Screen locker/saver](#screen-lockersaver)
+    - [Keyboard layout switcher](#keyboard-layout-switcher)
+    - [Bluetooth](#bluetooth)
+    - [Widgets dependencies](#widgets-dependencies)
+      - [Wifi](#wifi)
+      - [CPU, RAM and stuff](#cpu-ram-and-stuff)
+      - [Thermal sensor](#thermal-sensor)
+      - [Cool icons](#cool-icons)
+  - [GNOME Desktop](#gnome-desktop)
+    - [GNOME tweaks](#gnome-tweaks)
+    - [Extension Manager](#extension-manager)
+    - [Dconf](#dconf)
+<!--toc:end-->
+
 How to manage:
 
 After a clean install, do
@@ -61,6 +123,12 @@ Some of the general build tools I had to get
 sudo nala install meson ninja-build
 ```
 
+### Homebrew
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
 ---
 
 ## Terminal
@@ -74,24 +142,6 @@ sudo nala install kitty
 ```
 
 Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty).
-
-#### Fira Code
-
-Cool font with ligatures (and apparently the only one working properly with my terminal).
-
-```sh
-sudo nala install fonts-firacode
-```
-
-Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic).
-
-#### JetBrains Mono Nerd Font
-
-Another cool nerd font.
-
-```sh
-sudo nala install fonts-jetbrains-mono
-```
 
 ### Z shell
 
@@ -112,6 +162,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 ```sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+##### Syntax highlighting
+
+```sh
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
 ### Starship
@@ -156,7 +211,33 @@ sudo apt update
 sudo nala install copyq
 ```
 
-### Connection with Andorid device
+## Fonts
+
+### Fira Code
+
+Cool font with ligatures (and apparently the only one working properly with my terminal).
+
+```sh
+sudo nala install fonts-firacode
+```
+
+Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic).
+
+### JetBrains Mono Nerd Font
+
+Another cool nerd font.
+
+```sh
+sudo nala install fonts-jetbrains-mono
+```
+
+### Cascadia Code
+
+```sh
+sudo nala install fonts-cascadia-code
+```
+
+## Connection with Andorid device
 
 Yes, this is a KDE app, so be ready for a shit ton of dependencies
 
@@ -244,16 +325,24 @@ Also possible to get bleeding edge versions with `ppa:neovim-ppa/unstable` or ni
 
 #### Bob
 
-Installing and managing versions:
+Installing and managing neovim versions.
+
+From source
 
 ```sh
-cargo install -git https://github.com/MordechaiHadad/bob.git
+cargo install --git https://github.com/MordechaiHadad/bob.git
 ```
 
-Make sure to uninstall manually installed versions beforehand.
+From crates
 
 ```sh
-bob install <version>
+cargo install bob-nvim
+```
+
+Make sure to uninstall manually installed versions beforehand. And then
+
+```sh
+bob use <version>
 ```
 
 #### Rip grep
