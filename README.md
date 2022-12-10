@@ -16,6 +16,7 @@
         - [Syntax highlighting](#syntax-highlighting)
     - [Starship](#starship)
     - [Exa](#exa)
+    - [Bat](#bat)
     - [Htop](#htop)
     - [Clipboard](#clipboard)
   - [Fonts](#fonts)
@@ -33,7 +34,6 @@
       - [Bob](#bob)
       - [Rip grep](#rip-grep)
       - [Neovide](#neovide)
-      - [gonevim](#gonevim)
       - [Default editor](#default-editor)
         - [In terminal emulator](#in-terminal-emulator)
         - [In Gnome](#in-gnome)
@@ -187,6 +187,14 @@ Better `ls` command.
 
 ```sh
 sudo nala install exa
+```
+
+### Bat
+
+Better `cat` command.
+
+```sh
+brew install bat
 ```
 
 ### Htop

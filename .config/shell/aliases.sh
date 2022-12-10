@@ -12,11 +12,11 @@ alias v=vim
 
 # General
 alias so='source'
-alias ls='exa -lahF --color=auto'
-alias dir='exa --color=auto'
-alias tree='exa -aT --level=3'
-alias lt='tree --long'
-alias l.='exa -a | egrep "^\."' # find dotfiles
+alias ls='exa -lahF --color=auto --icons'
+alias dir='exa --color=auto --icons'
+alias tree='exa -aT --level=3 --icons'
+alias lt='tree --long --icons'
+alias l.='exa -a --icons | egrep "^\."' # find dotfiles
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'

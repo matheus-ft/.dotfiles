@@ -45,9 +45,7 @@ repos = [
     "~/Downloads/neovide",
     "~/Downloads/picom",
     "~/Downloads/dunst",
-
-    "~/Pictures/wallpapers/dt",
-    "~/Pictures/wallpapers/catppuccin",
+    "~/Pictures/wallpapers",
 ]
 
 # Don't pull the predefined git repos
@@ -65,7 +63,7 @@ pull_predefined = false
 
 # Custom commands
 [commands]
-"Neovim Version" = "bob use stable"
+"Nvim Version" = "bob use stable"
 # not sure if this is the best way to update python dependencies
 # "Python Packages" = "pip install --upgrade jupyterlab jupyterlab-vim jupytext pynvim ueberzug Pillow cairosvg plotly kaleido jupyter-client xcffib cairocffi qtile iwlib psutil"
 

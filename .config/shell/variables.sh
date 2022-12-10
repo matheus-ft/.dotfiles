@@ -1,4 +1,4 @@
-LS_COLORS="di=1;35"  # directories will be bold purple on exa call
+LS_COLORS="di=1;35"  # directories will be bold purple on ls call
 
 export EDITOR=nvim
 export VISUAL=neovide
@@ -30,4 +30,7 @@ fi
 if [ -z "$XDG_CACHE_HOME" ] ; then
     export XDG_CACHE_HOME="$HOME/.cache"
 fi
+
+# in order to use `brew`
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
