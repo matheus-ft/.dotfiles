@@ -1,6 +1,9 @@
 # to avoid possible recursion problems
 .dotfiles
 
+# neovim settings are separated
+.config/nvim
+
 # no need to backup last wallpaper used
 bg-saved.cfg
 
