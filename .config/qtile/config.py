@@ -33,7 +33,7 @@ right_click = "Button3"
 # apps
 terminal = "kitty"
 browser = "firefox"
-app_launcher = "rofi -show drun"
+app_launcher = "rofi -show drun -show-icons"
 run_prompt = "rofi -show run"
 power_menu = "rofi -show p -modi p:rofi-power-menu"
 window_switcher = "rofi -show windowcd"
@@ -42,6 +42,7 @@ gui_file_manager = "nautilus"  # because I already had it
 screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good enough
 keyboard_toggler = "toggle_keyboard_layout"
 clipboard_history = "copyq menu"
+nvim = terminal + " -e /home/matheus/.local/share/bob/stable/nvim-linux64/bin/nvim"
 
 HOME = os.path.expanduser("~")
 scripts = f"{HOME}/.config/qtile/scripts"
@@ -64,15 +65,13 @@ keys: list[Key | KeyChord] = [
     Key(
         [modkey, "shift"],
         "h",
-        lazy.layout.swap_left(),  # monadtall
-        lazy.layout.shuffle_left(),  # columns
+        lazy.layout.shuffle_left(),
         desc="Move window to the left",
     ),
     Key(
         [modkey, "shift"],
         "l",
-        lazy.layout.swap_right(),  # monadtall
-        lazy.layout.shuffle_right(),  # columns
+        lazy.layout.shuffle_right(),
         desc="Move window to the right",
     ),
     Key(
@@ -90,15 +89,13 @@ keys: list[Key | KeyChord] = [
     Key(
         [modkey, "control"],
         "h",
-        lazy.layout.shrink_main(),  # monadtall
-        lazy.layout.grow_left(),  # columns
+        lazy.layout.grow_left(),
         desc="Grow pane to the left",
     ),
     Key(
         [modkey, "control"],
         "l",
-        lazy.layout.grow_main(),  # monadtall
-        lazy.layout.grow_right(),  # columns
+        lazy.layout.grow_right(),
         desc="Grow pane to the right",
     ),
     Key(
@@ -118,8 +115,7 @@ keys: list[Key | KeyChord] = [
     Key(
         [modkey, "shift"],
         "space",
-        lazy.layout.flip(),  # monadtall
-        lazy.layout.swap_column_left(),  # using only two columns, this works for both panes
+        lazy.layout.swap_column_left(),
         desc="Switch which side current pane occupies",
     ),
     Key(
@@ -206,24 +202,27 @@ mouse = [
     ),
 ]
 
-colors = colorscheme.onedark()
+colors = colorscheme.everforest()
+BACKGROUND = colors[0]
+FOREGROUND = colors[2]
 
 layout_theme = {
     "border_width": 2,
     "margin": 4,
-    "border_focus": colors["purple"],
-    "border_normal": colors["dark_grey"],
-    "border_focus_stack": colors["cyan"],
-    "border_normal_stack": colors["dark_grey"],
+    "border_focus": colors[8],
+    "border_normal": colors[9],
+    "border_focus_stack": colors[4],
+    "border_normal_stack": colors[0],
 }
 
 layouts = [
-    layout.Columns(**layout_theme, insert_position=1),
-    layout.MonadTall(**layout_theme),
+    layout.Columns(**layout_theme, insert_position=1, border_on_single=True),
+    # layout.MonadThreeCol(**layout_theme),  # for ultrawide screen
     layout.Max(**layout_theme),
     layout.Floating(**layout_theme),
 ]
 
+# ["", "", "", "", "", ""]
 groups = [
     Group(name="1", label="", layout="columns"),
     Group(name="2", label="", layout="columns"),
@@ -231,8 +230,7 @@ groups = [
     Group(name="4", label="", layout="columns"),
     Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
     Group(name="6", label="辶", layout="floating", matches=[Match(wm_class="zoom")]),
-    Group(name="7", label="", layout="floating"),
-    Group(name="8", label="", layout="columns"),
+    Group(name="7", label="", layout="columns"),
 ]
 
 for workspace in groups:
@@ -262,7 +260,7 @@ dropdown_config = dict(
 dropdown_right = dict(width=0.3, height=0.9, x=0.67, y=0, opacity=0.8)
 
 dropdown_center = dict(
-    width=0.5, height=0.5, x=0.25, y=0, opacity=0.8, on_focus_lost_hide=False
+    width=0.42, height=0.75, x=0.29, y=0, opacity=0.8, on_focus_lost_hide=False
 )
 
 groups.append(
@@ -275,6 +273,11 @@ groups.append(
             DropDown("terminal center", terminal, **popup_config),
             DropDown("htop", terminal + " -e htop", **dropdown_right),
             DropDown("calendar", terminal + " -e calcurse", **dropdown_center),
+            DropDown(
+                "notes",
+                nvim + " /home/matheus/notes.md",
+                **popup_config,
+            ),
         ],
     ),
 )
@@ -311,6 +314,12 @@ keys.extend(
             lazy.group["scratchpad"].dropdown_toggle("calendar"),
             desc="Dropdown calendar",
         ),
+        Key(
+            [super],
+            "F9",
+            lazy.group["scratchpad"].dropdown_toggle("notes"),
+            desc="Notepad pop-up",
+        ),
     ]
 )
 
@@ -327,49 +336,30 @@ keys.append(
     )
 )
 
-keys.extend(
-    [
-        KeyChord(
-            [],
-            "Menu",
-            [
-                Key([], "F11", lazy.spawn(brightness_down)),
-                Key([], "F12", lazy.spawn(brightness_up)),
-                Key([], "F1", lazy.spawn(volume_mute)),
-                Key([], "F2", lazy.spawn(volume_down)),
-                Key([], "F3", lazy.spawn(volume_up)),
-            ],
-            # this mimics the function key for multimedia in Dell laptop
-        ),
-    ]
-)
-
 prompt = f"{os.environ['USER']}@{socket.gethostname()}: "  # actually useless
 
 widget_defaults = dict(
     font="JetBrainsMono Nerd Font",
     fontsize=12,
     padding=6,
-    background=colors["white"] + "00",  # transparent
+    background="#ffffff" + "00",  # transparent
 )
 extension_defaults = widget_defaults.copy()
 
 
 def widgets():
-    sys_monitor_color = colors["dark_grey"]
-    sys_configs_color = colors["dark_grey"]
+    sys_monitor_color = colors[0]
+    sys_config_color = colors[0]
     return [
         widget.TextBox(
             text="",
-            foreground=colors["black"],
             fontsize=12,
             mouse_callbacks={
                 left_click: lambda: qtile.cmd_spawn(app_launcher),
                 right_click: lambda: qtile.cmd_spawn(terminal),
             },
-            decorations=[
-                RectDecoration(colour=colors["light_grey"], radius=10, filled=True)
-            ],
+            decorations=[RectDecoration(colour=colors[2], radius=10, filled=True)],
+            foreground=colors[0],
         ),
         widget.GroupBox(
             fontsize=14,
@@ -378,27 +368,23 @@ def widgets():
             margin=2,
             padding=0,
             rounded=True,
-            active=colors["white"],
-            inactive=colors["grey"],
+            active=colors[4],
+            inactive=colors[1],
             highlight_method="line",
-            highlight_color=colors["dark_grey"],
+            highlight_color=BACKGROUND,
             # marks in the current screen's panel
-            this_current_screen_border=colors["blue"],
-            other_screen_border=colors["yellow"],
+            this_current_screen_border=colors[4],
+            other_screen_border=colors[10],
             # marks in the other screens' panel
-            other_current_screen_border=colors["magenta"],
-            this_screen_border=colors["green"],
-            decorations=[
-                RectDecoration(colour=colors["dark_grey"], radius=10, filled=True)
-            ],
+            other_current_screen_border=colors[9],
+            this_screen_border=colors[5],
+            decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
         ),
         widget.CurrentLayout(
-            foreground=colors["black"],
-            decorations=[
-                RectDecoration(colour=colors["light_grey"], radius=10, filled=True)
-            ],
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[2], radius=10, filled=True)],
         ),
-        widget.TaskList(
+        widget.TaskList(  # actually a list of open windows
             margin=0,
             icon_size=16,
             padding=1,
@@ -406,35 +392,24 @@ def widgets():
             txt_floating="🗗 ",
             txt_maximized="🗖 ",
             txt_minimized="🗕 ",
-            decorations=[
-                RectDecoration(colour=colors["dark_grey"], radius=10, filled=True)
-            ],
+            decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
         ),
-        widget.Spacer(lenght=bar.STRETCH),
+        widget.Spacer(length=50),
         widget.Clock(
-            format="%a, %b %d - %H:%M ",
-            padding=3,
+            format=" %a, %b %d - %H:%M ",
             mouse_callbacks={
                 left_click: lazy.group["scratchpad"].dropdown_toggle("calendar"),
             },
-            foreground=colors["white"],
-            decorations=[
-                RectDecoration(colour=colors["dark_grey"], radius=10, filled=True)
-            ],
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[2], radius=10, filled=True)],
         ),
-        widget.Spacer(lenght=bar.STRETCH),
-        widget.WidgetBox(
-            close_button_location="right",
-            text_closed="  ",
-            text_open="  ",
-            widgets=[widget.Systray(icon_size=12)],
-        ),
+        widget.Spacer(length=bar.STRETCH),
         widget.CPU(
             mouse_callbacks={
                 left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
             },
             format=" {load_percent}%",
-            foreground=colors["blue"],
+            foreground=colors[4],
             decorations=[
                 RectDecoration(
                     colour=sys_monitor_color, radius=[10, 0, 0, 10], filled=True
@@ -442,12 +417,12 @@ def widgets():
             ],
         ),
         widget.ThermalSensor(
-            foreground_alert=colors["magenta"],
+            foreground_alert=colors[9],
             threshold=75,
             fmt="🌡 {}",
             tag_sensor="Core 0",
             mouse_callbacks={
-                left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
+                left_click: lazy.group["scratchpad"].dropdown_toggle("htop")
             },
             decorations=[
                 RectDecoration(colour=sys_monitor_color, radius=0, filled=True)
@@ -458,8 +433,8 @@ def widgets():
                 left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
             },
             measure_mem="G",
-            format="﬙ {MemUsed:.2f}{mm}/{MemTotal:.1f}{mm}",
-            foreground=colors["green"],
+            format="﬙ {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}",
+            foreground=colors[8],
             decorations=[
                 RectDecoration(
                     colour=sys_monitor_color, radius=[0, 10, 10, 0], filled=True
@@ -468,33 +443,33 @@ def widgets():
         ),
         widget.KeyboardLayout(
             fmt=" {}",
-            foreground=colors["cyan"],
+            foreground=colors[4],
             decorations=[
                 RectDecoration(
-                    colour=sys_configs_color, radius=[10, 0, 0, 10], filled=True
+                    colour=sys_config_color, radius=[10, 0, 0, 10], filled=True
                 )
             ],
         ),
         widget.Volume(
             fmt=" {}",
             padding=5,
-            foreground=colors["purple"],
+            foreground=colors[7],
             decorations=[
-                RectDecoration(colour=sys_configs_color, radius=0, filled=True)
+                RectDecoration(colour=sys_config_color, radius=0, filled=True)
             ],
         ),
         widget.Backlight(
             fmt=" {}",
             backlight_name="intel_backlight",
             change_command=None,  # this just works with `brightnessctl` lol
-            foreground=colors["yellow"],
+            foreground=colors[10],
             decorations=[
-                RectDecoration(colour=sys_configs_color, radius=0, filled=True)
+                RectDecoration(colour=sys_config_color, radius=0, filled=True)
             ],
         ),
         widget.Battery(
-            foreground=colors["green"],
-            low_foreground=colors["red"],
+            foreground=colors[5],
+            low_foreground=colors[9],
             format="{char}{percent:2.0%}",
             charge_char=" ",
             discharge_char=" ",
@@ -505,21 +480,47 @@ def widgets():
             show_short_text=False,
             notify_below=35,
             decorations=[
-                RectDecoration(colour=sys_configs_color, radius=0, filled=True)
+                RectDecoration(colour=sys_config_color, radius=0, filled=True)
             ],
         ),
-        # widget.StatusNotifier(),
+        # widget.Systray(icon_size=12),
+        widget.StatusNotifier(
+            decorations=[
+                RectDecoration(
+                    colour=sys_config_color, radius=[0, 10, 10, 0], filled=True
+                )
+            ],
+        ),
+        widget.Spacer(length=10),
     ]
 
 
 def main_panel():
-    return Screen(top=bar.Bar(widgets(), size=20, background=colors["white"] + "00"))
+    return Screen(
+        top=bar.Bar(
+            widgets(),
+            size=20,
+            # background=BACKGROUND,
+            background="#ffffff" + "00",
+            opacity=0.8,
+            margin=[4, 6, 0, 6],
+        )
+    )
 
 
 def panel():
     no_systray = widgets()
-    del no_systray[7]
-    return Screen(top=bar.Bar(no_systray, size=18, background=colors["white"] + "00"))
+    del no_systray[-2]
+    return Screen(
+        top=bar.Bar(
+            no_systray,
+            size=18,
+            # background=BACKGROUND,
+            background="#ffffff" + "00",
+            opacity=0.8,
+            margin=[4, 6, 0, 6],
+        )
+    )
 
 
 screens = [main_panel()]
@@ -552,7 +553,6 @@ floating_layout = layout.Floating(
         Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
         Match(wm_class="copyq"),
         Match(wm_class="kdeconnect-app"),
-        Match(wm_class="org.gnome.Nautilus"),
         Match(wm_class="blueman-manager"),
         Match(wm_class="blueman-services"),
         Match(wm_class="nm-connection-editor"),
