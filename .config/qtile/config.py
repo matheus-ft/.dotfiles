@@ -480,15 +480,15 @@ def widgets():
             show_short_text=False,
             notify_below=35,
             decorations=[
-                RectDecoration(colour=sys_config_color, radius=0, filled=True)
+                RectDecoration(
+                    colour=sys_config_color, radius=[0, 10, 10, 0], filled=True
+                )
             ],
         ),
         # widget.Systray(icon_size=12),
         widget.StatusNotifier(
             decorations=[
-                RectDecoration(
-                    colour=sys_config_color, radius=[0, 10, 10, 0], filled=True
-                )
+                RectDecoration(colour=sys_config_color, radius=10, filled=True)
             ],
         ),
         widget.Spacer(length=10),
@@ -502,7 +502,7 @@ def main_panel():
             size=20,
             # background=BACKGROUND,
             background="#ffffff" + "00",
-            opacity=0.8,
+            opacity=0.9,
             margin=[4, 6, 0, 6],
         )
     )
@@ -517,7 +517,7 @@ def panel():
             size=18,
             # background=BACKGROUND,
             background="#ffffff" + "00",
-            opacity=0.8,
+            opacity=0.9,
             margin=[4, 6, 0, 6],
         )
     )
