@@ -38,7 +38,7 @@ run_prompt = "rofi -show run"
 power_menu = "rofi -show p -modi p:rofi-power-menu"
 window_switcher = "rofi -show windowcd"
 workspace_switcher = "rofi -show window"
-gui_file_manager = "nautilus"  # because I already had it
+gui_file_manager = "nautilus"
 screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good enough
 keyboard_toggler = "toggle_keyboard_layout"
 clipboard_history = "copyq menu"
@@ -210,7 +210,7 @@ layout_theme = {
     "border_width": 2,
     "margin": 4,
     "border_focus": colors[8],
-    "border_normal": colors[9],
+    "border_normal": colors[0],
     "border_focus_stack": colors[4],
     "border_normal_stack": colors[0],
 }
@@ -222,7 +222,6 @@ layouts = [
     layout.Floating(**layout_theme),
 ]
 
-# ["", "", "", "", "", ""]
 groups = [
     Group(name="1", label="", layout="columns"),
     Group(name="2", label="", layout="columns"),
@@ -348,8 +347,6 @@ extension_defaults = widget_defaults.copy()
 
 
 def widgets():
-    sys_monitor_color = colors[0]
-    sys_config_color = colors[0]
     return [
         widget.TextBox(
             text="",
@@ -363,7 +360,6 @@ def widgets():
         ),
         widget.GroupBox(
             fontsize=14,
-            disable_drag=True,
             invert_mouse_wheel=True,
             margin=2,
             padding=0,
@@ -378,11 +374,11 @@ def widgets():
             # marks in the other screens' panel
             other_current_screen_border=colors[9],
             this_screen_border=colors[5],
-            decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
+            decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
         ),
         widget.CurrentLayout(
             foreground=colors[0],
-            decorations=[RectDecoration(colour=colors[2], radius=10, filled=True)],
+            decorations=[RectDecoration(colour=colors[8], radius=10, filled=True)],
         ),
         widget.TaskList(  # actually a list of open windows
             margin=0,
@@ -394,7 +390,6 @@ def widgets():
             txt_minimized="🗕 ",
             decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
         ),
-        widget.Spacer(length=50),
         widget.Clock(
             format=" %a, %b %d - %H:%M ",
             mouse_callbacks={
@@ -409,12 +404,8 @@ def widgets():
                 left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
             },
             format=" {load_percent}%",
-            foreground=colors[4],
-            decorations=[
-                RectDecoration(
-                    colour=sys_monitor_color, radius=[10, 0, 0, 10], filled=True
-                )
-            ],
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[4], radius=10, filled=True)],
         ),
         widget.ThermalSensor(
             foreground_alert=colors[9],
@@ -424,9 +415,7 @@ def widgets():
             mouse_callbacks={
                 left_click: lazy.group["scratchpad"].dropdown_toggle("htop")
             },
-            decorations=[
-                RectDecoration(colour=sys_monitor_color, radius=0, filled=True)
-            ],
+            decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
         ),
         widget.Memory(
             mouse_callbacks={
@@ -434,38 +423,26 @@ def widgets():
             },
             measure_mem="G",
             format="﬙ {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}",
-            foreground=colors[8],
-            decorations=[
-                RectDecoration(
-                    colour=sys_monitor_color, radius=[0, 10, 10, 0], filled=True
-                )
-            ],
+            foreground=BACKGROUND,
+            decorations=[RectDecoration(colour=colors[5], radius=10, filled=True)],
         ),
         widget.KeyboardLayout(
             fmt=" {}",
-            foreground=colors[4],
-            decorations=[
-                RectDecoration(
-                    colour=sys_config_color, radius=[10, 0, 0, 10], filled=True
-                )
-            ],
-        ),
-        widget.Volume(
-            fmt=" {}",
-            padding=5,
-            foreground=colors[7],
-            decorations=[
-                RectDecoration(colour=sys_config_color, radius=0, filled=True)
-            ],
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[3], radius=10, filled=True)],
         ),
         widget.Backlight(
             fmt=" {}",
             backlight_name="intel_backlight",
             change_command=None,  # this just works with `brightnessctl` lol
-            foreground=colors[10],
-            decorations=[
-                RectDecoration(colour=sys_config_color, radius=0, filled=True)
-            ],
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[10], radius=10, filled=True)],
+        ),
+        widget.Volume(
+            fmt=" {}",
+            padding=5,
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[8], radius=10, filled=True)],
         ),
         widget.Battery(
             foreground=colors[5],
@@ -479,17 +456,10 @@ def widgets():
             low_percentage=0.35,
             show_short_text=False,
             notify_below=35,
-            decorations=[
-                RectDecoration(
-                    colour=sys_config_color, radius=[0, 10, 10, 0], filled=True
-                )
-            ],
+            decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
         ),
-        # widget.Systray(icon_size=12),
         widget.StatusNotifier(
-            decorations=[
-                RectDecoration(colour=sys_config_color, radius=10, filled=True)
-            ],
+            decorations=[RectDecoration(colour=colors[1], radius=10, filled=True)],
         ),
         widget.Spacer(length=10),
     ]
@@ -549,7 +519,7 @@ floating_layout = layout.Floating(
         *layout.Floating.default_float_rules,
         Match(title="Confirmation"),  # tastyworks exit box
         Match(title="Qalculate!"),  # qalculate-gtk
-        Match(wm_class="kdenlive"),  # kdenlive
+        Match(wm_class="kdenlive"),
         Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
         Match(wm_class="copyq"),
         Match(wm_class="kdeconnect-app"),

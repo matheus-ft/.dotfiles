@@ -49,7 +49,7 @@ def everforest():
     ]
 
 
-def doomone():
+def doom_one():
     return [
         ["#282c34", "#282c34"],  # background (dark grey) [0]
         ["#44475a", "#44475a"],  # light grey [1]
