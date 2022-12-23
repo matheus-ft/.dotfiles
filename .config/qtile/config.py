@@ -42,7 +42,8 @@ gui_file_manager = "nautilus"
 screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good enough
 keyboard_toggler = "toggle_keyboard_layout"
 clipboard_history = "copyq menu"
-nvim = terminal + " -e /home/matheus/.local/share/bob/stable/nvim-linux64/bin/nvim"
+vim = terminal + " -e /home/matheus/.local/share/bob/stable/nvim-linux64/bin/nvim"
+screenshooter = "flameshot gui"
 
 HOME = os.path.expanduser("~")
 scripts = f"{HOME}/.config/qtile/scripts"
@@ -178,6 +179,7 @@ keys: list[Key | KeyChord] = [
         lazy.spawn(clipboard_history),
         desc="Shows clipboard history",
     ),
+    Key([], "Print", lazy.spawn(screenshooter), desc="Take screenshot"),
     ### Qtile controls
     Key([modkey], "w", lazy.next_layout(), desc="Toggle between layouts"),
     Key([modkey, "control"], "r", lazy.reload_config(), desc="Reload the config"),
@@ -256,7 +258,7 @@ dropdown_config = dict(
     width=0.67, height=0.4, x=0.16, y=0, opacity=0.8, on_focus_lost_hide=False
 )
 
-dropdown_right = dict(width=0.3, height=0.9, x=0.67, y=0, opacity=0.8)
+dropdown_right = dict(width=0.3, height=0.9, x=0.55, y=0, opacity=1)
 
 dropdown_center = dict(
     width=0.42, height=0.75, x=0.29, y=0, opacity=0.8, on_focus_lost_hide=False
@@ -272,11 +274,7 @@ groups.append(
             DropDown("terminal center", terminal, **popup_config),
             DropDown("htop", terminal + " -e htop", **dropdown_right),
             DropDown("calendar", terminal + " -e calcurse", **dropdown_center),
-            DropDown(
-                "notes",
-                nvim + " /home/matheus/notes.md",
-                **popup_config,
-            ),
+            DropDown("notes", vim + " -c :VimwikiIndex", **popup_config),
         ],
     ),
 )
@@ -284,19 +282,19 @@ groups.append(
 keys.extend(
     [
         Key(
-            [super],
+            [modkey],
             "F10",
             lazy.group["scratchpad"].dropdown_toggle("terminal 0"),
             desc="Dropdown terminal",
         ),
         Key(
-            [super],
+            [modkey],
             "F11",
             lazy.group["scratchpad"].dropdown_toggle("terminal 1"),
             desc="Dropdown terminal",
         ),
         Key(
-            [super],
+            [modkey],
             "F12",
             lazy.group["scratchpad"].dropdown_toggle("terminal 2"),
             desc="Dropdown terminal",
@@ -308,13 +306,13 @@ keys.extend(
             desc="Pop-up terminal",
         ),
         Key(
-            [super],
-            "F7",
+            [modkey],
+            "F4",
             lazy.group["scratchpad"].dropdown_toggle("calendar"),
             desc="Dropdown calendar",
         ),
         Key(
-            [super],
+            [modkey],
             "F9",
             lazy.group["scratchpad"].dropdown_toggle("notes"),
             desc="Notepad pop-up",

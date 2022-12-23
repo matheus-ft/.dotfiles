@@ -51,6 +51,7 @@
     - [Screen locker/saver](#screen-lockersaver)
     - [Keyboard layout switcher](#keyboard-layout-switcher)
     - [Bluetooth](#bluetooth)
+    - [Screenshooter](#screenshooter)
     - [Widgets dependencies](#widgets-dependencies)
       - [Wifi](#wifi)
       - [CPU, RAM and stuff](#cpu-ram-and-stuff)
@@ -66,7 +67,7 @@ How to manage:
 
 After a clean install, do
 
-```sh
+```bash
 git clone --bare https://github.com/matheus-ft/.dotfiles $HOME/.dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 config checkout
@@ -74,7 +75,7 @@ config checkout
 
 If there's conflict, put such files in a separate `.backup` folder, then run
 
-```sh
+```bash
 config checkout
 config config --local status.showUntrackedFiles no
 ```
@@ -93,7 +94,7 @@ Language specific ones detailed under [programming](https://github.com/matheus-f
 
 Better package manager interface for APT
 
-```sh
+```bash
 echo "deb https://deb.volian.org/volian/ scar main" | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
 wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null
 sudo apt update && sudo apt install nala
@@ -103,7 +104,7 @@ sudo apt update && sudo apt install nala
 
 Debian based distros' AUR
 
-```sh
+```bash
 sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh -O -)"
 ```
 
@@ -111,7 +112,7 @@ sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh 
 
 A freaking cool way to upgrade the shit out of your system - make sure to have [Rust](https://github.com/matheus-ft/.dotfiles#rust) set up before.
 
-```sh
+```bash
 cargo install topgrade
 ```
 
@@ -119,13 +120,13 @@ cargo install topgrade
 
 Some of the general build tools I had to get
 
-```sh
+```bash
 sudo nala install meson ninja-build
 ```
 
 ### Homebrew
 
-```sh
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
@@ -137,7 +138,7 @@ sudo nala install meson ninja-build
 
 Better terminal emulator.
 
-```sh
+```bash
 sudo nala install kitty
 ```
 
@@ -145,7 +146,7 @@ Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.con
 
 ### Z shell
 
-```sh
+```bash
 sudo nala install zsh
 chsh -s $(which zsh)
 ```
@@ -154,18 +155,19 @@ Last line makes z shell the default shell.
 
 #### Oh My Zsh
 
-```sh
+```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 ##### Powerlevel10k
 
-```sh
+```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
+
 ##### Syntax highlighting
 
-```sh
+```bash
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
@@ -173,7 +175,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 Prompt that works with any shell.
 
-```sh
+```bash
 curl -sS https://starship.rs/install.sh | sh
 ```
 
@@ -185,7 +187,7 @@ For zsh, Powerlevel10k does it better, but this is still set for bash.
 
 Better `ls` command.
 
-```sh
+```bash
 sudo nala install exa
 ```
 
@@ -193,13 +195,13 @@ sudo nala install exa
 
 Better `cat` command.
 
-```sh
+```bash
 brew install bat
 ```
 
 ### Htop
 
-```sh
+```bash
 sudo nala install htop
 ```
 
@@ -207,13 +209,13 @@ sudo nala install htop
 
 Clipbaord utility
 
-```sh
+```bash
 sudo nala install xclip
 ```
 
 Clipbaord manager
 
-```sh
+```bash
 sudo add-apt-repository ppa:hluk/copyq
 sudo apt update
 sudo nala install copyq
@@ -225,7 +227,7 @@ sudo nala install copyq
 
 Cool font with ligatures (and apparently the only one working properly with my terminal).
 
-```sh
+```bash
 sudo nala install fonts-firacode
 ```
 
@@ -235,13 +237,13 @@ Also installed a non-offical version of the italics manually from [github](https
 
 Another cool nerd font.
 
-```sh
+```bash
 sudo nala install fonts-jetbrains-mono
 ```
 
 ### Cascadia Code
 
-```sh
+```bash
 sudo nala install fonts-cascadia-code
 ```
 
@@ -249,7 +251,7 @@ sudo nala install fonts-cascadia-code
 
 Yes, this is a KDE app, so be ready for a shit ton of dependencies
 
-```sh
+```bash
 sudo nala install kdeconnect nautilus-kdeconnect
 ```
 
@@ -268,13 +270,13 @@ Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkint
 - `tkinter` is a GUI backend installed to use matplotlib
 
 
-```sh
+```bash
 sudo nala install python3-pip python3-venv python3-tk
 ```
 
 #### Jupyter notebooks
 
-```sh
+```bash
 pip install jupyterlab
 pip install --upgrade jupyterlab-vim
 pip install jupytext
@@ -282,7 +284,7 @@ pip install jupytext
 
 #### Neovim integration
 
-```sh
+```bash
 mkdir -p ~/.local/venv && cd ~/.local/venv
 python3 -m venv nvim
 cd nvim
@@ -295,10 +297,9 @@ Last line is for Magma.
 
 ### Node 16 and Yarn
 
-For Typescript programming and to use pyright language server in Neovim (also, Yarn is a dependency for the markdown
-preview plugin in neovim).
+Mostly for other dependencies -- such as `npm`
 
-```sh
+```bash
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
      echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -311,16 +312,18 @@ curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /us
 
 Because it's cool... and because of Neovim (Bob and Neovide).
 
-```sh
+```bash
 curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" | sh
 cargo install cargo-update
 ```
+
+Make sure to have `gcc` (`build-essential`), `openssl` (including `libssl-dev`), and `pkg-config`
 
 ### Neovim
 
 This way you get the last release - which is way newer than the one from APT
 
-```sh
+```bash
 sudo add-apt-repository ppa:neovim-ppa/stable
 sudo nala update
 sudo nala install neovim
@@ -337,19 +340,19 @@ Installing and managing neovim versions.
 
 From source
 
-```sh
+```bash
 cargo install --git https://github.com/MordechaiHadad/bob.git
 ```
 
 From crates
 
-```sh
+```bash
 cargo install bob-nvim
 ```
 
 Make sure to uninstall manually installed versions beforehand. And then
 
-```sh
+```bash
 bob use <version>
 ```
 
@@ -357,7 +360,7 @@ bob use <version>
 
 Essential for a good Telescope experience
 
-```sh
+```bash
 sudo nala install ripgrep
 ```
 
@@ -365,7 +368,7 @@ sudo nala install ripgrep
 
 GUI client. Building from source (first line of dependencies might be redundant, but it's here anyway)
 
-```sh
+```bash
 sudo nala install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
     libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
     libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev
@@ -380,7 +383,7 @@ cp ./target/release/neovide $HOME/.local/bin/
 
 ##### In terminal emulator
 
-```sh
+```bash
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100
 sudo update-alternatives --config editor
 ```
@@ -395,7 +398,7 @@ Done with the files in [.local/share/applications](https://github.com/matheus-ft
 
 Installation:
 
-```sh
+```bash
 pip3 install xcffib
 pip3 install --no-cache-dir cairocffi
 pip3 install qtile
@@ -412,10 +415,9 @@ Type=Application
 Keywords=wm;tiling
 ```
 
-[config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/config.py) was heavily inspired by [DistroTube](https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile)
-and [David](https://github.com/david35mm/.files/tree/main/.config/qtile)
+Settings in [config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/config.py).
 
-[autostart.sh](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/scripts/autostart.sh) has autostart instructions (duh) - and don't forget to `chmod +x autostart.sh`!!
+[autostart.sh](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/scripts/autostart.sh) has autostart instructions (duh) - and don't forget to `chmod +x` it!!
 
 ## Additional software needed
 
@@ -423,7 +425,7 @@ and [David](https://github.com/david35mm/.files/tree/main/.config/qtile)
 
 Run prompt
 
-```sh
+```bash
 sudo nala install rofi
 ```
 
@@ -431,7 +433,7 @@ sudo nala install rofi
 
 To regulate the monitor backlight
 
-```sh
+```bash
 sudo nala install brightnessctl
 ```
 
@@ -439,7 +441,7 @@ sudo nala install brightnessctl
 
 Compositor
 
-```sh
+```bash
 cd ~/Downloads
 sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl-dev libegl-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev
 git clone https://github.com/yshui/picom
@@ -456,7 +458,7 @@ This requires having meson and ninja available (as well as GCC obviously)
 
 Notifications
 
-```sh
+```bash
 cd ~/Downloads
 sudo nala install libdbus-1-dev libx11-dev libxinerama-dev libxrandr-dev libxss-dev libglib2.0-dev libpango1.0-dev libgtk-3-dev libxdg-basedir-dev libnotify-dev
 git clone https://github.com/dunst-project/dunst.git
@@ -469,7 +471,7 @@ sudo make install
 
 To set wallpapers
 
-```sh
+```bash
 sudo nala install nitrogen
 ```
 
@@ -479,7 +481,7 @@ Also, cloned [DT's](https://gitlab.com/dwt1/wallpapers) and [catppuccin](https:/
 
 Policy kit
 
-```sh
+```bash
 sudo nala install lxpolkit
 ```
 
@@ -487,7 +489,7 @@ sudo nala install lxpolkit
 
 LXDE GTK+ theme switcher
 
-```sh
+```bash
 sudo nala install lxappearance
 ```
 
@@ -495,7 +497,7 @@ sudo nala install lxappearance
 
 Simple visual front end for XRandR (to easily align multiple monitors)
 
-```sh
+```bash
 sudo nala install arandr
 ```
 
@@ -506,7 +508,7 @@ and added a keybind to my qtile config.
 
 ### Screen locker/saver
 
-```sh
+```bash
 sudo nala install i3lock scrot
 ```
 
@@ -538,15 +540,22 @@ esac
 
 Bluez was already installed, but let's get a GUI
 
-```sh
+```bash
 sudo nala install blueman
+```
+
+
+### Screenshooter
+
+```bash
+sudo nala install flameshot
 ```
 
 ### Widgets dependencies
 
 #### Wifi
 
-```sh
+```bash
 sudo nala install libw-dev
 pip install iwlib
 ```
@@ -555,13 +564,13 @@ pip install iwlib
 
 #### CPU, RAM and stuff
 
-```sh
+```bash
 pip install psutil
 ```
 
 #### Thermal sensor
 
-```sh
+```bash
 sudo nala install lm-sensors
 ```
 
@@ -575,13 +584,13 @@ sudo nala install lm-sensors
 
 ### GNOME tweaks
 
-```sh
+```bash
 sudo nala install gnome-tweaks
 ```
 
 ### Extension Manager
 
-```sh
+```bash
 flatpak install flathub com.mattjakeman.ExtensionManager
 ```
 
@@ -603,13 +612,13 @@ How to
 
 - save
 
-```sh
+```bash
 dconf dump <path> > config-name.ini
 ```
 
 - apply
 
-```sh
+```bash
 dconf load <path> < config-name.ini
 ```
 
