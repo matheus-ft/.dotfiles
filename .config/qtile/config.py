@@ -36,8 +36,7 @@ browser = "firefox"
 app_launcher = "rofi -show drun -show-icons"
 run_prompt = "rofi -show run"
 power_menu = "rofi -show p -modi p:rofi-power-menu"
-window_switcher = "rofi -show windowcd"
-workspace_switcher = "rofi -show window"
+window_switcher = "rofi -show window"
 gui_file_manager = "nautilus"
 screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good enough
 keyboard_toggler = "toggle_keyboard_layout"
@@ -166,13 +165,7 @@ keys: list[Key | KeyChord] = [
         lazy.spawn(gui_file_manager),
         desc="Open graphical file manager",
     ),
-    Key([alt], "Tab", lazy.spawn(window_switcher), desc="Launch window switcher"),
-    Key(
-        [super],
-        "Tab",
-        lazy.spawn(workspace_switcher),
-        desc="Launch workspace switcher",
-    ),
+    Key([modkey], "Tab", lazy.spawn(window_switcher), desc="Window switcher"),
     Key(
         [modkey, "shift"],
         "v",
