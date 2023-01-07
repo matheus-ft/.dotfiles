@@ -1,7 +1,8 @@
-# Pop!_OS 22.04
+# Pop!\_OS 22.04
 
 <!--toc:start-->
-- [Pop!_OS 22.04](#popos-2204)
+
+- [Pop!\_OS 22.04](#popos-2204)
   - [Package managers](#package-managers)
     - [Nala](#nala)
     - [Pacstall](#pacstall)
@@ -17,13 +18,14 @@
     - [Starship](#starship)
     - [Exa](#exa)
     - [Bat](#bat)
-    - [Htop](#htop)
+    - [Bashtop](#bashtop)
     - [Clipboard](#clipboard)
   - [Fonts](#fonts)
     - [Fira Code](#fira-code)
     - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
     - [Cascadia Code](#cascadia-code)
   - [Connection with Andorid device](#connection-with-andorid-device)
+  - [Brave](#brave)
   - [Programming](#programming)
     - [Python](#python)
       - [Jupyter notebooks](#jupyter-notebooks)
@@ -57,11 +59,8 @@
       - [CPU, RAM and stuff](#cpu-ram-and-stuff)
       - [Thermal sensor](#thermal-sensor)
       - [Cool icons](#cool-icons)
-  - [GNOME Desktop](#gnome-desktop)
-    - [GNOME tweaks](#gnome-tweaks)
-    - [Extension Manager](#extension-manager)
-    - [Dconf](#dconf)
-<!--toc:end-->
+  - [GNOME Desktop](#gnome-desktop) - [GNOME tweaks](#gnome-tweaks) - [Extension Manager](#extension-manager) - [Dconf](#dconf)
+  <!--toc:end-->
 
 How to manage:
 
@@ -82,7 +81,7 @@ config config --local status.showUntrackedFiles no
 
 and finally resolve those conflicts as you like.
 
-Note that `config` is the alias for this *bare repo*, so `git` won't work.
+Note that `config` is the alias for this _bare repo_, so `git` won't work.
 
 ---
 
@@ -199,10 +198,10 @@ Better `cat` command.
 brew install bat
 ```
 
-### Htop
+### Bashtop
 
 ```bash
-sudo nala install htop
+sudo nala install bashtop
 ```
 
 ### Clipboard
@@ -220,6 +219,8 @@ sudo add-apt-repository ppa:hluk/copyq
 sudo apt update
 sudo nala install copyq
 ```
+
+---
 
 ## Fonts
 
@@ -247,12 +248,28 @@ sudo nala install fonts-jetbrains-mono
 sudo nala install fonts-cascadia-code
 ```
 
+---
+
 ## Connection with Andorid device
 
 Yes, this is a KDE app, so be ready for a shit ton of dependencies
 
 ```bash
 sudo nala install kdeconnect nautilus-kdeconnect
+```
+
+---
+
+## Brave
+
+To create webapps
+
+```bash
+sudo nala install curl
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+sudo apt update
+sudo nala install brave-browser
 ```
 
 ---
@@ -268,7 +285,6 @@ Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkint
 - `venv` is the tool to manage virtual environments
 
 - `tkinter` is a GUI backend installed to use matplotlib
-
 
 ```bash
 sudo nala install python3-pip python3-venv python3-tk
@@ -544,7 +560,6 @@ Bluez was already installed, but let's get a GUI
 sudo nala install blueman
 ```
 
-
 ### Screenshooter
 
 ```bash
@@ -621,4 +636,3 @@ dconf dump <path> > config-name.ini
 ```bash
 dconf load <path> < config-name.ini
 ```
-

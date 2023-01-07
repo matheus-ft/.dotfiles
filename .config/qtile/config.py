@@ -43,6 +43,7 @@ keyboard_toggler = "toggle_keyboard_layout"
 clipboard_history = "copyq menu"
 vim = terminal + " -e /home/matheus/.local/share/bob/stable/nvim-linux64/bin/nvim"
 screenshooter = "flameshot gui"
+sys_monitor = "bashtop"
 
 HOME = os.path.expanduser("~")
 scripts = f"{HOME}/.config/qtile/scripts"
@@ -202,29 +203,56 @@ BACKGROUND = colors[0]
 FOREGROUND = colors[2]
 
 layout_theme = {
-    "border_width": 2,
-    "margin": 4,
     "border_focus": colors[8],
     "border_normal": colors[0],
-    "border_focus_stack": colors[4],
-    "border_normal_stack": colors[0],
 }
 
 layouts = [
-    layout.Columns(**layout_theme, insert_position=1, border_on_single=True),
-    # layout.MonadThreeCol(**layout_theme),  # for ultrawide screen
-    layout.Max(**layout_theme),
-    layout.Floating(**layout_theme),
+    layout.Columns(
+        **layout_theme,
+        border_width=2,
+        insert_position=1,
+        border_on_single=True,
+        margin=[8, 4, 8, 4],
+        border_focus_stack=colors[4],
+        border_normal_stack=colors[0],
+    ),
+    # layout.MonadThreeCol(**layout_theme, new_client_position="bottom"),
+    layout.Max(**layout_theme, margin=1),
+    layout.Floating(**layout_theme, border_width=2, max_border_width=2),
 ]
 
 groups = [
-    Group(name="1", label="", layout="columns"),
+    Group(name="1", label="", layout="columns"),
     Group(name="2", label="", layout="columns"),
     Group(name="3", label="拾", layout="columns"),
     Group(name="4", label="", layout="columns"),
-    Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
-    Group(name="6", label="辶", layout="floating", matches=[Match(wm_class="zoom")]),
-    Group(name="7", label="", layout="columns"),
+    Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
+    Group(name="6", label="辶", layout="max", matches=[Match(wm_class="zoom")]),
+    Group(
+        name="7",
+        label="",
+        layout="max",
+        matches=[
+            Match(wm_class="crx_agimnkijcaahngcdmfeangaknmldooml")
+        ],  # the webapp for YouTube
+    ),
+    Group(
+        name="8",
+        label="",
+        layout="max",
+        matches=[
+            Match(wm_class="crx_fmgjjmmmlfnkbppncabfkddbjimcfncm")
+        ],  # the webapp for Gmail
+    ),
+    Group(
+        name="9",
+        label="",
+        layout="max",
+        matches=[
+            Match(wm_class="crx_ocdlmjhbenodhlknglojajgokahchlkk")
+        ],  # the webapp for MSOffice
+    ),
 ]
 
 for workspace in groups:
@@ -245,15 +273,15 @@ for workspace in groups:
         ]
     )
 
-popup_config = dict(width=0.5, height=0.7, x=0.25, y=0.1, opacity=0.8)
+popup_config = dict(width=0.5, height=0.7, x=0.25, y=0.1, opacity=0.9)
 
-dropdown_config = dict(
+dropdown_wide = dict(
     width=0.67, height=0.4, x=0.16, y=0, opacity=0.8, on_focus_lost_hide=False
 )
 
-dropdown_right = dict(width=0.3, height=0.9, x=0.55, y=0, opacity=1)
+drop_sys_mon = dict(width=0.8, height=0.75, x=0.1, y=0, opacity=1)
 
-dropdown_center = dict(
+dropdown_tall = dict(
     width=0.42, height=0.75, x=0.29, y=0, opacity=0.8, on_focus_lost_hide=False
 )
 
@@ -261,12 +289,12 @@ groups.append(
     ScratchPad(
         "scratchpad",
         [
-            DropDown("terminal 0", terminal, **dropdown_config),
-            DropDown("terminal 1", terminal, **dropdown_config),
-            DropDown("terminal 2", terminal, **dropdown_config),
+            DropDown("terminal 0", terminal, **dropdown_wide),
+            DropDown("terminal 1", terminal, **dropdown_wide),
+            DropDown("terminal 2", terminal, **dropdown_wide),
             DropDown("terminal center", terminal, **popup_config),
-            DropDown("htop", terminal + " -e htop", **dropdown_right),
-            DropDown("calendar", terminal + " -e calcurse", **dropdown_center),
+            DropDown("sys monitor", terminal + " -e " + sys_monitor, **drop_sys_mon),
+            DropDown("calendar", terminal + " -e calcurse", **dropdown_tall),
             DropDown("notes", vim + " -c :VimwikiIndex", **popup_config),
         ],
     ),
@@ -310,9 +338,16 @@ keys.extend(
             lazy.group["scratchpad"].dropdown_toggle("notes"),
             desc="Notepad pop-up",
         ),
+        Key(
+            [modkey],
+            "F3",
+            lazy.group["scratchpad"].dropdown_toggle("sys monitor"),
+            desc="System monitor",
+        ),
     ]
 )
 
+keys.append(Key([modkey], "F1", lazy.spawn(), desc="Show keybindings"))
 keys.append(
     Key(
         [modkey],
@@ -322,7 +357,6 @@ keys.append(
             + show_keys(keys)
             + '" | rofi -dmenu -i -mesg "Keyboard shortcuts"\''
         ),
-        desc="Show keybindings",
     )
 )
 
@@ -340,14 +374,14 @@ extension_defaults = widget_defaults.copy()
 def widgets():
     return [
         widget.TextBox(
-            text="",
+            text=" ",
             fontsize=12,
             mouse_callbacks={
                 left_click: lambda: qtile.cmd_spawn(app_launcher),
                 right_click: lambda: qtile.cmd_spawn(terminal),
             },
-            decorations=[RectDecoration(colour=colors[2], radius=10, filled=True)],
-            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
+            foreground=colors[3],
         ),
         widget.GroupBox(
             fontsize=14,
@@ -367,20 +401,48 @@ def widgets():
             this_screen_border=colors[5],
             decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
         ),
-        widget.CurrentLayout(
+        # widget.CurrentLayout(
+        #     foreground=colors[0],
+        #     decorations=[RectDecoration(colour=colors[8], radius=10, filled=True)],
+        # ),
+        # widget.TaskList(  # actually a list of open windows
+        #     margin=0,
+        #     icon_size=16,
+        #     padding=1,
+        #     borderwidth=0,
+        #     txt_floating="🗗 ",
+        #     txt_maximized="🗖 ",
+        #     txt_minimized="🗕 ",
+        #     decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
+        # ),
+        widget.Memory(
+            mouse_callbacks={
+                left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor"),
+            },
+            measure_mem="G",
+            format="﬙ {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}",
+            foreground=BACKGROUND,
+            decorations=[RectDecoration(colour=colors[5], radius=10, filled=True)],
+        ),
+        widget.ThermalSensor(
+            foreground_alert=colors[9],
+            threshold=75,
+            fmt="🌡 {}",
+            tag_sensor="Core 0",
+            mouse_callbacks={
+                left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor")
+            },
+            decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
+        ),
+        widget.CPU(
+            mouse_callbacks={
+                left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor"),
+            },
+            format=" {load_percent}%",
             foreground=colors[0],
-            decorations=[RectDecoration(colour=colors[8], radius=10, filled=True)],
+            decorations=[RectDecoration(colour=colors[4], radius=10, filled=True)],
         ),
-        widget.TaskList(  # actually a list of open windows
-            margin=0,
-            icon_size=16,
-            padding=1,
-            borderwidth=0,
-            txt_floating="🗗 ",
-            txt_maximized="🗖 ",
-            txt_minimized="🗕 ",
-            decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
-        ),
+        widget.Spacer(length=bar.STRETCH),
         widget.Clock(
             format=" %a, %b %d - %H:%M ",
             mouse_callbacks={
@@ -390,33 +452,6 @@ def widgets():
             decorations=[RectDecoration(colour=colors[2], radius=10, filled=True)],
         ),
         widget.Spacer(length=bar.STRETCH),
-        widget.CPU(
-            mouse_callbacks={
-                left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
-            },
-            format=" {load_percent}%",
-            foreground=colors[0],
-            decorations=[RectDecoration(colour=colors[4], radius=10, filled=True)],
-        ),
-        widget.ThermalSensor(
-            foreground_alert=colors[9],
-            threshold=75,
-            fmt="🌡 {}",
-            tag_sensor="Core 0",
-            mouse_callbacks={
-                left_click: lazy.group["scratchpad"].dropdown_toggle("htop")
-            },
-            decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
-        ),
-        widget.Memory(
-            mouse_callbacks={
-                left_click: lazy.group["scratchpad"].dropdown_toggle("htop"),
-            },
-            measure_mem="G",
-            format="﬙ {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}",
-            foreground=BACKGROUND,
-            decorations=[RectDecoration(colour=colors[5], radius=10, filled=True)],
-        ),
         widget.KeyboardLayout(
             fmt=" {}",
             foreground=colors[0],
