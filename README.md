@@ -32,6 +32,7 @@
       - [Neovim integration](#neovim-integration)
     - [Node 16 and Yarn](#node-16-and-yarn)
     - [Rust](#rust)
+    - [Latex](#latex)
     - [Neovim](#neovim)
       - [Bob](#bob)
       - [Rip grep](#rip-grep)
@@ -334,6 +335,20 @@ cargo install cargo-update
 ```
 
 Make sure to have `gcc` (`build-essential`), `openssl` (including `libssl-dev`), and `pkg-config`
+
+### Latex
+
+Tex Live
+
+```bash
+sudo nala install texlive texlive-luatex texlive-lang-english texlive-lang-portuguese texlive-science perl-tk
+```
+
+Latexmk
+
+```bash
+sudo nala install latexmk
+```
 
 ### Neovim
 
