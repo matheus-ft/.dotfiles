@@ -198,19 +198,19 @@ mouse = [
     ),
 ]
 
-colors = colorscheme.everforest()
+colors = colorscheme.gruvbox()
 BACKGROUND = colors[0]
 FOREGROUND = colors[2]
 
 layout_theme = {
     "border_focus": colors[8],
     "border_normal": colors[0],
+    "border_width": 2,
 }
 
 layouts = [
     layout.Columns(
         **layout_theme,
-        border_width=2,
         insert_position=1,
         border_on_single=True,
         margin=[8, 4, 8, 4],
@@ -218,8 +218,8 @@ layouts = [
         border_normal_stack=colors[0],
     ),
     # layout.MonadThreeCol(**layout_theme, new_client_position="bottom"),
-    layout.Max(**layout_theme, margin=1),
-    layout.Floating(**layout_theme, border_width=2, max_border_width=2),
+    layout.Max(**layout_theme),
+    layout.Floating(**layout_theme, max_border_width=2),
 ]
 
 groups = [
@@ -233,25 +233,19 @@ groups = [
         name="7",
         label="",
         layout="max",
-        matches=[
-            Match(wm_class="crx_agimnkijcaahngcdmfeangaknmldooml")
-        ],  # the webapp for YouTube
+        matches=[Match(wm_class="crx_agimnkijcaahngcdmfeangaknmldooml")],  # YouTube
     ),
     Group(
         name="8",
         label="",
         layout="max",
-        matches=[
-            Match(wm_class="crx_fmgjjmmmlfnkbppncabfkddbjimcfncm")
-        ],  # the webapp for Gmail
+        matches=[Match(wm_class="crx_fmgjjmmmlfnkbppncabfkddbjimcfncm")],  # Gmail
     ),
     Group(
         name="9",
         label="",
-        layout="max",
-        matches=[
-            Match(wm_class="crx_ocdlmjhbenodhlknglojajgokahchlkk")
-        ],  # the webapp for MSOffice
+        layout="columns",
+        matches=[Match(wm_class="crx_ocdlmjhbenodhlknglojajgokahchlkk")],  # MSOffice
     ),
 ]
 
@@ -276,13 +270,13 @@ for workspace in groups:
 popup_config = dict(width=0.5, height=0.7, x=0.25, y=0.1, opacity=0.9)
 
 dropdown_wide = dict(
-    width=0.67, height=0.4, x=0.16, y=0, opacity=0.8, on_focus_lost_hide=False
+    width=0.67, height=0.4, x=0.16, y=0, opacity=0.9, on_focus_lost_hide=False
 )
 
 drop_sys_mon = dict(width=0.8, height=0.75, x=0.1, y=0, opacity=1)
 
 dropdown_tall = dict(
-    width=0.42, height=0.75, x=0.29, y=0, opacity=0.8, on_focus_lost_hide=False
+    width=0.42, height=0.75, x=0.29, y=0, opacity=1, on_focus_lost_hide=False
 )
 
 groups.append(
@@ -399,12 +393,12 @@ def widgets():
             # marks in the other screens' panel
             other_current_screen_border=colors[9],
             this_screen_border=colors[5],
-            decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
+            decorations=[RectDecoration(colour=BACKGROUND, radius=4, filled=True)],
         ),
-        # widget.CurrentLayout(
-        #     foreground=colors[0],
-        #     decorations=[RectDecoration(colour=colors[8], radius=10, filled=True)],
-        # ),
+        widget.CurrentLayout(
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[8], radius=10, filled=True)],
+        ),
         # widget.TaskList(  # actually a list of open windows
         #     margin=0,
         #     icon_size=16,
@@ -413,16 +407,16 @@ def widgets():
         #     txt_floating="🗗 ",
         #     txt_maximized="🗖 ",
         #     txt_minimized="🗕 ",
+        #     max_chars=80,
         #     decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
         # ),
-        widget.Memory(
+        widget.CPU(
             mouse_callbacks={
                 left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor"),
             },
-            measure_mem="G",
-            format="﬙ {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}",
-            foreground=BACKGROUND,
-            decorations=[RectDecoration(colour=colors[5], radius=10, filled=True)],
+            format=" {load_percent}%",
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[4], radius=10, filled=True)],
         ),
         widget.ThermalSensor(
             foreground_alert=colors[9],
@@ -434,13 +428,14 @@ def widgets():
             },
             decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
         ),
-        widget.CPU(
+        widget.Memory(
             mouse_callbacks={
                 left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor"),
             },
-            format=" {load_percent}%",
-            foreground=colors[0],
-            decorations=[RectDecoration(colour=colors[4], radius=10, filled=True)],
+            measure_mem="G",
+            format="﬙ {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}",
+            foreground=BACKGROUND,
+            decorations=[RectDecoration(colour=colors[5], radius=10, filled=True)],
         ),
         widget.Spacer(length=bar.STRETCH),
         widget.Clock(
@@ -498,7 +493,7 @@ def main_panel():
             size=20,
             # background=BACKGROUND,
             background="#ffffff" + "00",
-            opacity=0.9,
+            opacity=0.95,
             margin=[4, 6, 0, 6],
         )
     )
@@ -513,7 +508,7 @@ def panel():
             size=18,
             # background=BACKGROUND,
             background="#ffffff" + "00",
-            opacity=0.9,
+            opacity=0.95,
             margin=[4, 6, 0, 6],
         )
     )
