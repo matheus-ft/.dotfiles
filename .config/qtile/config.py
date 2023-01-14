@@ -225,10 +225,10 @@ layouts = [
 groups = [
     Group(name="1", label="", layout="columns"),
     Group(name="2", label="", layout="columns"),
-    Group(name="3", label="拾", layout="columns"),
-    Group(name="4", label="", layout="columns"),
+    Group(name="3", label="", layout="columns"),
+    Group(name="4", label="拾", layout="columns", matches=[Match(wm_class="evince")]),
     Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
-    Group(name="6", label="辶", layout="max", matches=[Match(wm_class="zoom")]),
+    Group(name="6", label="辶", layout="floating", matches=[Match(wm_class="zoom")]),
     Group(
         name="7",
         label="",
