@@ -3,6 +3,7 @@
 <!--toc:start-->
 
 - [Pop!\_OS 22.04](#popos-2204)
+  - [Instructions](#instructions)
   - [Package managers](#package-managers)
     - [Nala](#nala)
     - [Pacstall](#pacstall)
@@ -18,27 +19,28 @@
     - [Starship](#starship)
     - [Exa](#exa)
     - [Bat](#bat)
-    - [Bashtop](#bashtop)
+    - [System monitor](#system-monitor)
+    - [Calendar](#calendar)
     - [Clipboard](#clipboard)
   - [Fonts](#fonts)
-    - [Fira Code](#fira-code)
     - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
-    - [Cascadia Code](#cascadia-code)
   - [Connection with Andorid device](#connection-with-andorid-device)
   - [Brave](#brave)
+- [Zoom](#zoom)
   - [Programming](#programming)
     - [Python](#python)
       - [Jupyter notebooks](#jupyter-notebooks)
       - [Neovim integration](#neovim-integration)
-    - [Node 16 and Yarn](#node-16-and-yarn)
+    - [Nodejs 16](#nodejs-16)
     - [Rust](#rust)
     - [Latex](#latex)
     - [Neovim](#neovim)
       - [Bob](#bob)
+      - [PPA](#ppa)
       - [Rip grep](#rip-grep)
       - [Neovide](#neovide)
       - [Default editor](#default-editor)
-        - [In terminal emulator](#in-terminal-emulator)
+        - [In a terminal](#in-a-terminal)
         - [In Gnome](#in-gnome)
   - [Qtile](#qtile)
   - [Additional software needed](#additional-software-needed)
@@ -62,6 +64,8 @@
       - [Cool icons](#cool-icons)
   - [GNOME Desktop](#gnome-desktop) - [GNOME tweaks](#gnome-tweaks) - [Extension Manager](#extension-manager) - [Dconf](#dconf)
   <!--toc:end-->
+
+## Instructions
 
 How to manage:
 
@@ -147,11 +151,11 @@ Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.con
 ### Z shell
 
 ```bash
-sudo nala install zsh
+sudo nala install zsh zsh-doc
 chsh -s $(which zsh)
 ```
 
-Last line makes z shell the default shell.
+Last line makes z shell the default login shell.
 
 #### Oh My Zsh
 
@@ -188,7 +192,7 @@ For zsh, Powerlevel10k does it better, but this is still set for bash.
 Better `ls` command.
 
 ```bash
-sudo nala install exa
+cargo install exa
 ```
 
 ### Bat
@@ -199,10 +203,16 @@ Better `cat` command.
 brew install bat
 ```
 
-### Bashtop
+### System monitor
 
 ```bash
 sudo nala install bashtop
+```
+
+### Calendar
+
+```bash
+sudo nala install calcurse
 ```
 
 ### Clipboard
@@ -217,37 +227,16 @@ Clipbaord manager
 
 ```bash
 sudo add-apt-repository ppa:hluk/copyq
-sudo apt update
-sudo nala install copyq
+sudo apt update && sudo nala install copyq
 ```
 
 ---
 
 ## Fonts
 
-### Fira Code
-
-Cool font with ligatures (and apparently the only one working properly with my terminal).
-
-```bash
-sudo nala install fonts-firacode
-```
-
-Also installed a non-offical version of the italics manually from [github](https://github.com/Avi-D-coder/FiraCode-italic).
-
 ### JetBrains Mono Nerd Font
 
-Another cool nerd font.
-
-```bash
-sudo nala install fonts-jetbrains-mono
-```
-
-### Cascadia Code
-
-```bash
-sudo nala install fonts-cascadia-code
-```
+Manually installed from https://www.nerdfonts.com/font-downloads and extracted the zip to `$HOME/.local/share/fonts/JetBrainsMono/`
 
 ---
 
@@ -266,11 +255,17 @@ sudo nala install kdeconnect nautilus-kdeconnect
 To create webapps
 
 ```bash
-sudo nala install curl
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-sudo apt update
-sudo nala install brave-browser
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+sudo apt update && sudo nala install brave-browser
+```
+
+---
+
+# Zoom
+
+```bash
+flatpak install flathub us.zoom.Zoom
 ```
 
 ---
@@ -302,17 +297,17 @@ pip install jupytext
 #### Neovim integration
 
 ```bash
-mkdir -p ~/.local/venv && cd ~/.local/venv
+mkdir -p $HOME/.local/venv && cd $HOME/.local/venv
 python3 -m venv nvim
 cd nvim
 . ./bin/activate
 pip install --upgrade pynvim
-pip install ueberzug Pillow cairosvg pnglatex plotly kaleido jupyter-client
+pip install Pillow cairosvg pnglatex plotly kaleido jupyter-client black docformatter
 ```
 
-Last line is for Magma.
+Last line is for Magma and Formatter. TODO find replacement for `ueberzug`
 
-### Node 16 and Yarn
+### Nodejs 16
 
 Mostly for other dependencies -- such as `npm`
 
@@ -320,10 +315,8 @@ Mostly for other dependencies -- such as `npm`
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
      echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-     sudo nala update && sudo nala install yarn
+     sudo apt update && sudo nala install yarn
 ```
-
-`sudo nala instal nodejs` is not necessary, but can be run just to be sure.
 
 ### Rust
 
@@ -352,6 +345,30 @@ sudo nala install latexmk
 
 ### Neovim
 
+#### Bob
+
+Installing and managing neovim versions.
+
+From crates
+
+```bash
+cargo install bob-nvim
+```
+
+From source
+
+```bash
+cargo install --git https://github.com/MordechaiHadad/bob.git
+```
+
+Make sure to uninstall manually installed versions beforehand. And then
+
+```bash
+bob use <version>
+```
+
+#### PPA
+
 This way you get the last release - which is way newer than the one from APT
 
 ```bash
@@ -364,28 +381,6 @@ nvim +PackerSync
 Settings in [init.lua](https://github.com/matheus-ft/nvim)
 
 Also possible to get bleeding edge versions with `ppa:neovim-ppa/unstable` or nightly appimage builds
-
-#### Bob
-
-Installing and managing neovim versions.
-
-From source
-
-```bash
-cargo install --git https://github.com/MordechaiHadad/bob.git
-```
-
-From crates
-
-```bash
-cargo install bob-nvim
-```
-
-Make sure to uninstall manually installed versions beforehand. And then
-
-```bash
-bob use <version>
-```
 
 #### Rip grep
 
@@ -403,7 +398,7 @@ GUI client. Building from source (first line of dependencies might be redundant,
 sudo nala install gcc-multilib g++-multilib cmake libssl-dev pkg-config \
     libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
     libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev
-cd ~/Downloads
+cd $HOME/Downloads
 git clone "https://github.com/neovide/neovide"
 cd neovide
 cargo build --release
@@ -412,10 +407,10 @@ cp ./target/release/neovide $HOME/.local/bin/
 
 #### Default editor
 
-##### In terminal emulator
+##### In a terminal
 
 ```bash
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100
+sudo update-alternatives --install /usr/bin/editor editor $(which nvim) 100
 sudo update-alternatives --config editor
 ```
 
@@ -435,6 +430,15 @@ pip3 install --no-cache-dir cairocffi
 pip3 install qtile
 ```
 
+Then
+
+```bash
+cd $HOME/Downloads
+git clone https://github.com/elParaguayo/qtile-extras
+cd qtile-extras
+sudo python3 setup.py install
+```
+
 To login, create a `/usr/share/xsessions/qtile.desktop`:
 
 ```desktop
@@ -447,8 +451,6 @@ Keywords=wm;tiling
 ```
 
 Settings in [config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/config.py).
-
-[autostart.sh](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/scripts/autostart.sh) has autostart instructions (duh) - and don't forget to `chmod +x` it!!
 
 ## Additional software needed
 
@@ -468,19 +470,21 @@ To regulate the monitor backlight
 sudo nala install brightnessctl
 ```
 
+Possibly needed to do `sudo usermod -aG video ${USER}` and reboot
+
 ### Picom
 
 Compositor
 
 ```bash
-cd ~/Downloads
-sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl-dev libegl-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev
+cd $HOME/Downloads
+sudo nala install libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl-dev libegl-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev libxcb-dpms0-dev
 git clone https://github.com/yshui/picom
 cd picom
 git submodule update --init --recursive
 meson --buildtype=release . build
 ninja -C build
-cp build/src/picom ~/.local/bin/
+cp build/src/picom $HOME/.local/bin/
 ```
 
 This requires having meson and ninja available (as well as GCC obviously)
@@ -490,7 +494,7 @@ This requires having meson and ninja available (as well as GCC obviously)
 Notifications
 
 ```bash
-cd ~/Downloads
+cd $HOME/Downloads
 sudo nala install libdbus-1-dev libx11-dev libxinerama-dev libxrandr-dev libxss-dev libglib2.0-dev libpango1.0-dev libgtk-3-dev libxdg-basedir-dev libnotify-dev
 git clone https://github.com/dunst-project/dunst.git
 cd dunst
@@ -506,7 +510,7 @@ To set wallpapers
 sudo nala install nitrogen
 ```
 
-Also, cloned [DT's](https://gitlab.com/dwt1/wallpapers) and [catppuccin](https://github.com/catppuccin/wallpapers) wallpapers into ~/Pictures/wallpapers/
+Also, cloned [DT's](https://gitlab.com/dwt1/wallpapers) wallpapers into ~/Pictures/wallpapers/
 
 ### Lxpolkit
 
@@ -534,8 +538,12 @@ sudo nala install arandr
 
 ### Power Menu
 
-Copied the script from [`rofi-power-menu`](https://github.com/jluttine/rofi-power-menu) to `~/.local/bin`, did `chmod +x rofi-power-menu`
-and added a keybind to my qtile config.
+```bash
+cd $HOME/Downloads
+git clone https://github.com/jluttine/rofi-power-menu
+cd rofi-power-menu
+cp rofi-power-menu $HOME/.local/bin
+```
 
 ### Screen locker/saver
 
@@ -543,7 +551,7 @@ and added a keybind to my qtile config.
 sudo nala install i3lock scrot
 ```
 
-And add `~/.local/bin/i3lock-custom` with
+And create `$HOME/.local/bin/i3lock-custom` with
 
 ```bash
 #!/bin/bash
@@ -556,7 +564,7 @@ and then `chmod u+x` it
 
 ### Keyboard layout switcher
 
-Create `~/.local/bin/toggle_keyboard_layout` (which is in PATH) with
+Create `$HOME/.local/bin/toggle_keyboard_layout` with
 
 ```bash
 #!/usr/bin/bash
@@ -586,8 +594,7 @@ sudo nala install flameshot
 #### Wifi
 
 ```bash
-sudo nala install libw-dev
-pip install iwlib
+sudo nala install libiw-dev && pip install iwlib
 ```
 
 `nm-applet` was already installed apparently, but it's possible to manage network connection with `nmcli dev wifi`

@@ -226,7 +226,7 @@ groups = [
     Group(name="1", label="", layout="columns"),
     Group(name="2", label="", layout="columns"),
     Group(name="3", label="", layout="columns"),
-    Group(name="4", label="拾", layout="columns", matches=[Match(wm_class="evince")]),
+    Group(name="4", label="拾", layout="columns"),
     Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
     Group(name="6", label="辶", layout="floating", matches=[Match(wm_class="zoom")]),
     Group(
@@ -286,6 +286,7 @@ groups.append(
             DropDown("terminal 0", terminal, **dropdown_wide),
             DropDown("terminal 1", terminal, **dropdown_wide),
             DropDown("terminal 2", terminal, **dropdown_wide),
+            DropDown("terminal 3", terminal, **dropdown_wide),
             DropDown("terminal center", terminal, **popup_config),
             DropDown("sys monitor", terminal + " -e " + sys_monitor, **drop_sys_mon),
             DropDown("calendar", terminal + " -e calcurse", **dropdown_tall),
@@ -357,8 +358,8 @@ keys.append(
 prompt = f"{os.environ['USER']}@{socket.gethostname()}: "  # actually useless
 
 widget_defaults = dict(
-    font="JetBrainsMono Nerd Font",
-    fontsize=12,
+    font="JetBrains Mono Nerd Font",
+    fontsize=13,
     padding=6,
     background="#ffffff" + "00",  # transparent
 )
@@ -368,20 +369,18 @@ extension_defaults = widget_defaults.copy()
 def widgets():
     return [
         widget.TextBox(
-            text=" ",
-            fontsize=12,
+            text="  ",
             mouse_callbacks={
                 left_click: lambda: qtile.cmd_spawn(app_launcher),
-                right_click: lambda: qtile.cmd_spawn(terminal),
+                right_click: lazy.group["scratchpad"].dropdown_toggle("terminal 3"),
             },
             decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
-            foreground=colors[3],
+            foreground=colors[2],
         ),
         widget.GroupBox(
-            fontsize=14,
             invert_mouse_wheel=True,
             margin=2,
-            padding=0,
+            padding=1,
             rounded=True,
             active=colors[4],
             inactive=colors[1],
@@ -399,17 +398,26 @@ def widgets():
             foreground=colors[0],
             decorations=[RectDecoration(colour=colors[8], radius=10, filled=True)],
         ),
-        # widget.TaskList(  # actually a list of open windows
-        #     margin=0,
-        #     icon_size=16,
-        #     padding=1,
-        #     borderwidth=0,
-        #     txt_floating="🗗 ",
-        #     txt_maximized="🗖 ",
-        #     txt_minimized="🗕 ",
-        #     max_chars=80,
-        #     decorations=[RectDecoration(colour=colors[0], radius=10, filled=True)],
-        # ),
+        widget.TaskList(  # list of open windows
+            margin=0,
+            icon_size=16,
+            padding=1,
+            borderwidth=0,
+            txt_floating="🗗 ",
+            txt_maximized="🗖 ",
+            txt_minimized="🗕 ",
+            decorations=[RectDecoration(colour=colors[0], radius=4, filled=True)],
+        ),
+        widget.Spacer(length=bar.STRETCH),
+        widget.Clock(
+            format=" %a, %b %d - %H:%M ",
+            mouse_callbacks={
+                left_click: lazy.group["scratchpad"].dropdown_toggle("calendar"),
+            },
+            foreground=colors[0],
+            decorations=[RectDecoration(colour=colors[2], radius=10, filled=True)],
+        ),
+        widget.Spacer(length=bar.STRETCH),
         widget.CPU(
             mouse_callbacks={
                 left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor"),
@@ -433,23 +441,13 @@ def widgets():
                 left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor"),
             },
             measure_mem="G",
-            format="﬙ {MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}",
+            format="﬙ {MemUsed:.1f}{mm}b",
             foreground=BACKGROUND,
             decorations=[RectDecoration(colour=colors[5], radius=10, filled=True)],
         ),
-        widget.Spacer(length=bar.STRETCH),
-        widget.Clock(
-            format=" %a, %b %d - %H:%M ",
-            mouse_callbacks={
-                left_click: lazy.group["scratchpad"].dropdown_toggle("calendar"),
-            },
-            foreground=colors[0],
-            decorations=[RectDecoration(colour=colors[2], radius=10, filled=True)],
-        ),
-        widget.Spacer(length=bar.STRETCH),
         widget.KeyboardLayout(
             fmt=" {}",
-            foreground=colors[0],
+            foreground=colors[2],
             decorations=[RectDecoration(colour=colors[3], radius=10, filled=True)],
         ),
         widget.Backlight(
@@ -479,9 +477,10 @@ def widgets():
             notify_below=35,
             decorations=[RectDecoration(colour=BACKGROUND, radius=10, filled=True)],
         ),
-        widget.StatusNotifier(
-            decorations=[RectDecoration(colour=colors[1], radius=10, filled=True)],
-        ),
+        # widget.StatusNotifier(
+        #     decorations=[RectDecoration(colour=colors[1], radius=10, filled=True)],
+        # ),
+        widget.Systray(),
         widget.Spacer(length=10),
     ]
 
