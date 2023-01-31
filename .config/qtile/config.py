@@ -422,15 +422,15 @@ def widgets():
             mouse_callbacks={
                 left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor"),
             },
-            format=" {load_percent}%",
+            format=" {load_percent:.0f}%",
             foreground=colors[0],
             decorations=[RectDecoration(colour=colors[4], radius=10, filled=True)],
         ),
         widget.ThermalSensor(
             foreground_alert=colors[9],
             threshold=75,
-            fmt="🌡 {}",
-            tag_sensor="Core 0",
+            format="🌡 {temp:.0f}{unit}",
+            tag_sensor="Package id 0",  # this is to get the overall temperature
             mouse_callbacks={
                 left_click: lazy.group["scratchpad"].dropdown_toggle("sys monitor")
             },
@@ -485,43 +485,33 @@ def widgets():
     ]
 
 
+panel_settings = dict(
+    size=20,
+    # background=BACKGROUND,
+    background="#ffffff" + "00",
+    opacity=0.95,
+    margin=[4, 6, 0, 6],
+)
+
+
 def main_panel():
-    return Screen(
-        top=bar.Bar(
-            widgets(),
-            size=20,
-            # background=BACKGROUND,
-            background="#ffffff" + "00",
-            opacity=0.95,
-            margin=[4, 6, 0, 6],
-        )
-    )
+    return Screen(top=bar.Bar(widgets(), **panel_settings))
 
 
 def panel():
     no_systray = widgets()
     del no_systray[-2]
-    return Screen(
-        top=bar.Bar(
-            no_systray,
-            size=18,
-            # background=BACKGROUND,
-            background="#ffffff" + "00",
-            opacity=0.95,
-            margin=[4, 6, 0, 6],
-        )
-    )
+    return Screen(top=bar.Bar(no_systray, **panel_settings))
 
 
 screens = [main_panel()]
-n_monitors = get_num_monitors()
-if n_monitors == 2:
+if get_num_monitors() == 2:
     screens = [panel(), main_panel()]
 
 
 dgroups_app_rules: List = []  # this type hint is mandatory!
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = True
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -560,7 +550,6 @@ def start_once():
 # mailing lists, GitHub issues, and other WM documentation that suggest setting
 # this string if your java app doesn't work correctly. We may as well just lie
 # and say that we're a working one by default.
-#
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
