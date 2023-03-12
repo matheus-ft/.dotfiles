@@ -229,24 +229,9 @@ groups = [
     Group(name="4", label="拾", layout="columns"),
     Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
     Group(name="6", label="辶", layout="floating", matches=[Match(wm_class="zoom")]),
-    Group(
-        name="7",
-        label="",
-        layout="max",
-        matches=[Match(wm_class="crx_agimnkijcaahngcdmfeangaknmldooml")],  # YouTube
-    ),
-    Group(
-        name="8",
-        label="",
-        layout="max",
-        matches=[Match(wm_class="crx_fmgjjmmmlfnkbppncabfkddbjimcfncm")],  # Gmail
-    ),
-    Group(
-        name="9",
-        label="",
-        layout="columns",
-        matches=[Match(wm_class="crx_ocdlmjhbenodhlknglojajgokahchlkk")],  # MSOffice
-    ),
+    Group(name="7", label="", layout="max"),
+    Group(name="8", label="", layout="columns"),
+    Group(name="9", label="", layout="columns"),
 ]
 
 for workspace in groups:
