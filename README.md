@@ -334,7 +334,7 @@ Make sure to have `gcc` (`build-essential`), `openssl` (including `libssl-dev`),
 Tex Live
 
 ```bash
-sudo nala install texlive texlive-luatex texlive-lang-english texlive-lang-portuguese texlive-science perl-tk
+sudo nala install texlive texlive-luatex texlive-lang-english texlive-lang-portuguese texlive-science perl-tk texlive-bibtex-extra biber
 ```
 
 Latexmk

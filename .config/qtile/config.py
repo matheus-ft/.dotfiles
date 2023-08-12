@@ -230,7 +230,7 @@ groups = [
     Group(name="5", label="", layout="max", matches=[Match(wm_class="Wfica")]),
     Group(name="6", label="辶", layout="floating", matches=[Match(wm_class="zoom")]),
     Group(name="7", label="", layout="max"),
-    Group(name="8", label="", layout="columns"),
+    Group(name="8", label="", layout="columns", matches=[Match(wm_class="discord")]),
     Group(name="9", label="", layout="columns"),
 ]
 
@@ -513,7 +513,7 @@ floating_layout = layout.Floating(
         # file_progress, confirm, download and error.
         *layout.Floating.default_float_rules,
         Match(title="Confirmation"),  # tastyworks exit box
-        Match(title="Qalculate!"),  # qalculate-gtk
+        Match(wm_class="gnome-calculator"),
         Match(wm_class="kdenlive"),
         Match(wm_class="pinentry-gtk-2"),  # GPG key password entry
         Match(wm_class="copyq"),
