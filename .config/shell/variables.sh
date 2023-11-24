@@ -31,6 +31,3 @@ if [ -z "$XDG_CACHE_HOME" ] ; then
     export XDG_CACHE_HOME="$HOME/.cache"
 fi
 
-# in order to use `brew`
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-

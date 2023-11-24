@@ -6,7 +6,6 @@
   - [Pacstall](#pacstall)
   - [Topgrade](#topgrade)
   - [Build tools](#build-tools)
-  - [Homebrew](#homebrew)
 - [Terminal](#terminal)
   - [Kitty](#kitty)
   - [Z shell](#z-shell)
@@ -126,12 +125,6 @@ Some of the general build tools I had to get
 sudo nala install meson ninja-build
 ```
 
-## Homebrew
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
 ---
 
 # Terminal
@@ -198,7 +191,7 @@ cargo install exa
 Better `cat` command.
 
 ```bash
-brew install bat
+sudo nala install bat
 ```
 
 ## System monitor
