@@ -1,48 +1,46 @@
-# Pop!\_OS 22.04
-
 <!--toc:start-->
 
-- [Pop!\_OS 22.04](#popos-2204)
-  - [Instructions](#instructions)
-  - [Package managers](#package-managers)
-    - [Nala](#nala)
-    - [Pacstall](#pacstall)
-    - [Topgrade](#topgrade)
-    - [Build tools](#build-tools)
-    - [Homebrew](#homebrew)
-  - [Terminal](#terminal)
-    - [Kitty](#kitty)
-    - [Z shell](#z-shell)
-      - [Oh My Zsh](#oh-my-zsh)
-        - [Powerlevel10k](#powerlevel10k)
-        - [Syntax highlighting](#syntax-highlighting)
-    - [Starship](#starship)
-    - [Exa](#exa)
-    - [Bat](#bat)
-    - [System monitor](#system-monitor)
-    - [Calendar](#calendar)
-    - [Clipboard](#clipboard)
-  - [Fonts](#fonts)
-    - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
-  - [Connection with Andorid device](#connection-with-andorid-device)
+- [Instructions](#instructions)
+- [Package managers](#package-managers)
+  - [Nala](#nala)
+  - [Pacstall](#pacstall)
+  - [Topgrade](#topgrade)
+  - [Build tools](#build-tools)
+  - [Homebrew](#homebrew)
+- [Terminal](#terminal)
+  - [Kitty](#kitty)
+  - [Z shell](#z-shell)
+    - [Oh My Zsh](#oh-my-zsh)
+      - [Powerlevel10k](#powerlevel10k)
+      - [Syntax highlighting](#syntax-highlighting)
+  - [Starship](#starship)
+  - [Exa](#exa)
+  - [Bat](#bat)
+  - [System monitor](#system-monitor)
+  - [Calendar](#calendar)
+  - [Clipboard](#clipboard)
+- [Fonts](#fonts)
+  - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
+- [Connection with Andorid device](#connection-with-andorid-device)
+- [Other apps](#other-apps)
   - [Brave](#brave)
-- [Zoom](#zoom)
-  - [Programming](#programming)
-    - [Python](#python)
-      - [Jupyter notebooks](#jupyter-notebooks)
-      - [Neovim integration](#neovim-integration)
-    - [Nodejs 16](#nodejs-16)
-    - [Rust](#rust)
-    - [Latex](#latex)
-    - [Neovim](#neovim)
-      - [Bob](#bob)
-      - [PPA](#ppa)
-      - [Rip grep](#rip-grep)
-      - [Neovide](#neovide)
-      - [Default editor](#default-editor)
-        - [In a terminal](#in-a-terminal)
-        - [In Gnome](#in-gnome)
-  - [Qtile](#qtile)
+  - [Zoom](#zoom)
+- [Programming](#programming)
+  - [Python](#python)
+    - [Jupyter notebooks](#jupyter-notebooks)
+    - [Neovim integration](#neovim-integration)
+  - [Node.js](#nodejs)
+  - [Rust](#rust)
+  - [Latex](#latex)
+  - [Neovim](#neovim)
+    - [Bob](#bob)
+    - [PPA](#ppa)
+    - [Rip grep](#rip-grep)
+    - [Neovide](#neovide)
+    - [Default editor](#default-editor)
+      - [In a terminal](#in-a-terminal)
+      - [In Gnome](#in-gnome)
+- [Qtile](#qtile)
   - [Additional software needed](#additional-software-needed)
     - [Rofi](#rofi)
     - [Brightnessctl](#brightnessctl)
@@ -65,7 +63,7 @@
   - [GNOME Desktop](#gnome-desktop) - [GNOME tweaks](#gnome-tweaks) - [Extension Manager](#extension-manager) - [Dconf](#dconf)
   <!--toc:end-->
 
-## Instructions
+# Instructions
 
 How to manage:
 
@@ -90,11 +88,11 @@ Note that `config` is the alias for this _bare repo_, so `git` won't work.
 
 ---
 
-## Package managers
+# Package managers
 
 Language specific ones detailed under [programming](https://github.com/matheus-ft/.dotfiles#programming).
 
-### Nala
+## Nala
 
 Better package manager interface for APT
 
@@ -104,7 +102,7 @@ wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gp
 sudo apt update && sudo apt install nala
 ```
 
-### Pacstall
+## Pacstall
 
 Debian based distros' AUR
 
@@ -112,7 +110,7 @@ Debian based distros' AUR
 sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh -O -)"
 ```
 
-### Topgrade
+## Topgrade
 
 A freaking cool way to upgrade the shit out of your system - make sure to have [Rust](https://github.com/matheus-ft/.dotfiles#rust) set up before.
 
@@ -120,7 +118,7 @@ A freaking cool way to upgrade the shit out of your system - make sure to have [
 cargo install topgrade
 ```
 
-### Build tools
+## Build tools
 
 Some of the general build tools I had to get
 
@@ -128,7 +126,7 @@ Some of the general build tools I had to get
 sudo nala install meson ninja-build
 ```
 
-### Homebrew
+## Homebrew
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -136,9 +134,9 @@ sudo nala install meson ninja-build
 
 ---
 
-## Terminal
+# Terminal
 
-### Kitty
+## Kitty
 
 Better terminal emulator.
 
@@ -148,7 +146,7 @@ sudo nala install kitty
 
 Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty).
 
-### Z shell
+## Z shell
 
 ```bash
 sudo nala install zsh zsh-doc
@@ -157,25 +155,25 @@ chsh -s $(which zsh)
 
 Last line makes z shell the default login shell.
 
-#### Oh My Zsh
+### Oh My Zsh
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-##### Powerlevel10k
+#### Powerlevel10k
 
 ```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
-##### Syntax highlighting
+#### Syntax highlighting
 
 ```bash
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-### Starship
+## Starship
 
 Prompt that works with any shell.
 
@@ -187,7 +185,7 @@ Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.co
 
 For zsh, Powerlevel10k does it better, but this is still set for bash.
 
-### Exa
+## Exa
 
 Better `ls` command.
 
@@ -195,7 +193,7 @@ Better `ls` command.
 cargo install exa
 ```
 
-### Bat
+## Bat
 
 Better `cat` command.
 
@@ -203,19 +201,19 @@ Better `cat` command.
 brew install bat
 ```
 
-### System monitor
+## System monitor
 
 ```bash
 sudo nala install bashtop
 ```
 
-### Calendar
+## Calendar
 
 ```bash
 sudo nala install calcurse
 ```
 
-### Clipboard
+## Clipboard
 
 Clipbaord utility
 
@@ -232,15 +230,15 @@ sudo apt update && sudo nala install copyq
 
 ---
 
-## Fonts
+# Fonts
 
-### JetBrains Mono Nerd Font
+## JetBrains Mono Nerd Font
 
 Manually installed from https://www.nerdfonts.com/font-downloads and extracted the zip to `$HOME/.local/share/fonts/JetBrainsMono/`
 
 ---
 
-## Connection with Andorid device
+# Connection with Andorid device
 
 Yes, this is a KDE app, so be ready for a shit ton of dependencies
 
@@ -249,6 +247,8 @@ sudo nala install kdeconnect nautilus-kdeconnect
 ```
 
 ---
+
+# Other apps
 
 ## Brave
 
@@ -262,7 +262,7 @@ sudo apt update && sudo nala install brave-browser
 
 ---
 
-# Zoom
+## Zoom
 
 ```bash
 flatpak install flathub us.zoom.Zoom
@@ -270,9 +270,9 @@ flatpak install flathub us.zoom.Zoom
 
 ---
 
-## Programming
+# Programming
 
-### Python
+## Python
 
 Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkinter`.
 
@@ -286,7 +286,7 @@ Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkint
 sudo nala install python3-pip python3-venv python3-tk
 ```
 
-#### Jupyter notebooks
+### Jupyter notebooks
 
 ```bash
 pip install jupyterlab
@@ -294,7 +294,7 @@ pip install --upgrade jupyterlab-vim
 pip install jupytext
 ```
 
-#### Neovim integration
+### Neovim integration
 
 ```bash
 mkdir -p $HOME/.local/venv && cd $HOME/.local/venv
@@ -307,18 +307,22 @@ pip install Pillow cairosvg pnglatex plotly kaleido jupyter-client black docform
 
 Last line is for Magma and Formatter. TODO find replacement for `ueberzug`
 
-### Nodejs 16
+## Node.js
 
 Mostly for other dependencies -- such as `npm`
 
 ```bash
-curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
-curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
-     echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-     sudo apt update && sudo nala install yarn
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+NODE_MAJOR=20
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+sudo apt-get update
+sudo apt-get install nodejs -y
 ```
 
-### Rust
+## Rust
 
 Because it's cool... and because of Neovim (Bob and Neovide).
 
@@ -329,7 +333,7 @@ cargo install cargo-update
 
 Make sure to have `gcc` (`build-essential`), `openssl` (including `libssl-dev`), and `pkg-config`
 
-### Latex
+## Latex
 
 Tex Live
 
@@ -343,9 +347,9 @@ Latexmk
 sudo nala install latexmk
 ```
 
-### Neovim
+## Neovim
 
-#### Bob
+### Bob
 
 Installing and managing neovim versions.
 
@@ -367,7 +371,7 @@ Make sure to uninstall manually installed versions beforehand. And then
 bob use <version>
 ```
 
-#### PPA
+### PPA
 
 This way you get the last release - which is way newer than the one from APT
 
@@ -382,7 +386,7 @@ Settings in [init.lua](https://github.com/matheus-ft/nvim)
 
 Also possible to get bleeding edge versions with `ppa:neovim-ppa/unstable` or nightly appimage builds
 
-#### Rip grep
+### Rip grep
 
 Essential for a good Telescope experience
 
@@ -390,7 +394,7 @@ Essential for a good Telescope experience
 sudo nala install ripgrep
 ```
 
-#### Neovide
+### Neovide
 
 GUI client. Building from source (first line of dependencies might be redundant, but it's here anyway)
 
@@ -405,22 +409,22 @@ cargo build --release
 cp ./target/release/neovide $HOME/.local/bin/
 ```
 
-#### Default editor
+### Default editor
 
-##### In a terminal
+#### In a terminal
 
 ```bash
 sudo update-alternatives --install /usr/bin/editor editor $(which nvim) 100
 sudo update-alternatives --config editor
 ```
 
-##### In Gnome
+#### In Gnome
 
 Done with the files in [.local/share/applications](https://github.com/matheus-ft/.dotfiles/tree/master/.local/share/applications)
 
 ---
 
-## Qtile
+# Qtile
 
 Installation:
 
@@ -450,7 +454,7 @@ Type=Application
 Keywords=wm;tiling
 ```
 
-Settings in [config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile/config.py).
+Settings in [config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile).
 
 ## Additional software needed
 
