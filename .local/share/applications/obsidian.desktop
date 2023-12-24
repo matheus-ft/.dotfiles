@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Obsidian
+Exec=/home/matheus/Applications/Obsidian.AppImage %u
+Terminal=false
+Type=Application
+Icon=/home/matheus/Applications/obsidian.png
+StartupWMClass=obsidian
+Comment=Obsidian
+Categories=Office;
