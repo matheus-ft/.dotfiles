@@ -2,7 +2,7 @@ import os
 import socket
 import subprocess
 from typing import List
-from libqtile import qtile
+from libqtile import qtile, layout, bar, hook
 from libqtile.config import (
     Click,
     Drag,
@@ -14,7 +14,6 @@ from libqtile.config import (
     ScratchPad,
     Screen,
 )
-from libqtile import layout, bar, hook
 from libqtile.lazy import lazy
 from qtile_extras import widget
 from qtile_extras.widget.decorations import RectDecoration
@@ -41,7 +40,7 @@ gui_file_manager = "nautilus"
 screen_locker = "i3lock-custom"  # funny, isn't it? --- looks good enough
 keyboard_toggler = "toggle_keyboard_layout"
 clipboard_history = "copyq menu"
-vim = terminal + " -e /home/matheus/.local/share/bob/stable/nvim-linux64/bin/nvim"
+vim = terminal + " -e /home/matheus/.local/share/bob/nvim-bin/nvim"
 screenshooter = "flameshot gui"
 sys_monitor = "bashtop"
 
@@ -180,6 +179,12 @@ keys: list[Key | KeyChord] = [
     Key([modkey, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([modkey, "shift"], "q", lazy.spawn(power_menu), desc="Show power menu"),
     Key([modkey], "q", lazy.spawn(screen_locker), desc="Lock screen"),
+    Key(
+        [modkey, "control"],
+        "q",
+        lazy.spawn("gnome-session-quit --logout"),
+        desc="Log out of GNOME",
+    ),
 ]
 
 mouse = [
@@ -198,7 +203,7 @@ mouse = [
     ),
 ]
 
-colors = colorscheme.gruvbox()
+colors = colorscheme.onedark()
 BACKGROUND = colors[0]
 FOREGROUND = colors[2]
 
@@ -528,6 +533,25 @@ floating_layout = layout.Floating(
 @hook.subscribe.startup_once
 def start_once():
     subprocess.run([f"{HOME}/.config/qtile/scripts/autostart.sh"])
+
+
+@hook.subscribe.startup
+def dbus_register():
+    id = os.environ.get("DESKTOP_AUTOSTART_ID")
+    if not id:
+        return
+    subprocess.Popen(
+        [
+            "dbus-send",
+            "--session",
+            "--print-reply",
+            "--dest=org.gnome.SessionManager",
+            "/org/gnome/SessionManager",
+            "org.gnome.SessionManager.RegisterClient",
+            "string:qtile",
+            "string:" + id,
+        ]
+    )
 
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this

@@ -7,3 +7,4 @@ Icon=/home/matheus/Applications/obsidian.png
 StartupWMClass=obsidian
 Comment=Obsidian
 Categories=Office;
+MimeType=x-scheme-handler/obsidian;
