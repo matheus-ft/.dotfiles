@@ -194,31 +194,10 @@ Better `cat` command.
 sudo nala install bat
 ```
 
-## System monitor
+## Screenshooter
 
 ```bash
-sudo nala install bashtop
-```
-
-## Calendar
-
-```bash
-sudo nala install calcurse
-```
-
-## Clipboard
-
-Clipbaord utility
-
-```bash
-sudo nala install xclip
-```
-
-Clipbaord manager
-
-```bash
-sudo add-apt-repository ppa:hluk/copyq
-sudo apt update && sudo nala install copyq
+sudo nala install flameshot
 ```
 
 ---
@@ -231,7 +210,9 @@ Manually installed from https://www.nerdfonts.com/font-downloads and extracted t
 
 ---
 
-# Connection with Andorid device
+# Connection with mobile device
+
+> For GNOME, use the extension [GSConnect](https://extensions.gnome.org/extension/1319/gsconnect/)
 
 Yes, this is a KDE app, so be ready for a shit ton of dependencies
 
@@ -245,7 +226,7 @@ sudo nala install kdeconnect nautilus-kdeconnect
 
 ## Brave
 
-To create webapps
+If you want to create some webapps
 
 ```bash
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
@@ -352,12 +333,6 @@ From crates
 cargo install bob-nvim
 ```
 
-From source
-
-```bash
-cargo install --git https://github.com/MordechaiHadad/bob.git
-```
-
 Make sure to uninstall manually installed versions beforehand. And then
 
 ```bash
@@ -408,7 +383,7 @@ cp ./target/release/neovide $HOME/.local/bin/
 
 ```bash
 sudo update-alternatives --install /usr/bin/editor editor $(which nvim) 100
-sudo update-alternatives --config editor
+# sudo update-alternatives --config editor
 ```
 
 #### In Gnome
@@ -451,6 +426,34 @@ Settings in [config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.con
 
 ## Additional software needed
 
+
+## System monitor
+
+```bash
+sudo nala install bashtop
+```
+
+## Calendar
+
+```bash
+sudo nala install calcurse
+```
+
+## Clipboard
+
+Clipbaord utility
+
+```bash
+sudo nala install xclip
+```
+
+Clipbaord manager
+
+```bash
+sudo add-apt-repository ppa:hluk/copyq
+sudo apt update && sudo nala install copyq
+```
+
 ### Rofi
 
 Run prompt
@@ -458,16 +461,6 @@ Run prompt
 ```bash
 sudo nala install rofi
 ```
-
-### Brightnessctl
-
-To regulate the monitor backlight
-
-```bash
-sudo nala install brightnessctl
-```
-
-Possibly needed to do `sudo usermod -aG video ${USER}` and reboot
 
 ### Picom
 
@@ -485,6 +478,16 @@ cp build/src/picom $HOME/.local/bin/
 ```
 
 This requires having meson and ninja available (as well as GCC obviously)
+
+### Brightnessctl
+
+To regulate the monitor backlight
+
+```bash
+sudo nala install brightnessctl
+```
+
+Possibly needed to do `sudo usermod -aG video ${USER}` and reboot
 
 ### Dunst
 
@@ -580,12 +583,6 @@ Bluez was already installed, but let's get a GUI
 sudo nala install blueman
 ```
 
-### Screenshooter
-
-```bash
-sudo nala install flameshot
-```
-
 ### Widgets dependencies
 
 #### Wifi
@@ -628,15 +625,23 @@ sudo nala install gnome-tweaks
 flatpak install flathub com.mattjakeman.ExtensionManager
 ```
 
+or
+
+```bash
+sudo nala install gnome-shell-extension-manager
+```
+
 Extensions added:
 
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 
-- [Vitals](https://extensions.gnome.org/extension/1460/vitals/)
+- [Vitals](https://extensions.gnome.org/extension/1460/vitals/) - superfluous?
 
-- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)
+~- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)~ (not anymore)
 
 - [Auto Move Windows](https://extensions.gnome.org/extension/16/auto-move-windows/) - didn't actually use yet
+
+- others to make the DE look cool as needed
 
 ### Dconf
 
