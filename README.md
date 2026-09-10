@@ -1,6 +1,8 @@
 <!--toc:start-->
 
 - [Instructions](#instructions)
+  - [Layout](#layout)
+  - [Shell layering](#shell-layering)
 - [Package managers](#package-managers)
   - [Nala](#nala)
   - [Pacstall](#pacstall)
@@ -13,12 +15,14 @@
       - [Powerlevel10k](#powerlevel10k)
       - [Syntax highlighting](#syntax-highlighting)
   - [Starship](#starship)
-  - [Exa](#exa)
+  - [Eza](#eza)
   - [Bat](#bat)
   - [System monitor](#system-monitor)
   - [Calendar](#calendar)
   - [Clipboard](#clipboard)
 - [Claude Code](#claude-code)
+  - [Status line](#status-line)
+  - [Careful with settings.json](#careful-with-settingsjson)
 - [Fonts](#fonts)
   - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
 - [Connection with Andorid device](#connection-with-andorid-device)
@@ -65,26 +69,67 @@
 
 # Instructions
 
-How to manage:
+Managed with [GNU Stow](https://www.gnu.org/software/stow/). Every top-level
+directory is a *package* whose insides mirror `$HOME`, so
+`zsh/.config/zsh/finish.sh` gets linked to `~/.config/zsh/finish.sh`.
 
-After a clean install, do
-
-```bash
-git clone --bare https://github.com/matheus-ft/.dotfiles $HOME/.dotfiles
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-config checkout
-```
-
-If there's conflict, put such files in a separate `.backup` folder, then run
+After a clean install:
 
 ```bash
-config checkout
-config config --local status.showUntrackedFiles no
+git clone https://github.com/matheus-ft/.dotfiles ~/.dotfiles
+cd ~/.dotfiles
+stow shell zsh kitty vim firefox claude
 ```
 
-and finally resolve those conflicts as you like.
+Stow refuses to clobber a real file, so if it complains, move the conflicting
+file aside and re-run. `stow -n -v <package>` dry-runs without touching
+anything, and `stow -D <package>` unlinks it again.
 
-Note that `config` is the alias for this _bare repo_, so `git` won't work.
+## Layout
+
+| Where | What | How to stow |
+| --- | --- | --- |
+| repo root | cross-platform packages | `stow <package>` |
+| `linux/` | X11/Linux-desktop-only packages | `stow --dir=linux --target=~ <package>` |
+| `mac/` | macOS-only packages | `stow --dir=mac --target=~ <package>` |
+| `deprecated/` | kept for reference, not stowed | see [`deprecated/README.md`](deprecated/README.md) |
+
+Cross-platform: `shell`, `zsh`, `kitty`, `vim`, `firefox`, `claude`.
+
+Linux-only: `qtile`, `rofi`, `dunst`, `picom`, `copyq`, `pop-shell`, `dconf`,
+`htop`, `neofetch`, `topgrade`, `screenlayout`, `desktop-entries`. On a Linux
+box:
+
+```bash
+stow --dir=~/.dotfiles/linux --target=~ qtile rofi dunst picom copyq pop-shell
+```
+
+`dconf` and `firefox` are storage rather than live config: stow puts the files
+in place, but applying them takes the manual step each one's own README
+describes. `firefox` sits at the root because the stylesheets are the same on
+both platforms -- only the profile directory you link them into differs.
+
+## Shell layering
+
+`shell` is deliberately shell-agnostic: it puts `aliases.sh` and `variables.sh`
+in `~/.config/shell/`, and `zsh/.config/zsh/finish.sh` sources everything it
+finds there. **`shell` and `zsh` must both be stowed** -- without `shell`, zsh
+loses its aliases and `~/.local/bin` drops off `PATH`.
+
+Bash used to be the other consumer of that directory; it now lives in
+`deprecated/bash/`.
+
+The startup files that run *before* `.zshrc` are tracked too, because they
+carry the toolchain `PATH` setup:
+
+| File | Package | Runs on |
+| --- | --- | --- |
+| `.zshenv` | `zsh` | every zsh, interactive or not -- rust + bob |
+| `.zprofile` | `zsh` | zsh login shells -- Homebrew |
+| `.profile` | `shell` | sh/bash login shells -- rust |
+
+Every line in them is guarded by an existence check, so a machine without
+cargo, bob or Homebrew sources them without error.
 
 ---
 
@@ -138,7 +183,7 @@ Better terminal emulator.
 sudo nala install kitty
 ```
 
-Settings in [kitty.conf](https://github.com/matheus-ft/dotfiles/blob/master/.config/kitty).
+Settings in [kitty.conf](kitty/.config/kitty).
 
 ## Z shell
 
@@ -175,17 +220,21 @@ Prompt that works with any shell.
 curl -sS https://starship.rs/install.sh | sh
 ```
 
-Ricing in [starship.toml](https://github.com/matheus-ft/dotfiles/blob/master/.config/starship.toml).
+Ricing in [starship.toml](deprecated/bash/.config/starship.toml).
 
-For zsh, Powerlevel10k does it better, but this is still set for bash.
+zsh uses Powerlevel10k instead, so starship only ever applied to bash -- both now
+live in [`deprecated/bash/`](deprecated/README.md).
 
-## Exa
+## Eza
 
-Better `ls` command.
+Better `ls` command. The maintained fork of `exa`, which was archived in 2023.
 
 ```bash
-cargo install exa
+cargo install eza --locked
 ```
+
+`--locked` is not optional: without it cargo resolves a `palette` version that
+fails to build on current rustc.
 
 ## Bat
 
@@ -205,35 +254,44 @@ sudo nala install flameshot
 
 # Claude Code
 
-The `claude` stow package holds `settings.json` and the status line:
+Cross-platform package at the repo root, holding `settings.json` and the status
+line:
 
 ```bash
-stow --dir=~/.dotfiles --target=~ claude
+stow claude
 ```
 
-Stow folds into the existing `~/.claude` rather than replacing it, linking the
-two entries individually. That matters because `~/.claude/skills` is a symlink to
-a different repo ([matheus-ft/skills](https://github.com/matheus-ft/skills)) and
-must survive untouched.
+Stow folds into the existing `~/.claude` instead of replacing it, linking each
+entry individually. That matters: `~/.claude/skills` is a symlink to a separate
+repo ([matheus-ft/skills](https://github.com/matheus-ft/skills)) and has to
+survive untouched.
 
-The status line is the bar above Claude Code's footer — repo, branch, worktree
-and open PR on the left, model, context window, rate limits and session cost on
-the right. It is a bash script reading a JSON payload on stdin, which is why it
-lives here with the other machine config rather than in the skills repo: skills
-are portable prose that also upload to claude.ai, while this needs a shell, `jq`,
-`git` and a working directory.
+## Status line
+
+The bar above Claude Code's footer: repo, branch, worktree and open PR on the
+left; model, context window, rate limits and session cost on the right. It is a
+bash script handed a JSON payload on stdin, so it needs a shell, `jq`, `git` and
+a working directory -- which is why it is machine config rather than something
+for the skills repo.
+
+Render it against captured fixtures, without starting a session:
 
 ```bash
 ~/.claude/statusline/preview.sh
 ```
 
-renders it against captured fixtures without starting a session. Full notes in
+Full notes in
 [`claude/.claude/statusline/README.md`](claude/.claude/statusline/README.md).
 
-**Careful with `settings.json`.** Claude Code writes to it when you change a
-setting through `/config`. If a write replaces the file rather than following the
-symlink, the repo quietly stops tracking reality — `test -L ~/.claude/settings.json`
-tells you, and re-running `stow` fixes it.
+## Careful with `settings.json`
+
+Claude Code rewrites that file whenever you change a setting through `/config`.
+If a write replaces it instead of following the symlink, the repo quietly stops
+tracking reality. To check, and repair if needed:
+
+```bash
+test -L ~/.claude/settings.json || stow -R claude
+```
 
 ---
 
@@ -423,7 +481,7 @@ sudo update-alternatives --install /usr/bin/editor editor $(which nvim) 100
 
 #### In Gnome
 
-Done with the files in [.local/share/applications](https://github.com/matheus-ft/.dotfiles/tree/master/.local/share/applications)
+Done with the files in [linux/desktop-entries](linux/desktop-entries/.local/share/applications)
 
 ---
 
@@ -457,7 +515,7 @@ Type=Application
 Keywords=wm;tiling
 ```
 
-Settings in [config.py](https://github.com/matheus-ft/.dotfiles/tree/master/.config/qtile).
+Settings in [config.py](linux/qtile/.config/qtile).
 
 ## Additional software needed
 
@@ -680,7 +738,7 @@ Extensions added:
 
 ### Dconf
 
-- Settings are in [.dconf-configs](https://github.com/matheus-ft/.dotfiles/tree/master/.config/.dconf-configs) : `pop-os-{specifier}.ini`
+- Settings are in [linux/dconf](linux/dconf/.config/.dconf-configs) : `pop-os-{specifier}.ini`
 
 How to
 

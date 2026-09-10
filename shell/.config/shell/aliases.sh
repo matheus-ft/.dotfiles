@@ -1,3 +1,5 @@
+# Shell-agnostic aliases, sourced by every shell via ~/.config/shell/
+
 # Programming
 alias gpp=g++
 alias python=python3
@@ -14,11 +16,13 @@ alias v=vim
 
 # General
 alias so='source'
-alias ls='exa -lahF --color=auto --icons'
-alias dir='exa --color=auto --icons'
-alias tree='exa -aT --level=3 --icons'
-alias lt='tree --long --icons'
-alias l.='exa -a --icons | egrep "^\."' # find dotfiles
+
+# eza is the maintained fork of exa, which was archived in 2023
+alias ls='eza -lahF --color=auto --icons=auto'
+alias dir='eza --color=auto --icons=auto'
+alias tree='eza -aT --level=3 --icons=auto'
+alias lt='tree --long'
+alias l.='eza -a --icons=auto | grep -E "^\."' # find dotfiles
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -28,8 +32,3 @@ alias ....='cd ../../..'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
-
-
-# Git bare alias to manage dotfiles
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
-

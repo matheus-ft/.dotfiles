@@ -1,8 +1,6 @@
-# to avoid possible recursion problems
-.dotfiles
-
-# neovim settings are separated
-.config/nvim
+# neovim settings live in their own repo (matheus-ft/nvim), cloned straight
+# into ~/.config/nvim -- never stowed from here
+*/.config/nvim/
 
 # no need to backup last wallpaper used
 bg-saved.cfg
@@ -12,3 +10,5 @@ bg-saved.cfg
 __pycache__
 .mypy_cache
 
+# macOS junk
+.DS_Store
