@@ -76,7 +76,7 @@ directory is a *package* whose insides mirror `$HOME`, so
 After a clean install:
 
 ```bash
-git clone https://github.com/matheus-ft/.dotfiles ~/.dotfiles
+git clone git@github.com:matheus-ft/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 stow shell zsh kitty vim firefox claude
 ```
@@ -84,6 +84,15 @@ stow shell zsh kitty vim firefox claude
 Stow refuses to clobber a real file, so if it complains, move the conflicting
 file aside and re-run. `stow -n -v <package>` dry-runs without touching
 anything, and `stow -D <package>` unlinks it again.
+
+The remote is SSH. Over HTTPS every push stops to ask for a credential this
+machine does not store, so it hangs instead of failing. If an existing clone
+still points at HTTPS:
+
+```bash
+git remote set-url origin git@github.com:matheus-ft/.dotfiles.git
+git ls-remote --heads origin   # should answer without prompting
+```
 
 ## Layout
 
@@ -105,9 +114,20 @@ stow --dir=~/.dotfiles/linux --target=~ qtile rofi dunst picom copyq pop-shell
 ```
 
 `dconf` and `firefox` are storage rather than live config: stow puts the files
-in place, but applying them takes the manual step each one's own README
-describes. `firefox` sits at the root because the stylesheets are the same on
-both platforms -- only the profile directory you link them into differs.
+in place, but applying them is a second step. For firefox that step is a
+script, so it is one command on either platform:
+
+```bash
+~/.mozilla/firefox/stylesheets/apply.sh
+```
+
+It links `chrome/` into your profile and sets the pref that makes Firefox read
+it. That is why `firefox` sits at the root rather than under `linux/` -- the
+stylesheets are identical on both platforms and only the profile directory
+differs, which the script works out for itself. Note that the stylesheets
+themselves are stale; see
+[their README](firefox/.mozilla/firefox/stylesheets/README.md). `dconf` still
+wants `dconf load` by hand.
 
 ## Shell layering
 

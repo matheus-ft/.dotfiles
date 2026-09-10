@@ -232,7 +232,7 @@ This is the `claude` stow package, so both the script and the settings file that
 activates it are symlinked out of the repo:
 
 ```sh
-stow --dir=~/.dotfiles --target=~ claude
+cd ~/.dotfiles && stow claude
 ```
 
 which gives `~/.claude/statusline` → here and `~/.claude/settings.json` →
