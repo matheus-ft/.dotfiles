@@ -18,6 +18,7 @@
   - [System monitor](#system-monitor)
   - [Calendar](#calendar)
   - [Clipboard](#clipboard)
+- [Claude Code](#claude-code)
 - [Fonts](#fonts)
   - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
 - [Connection with Andorid device](#connection-with-andorid-device)
@@ -199,6 +200,40 @@ sudo nala install bat
 ```bash
 sudo nala install flameshot
 ```
+
+---
+
+# Claude Code
+
+The `claude` stow package holds `settings.json` and the status line:
+
+```bash
+stow --dir=~/.dotfiles --target=~ claude
+```
+
+Stow folds into the existing `~/.claude` rather than replacing it, linking the
+two entries individually. That matters because `~/.claude/skills` is a symlink to
+a different repo ([matheus-ft/skills](https://github.com/matheus-ft/skills)) and
+must survive untouched.
+
+The status line is the bar above Claude Code's footer — repo, branch, worktree
+and open PR on the left, model, context window, rate limits and session cost on
+the right. It is a bash script reading a JSON payload on stdin, which is why it
+lives here with the other machine config rather than in the skills repo: skills
+are portable prose that also upload to claude.ai, while this needs a shell, `jq`,
+`git` and a working directory.
+
+```bash
+~/.claude/statusline/preview.sh
+```
+
+renders it against captured fixtures without starting a session. Full notes in
+[`claude/.claude/statusline/README.md`](claude/.claude/statusline/README.md).
+
+**Careful with `settings.json`.** Claude Code writes to it when you change a
+setting through `/config`. If a write replaces the file rather than following the
+symlink, the repo quietly stops tracking reality — `test -L ~/.claude/settings.json`
+tells you, and re-running `stow` fixes it.
 
 ---
 
