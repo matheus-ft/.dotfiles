@@ -1,2 +1,11 @@
-@import "./oneliner.css";
+/* Entry point. Firefox reads only this file; everything else is imported.
+ *
+ * Order matters: upstream first, my overrides last. */
 
+@import "./oneline_toolbar.css";
+@import "./custom.css";
+
+/* Hide the tab strip entirely instead of showing it beside the address bar.
+ * Opt-in: uncomment, and note it wants Firefox's vertical-tabs sidebar pref.
+ * See the README. */
+/* @import "./hide_tabs_toolbar_v2.css"; */

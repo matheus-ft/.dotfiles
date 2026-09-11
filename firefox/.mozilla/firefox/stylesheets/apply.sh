@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
-# Link these stylesheets into a Firefox profile and turn on the pref that makes
-# Firefox read them. Idempotent -- safe to re-run.
+# Link these stylesheets into a Firefox profile and set the prefs they need.
+# Idempotent -- safe to re-run.
 #
 #   ./apply.sh            # auto-detect the *.default-release profile
 #   ./apply.sh <profile>  # profile directory name, or an absolute path
 #
-# Restart Firefox afterwards; userChrome changes are read at startup only.
+# Restart Firefox afterwards; userChrome is read at startup only.
 
 set -eu
 
@@ -59,19 +59,27 @@ ln -s "$styles_dir/chrome" "$link"
 echo "linked  $link"
 echo "     -> $styles_dir/chrome"
 
-# 2. enable the pref, via user.js so it survives Firefox rewriting prefs.js
-pref_name='toolkit.legacyUserProfileCustomizations.stylesheets'
-pref_line="user_pref(\"$pref_name\", true);"
+# 2. prefs, written to user.js so Firefox does not overwrite them in prefs.js
 userjs="$profile/user.js"
 
-if grep -Fq "$pref_line" "$userjs" 2>/dev/null; then
-    echo "pref    already enabled in user.js"
-elif grep -Fq "$pref_name" "$userjs" 2>/dev/null; then
-    echo "pref    present but not true in $userjs -- fix that line by hand" >&2
-else
-    printf '%s\n' "$pref_line" >> "$userjs"
-    echo "pref    enabled in user.js"
-fi
+set_pref() {
+    _name=$1
+    _value=$2
+    _line="user_pref(\"$_name\", $_value);"
+    if grep -Fq "$_line" "$userjs" 2>/dev/null; then
+        echo "pref    $_name -- already $_value"
+    elif grep -Fq "\"$_name\"" "$userjs" 2>/dev/null; then
+        echo "pref    $_name -- present with another value, left alone" >&2
+    else
+        printf '%s\n' "$_line" >> "$userjs"
+        echo "pref    $_name = $_value"
+    fi
+}
+
+# makes Firefox read userChrome.css at all
+set_pref toolkit.legacyUserProfileCustomizations.stylesheets true
+# upstream's oneline_toolbar.css puts tabs on the left by default
+set_pref userchrome.navbar-tabs-oneliner.tabs-on-right.enabled true
 
 echo
 echo "Done. Restart Firefox to see it."

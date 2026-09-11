@@ -1,0 +1,29 @@
+/* My overrides on top of upstream's oneline_toolbar.css.
+ *
+ * Kept separate so the upstream file stays byte-identical and can be re-synced
+ * from https://github.com/MrOtherGuy/firefox-csshacks without a merge.
+ */
+
+/* Upstream declares this variable but never actually reads it -- it hardcodes
+ * `grid-template-columns: 6fr 4fr`. Wire the variable up and set it to an even
+ * split, which is what the old config did with a 50vw address bar. */
+:root{
+  --uc-oneline-toolbar-split: 5fr 5fr;
+}
+
+:root:not([chromehidden~="toolbar"]) #navigator-toolbox{
+  grid-template-columns: var(--uc-oneline-toolbar-split);
+}
+
+/* The old config only went one-line on windows at least 1100px wide, because
+ * the pre-grid hack overflowed badly when narrow. Upstream's grid version just
+ * squeezes instead, so this is no longer needed to avoid breakage -- it is here
+ * only if you still prefer the two-row layout on small windows. Uncomment to
+ * restore that behaviour, then check it at a narrow width.
+ *
+ * @media screen and (max-width: 1099px){
+ *   :root:not([chromehidden~="toolbar"]) #navigator-toolbox{
+ *     display: block;
+ *   }
+ * }
+ */
