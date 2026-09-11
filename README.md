@@ -3,52 +3,44 @@
 - [Instructions](#instructions)
   - [Layout](#layout)
   - [Shell layering](#shell-layering)
+- [Setup](#setup)
+  - [1. Bootstrap](#1-bootstrap)
+  - [2. Fonts](#2-fonts)
+  - [3. Terminal](#3-terminal)
+  - [4. CLI tools](#4-cli-tools)
+  - [5. Programming toolchain](#5-programming-toolchain)
+  - [6. The dotfiles](#6-the-dotfiles)
+- [Claude Code](#claude-code)
+  - [Status line](#status-line)
+  - [Careful with settings.json](#careful-with-settingsjson)
+- [Linux only](#linux-only)
 - [Package managers](#package-managers)
   - [Nala](#nala)
   - [Pacstall](#pacstall)
   - [Topgrade](#topgrade)
   - [Build tools](#build-tools)
-- [Terminal](#terminal)
-  - [Kitty](#kitty)
-  - [Z shell](#z-shell)
-    - [Oh My Zsh](#oh-my-zsh)
-      - [Powerlevel10k](#powerlevel10k)
-      - [Syntax highlighting](#syntax-highlighting)
   - [Starship](#starship)
-  - [Eza](#eza)
-  - [Bat](#bat)
-  - [System monitor](#system-monitor)
-  - [Calendar](#calendar)
-  - [Clipboard](#clipboard)
-- [Claude Code](#claude-code)
-  - [Status line](#status-line)
-  - [Careful with settings.json](#careful-with-settingsjson)
-- [Fonts](#fonts)
-  - [JetBrains Mono Nerd Font](#jetbrains-mono-nerd-font)
-- [Connection with Andorid device](#connection-with-andorid-device)
+  - [Screenshooter](#screenshooter)
+- [Connection with mobile device](#connection-with-mobile-device)
 - [Other apps](#other-apps)
   - [Brave](#brave)
   - [Zoom](#zoom)
 - [Programming](#programming)
-  - [Python](#python)
-    - [Jupyter notebooks](#jupyter-notebooks)
-    - [Neovim integration](#neovim-integration)
   - [Node.js](#nodejs)
-  - [Rust](#rust)
-  - [Latex](#latex)
   - [Neovim](#neovim)
-    - [Bob](#bob)
     - [PPA](#ppa)
-    - [Rip grep](#rip-grep)
     - [Neovide](#neovide)
     - [Default editor](#default-editor)
       - [In a terminal](#in-a-terminal)
       - [In Gnome](#in-gnome)
 - [Qtile](#qtile)
   - [Additional software needed](#additional-software-needed)
+  - [System monitor](#system-monitor)
+  - [Calendar](#calendar)
+  - [Clipboard](#clipboard)
     - [Rofi](#rofi)
-    - [Brightnessctl](#brightnessctl)
     - [Picom](#picom)
+    - [Brightnessctl](#brightnessctl)
     - [Dunst](#dunst)
     - [Nitrogen](#nitrogen)
     - [Lxpolkit](#lxpolkit)
@@ -58,22 +50,25 @@
     - [Screen locker/saver](#screen-lockersaver)
     - [Keyboard layout switcher](#keyboard-layout-switcher)
     - [Bluetooth](#bluetooth)
-    - [Screenshooter](#screenshooter)
     - [Widgets dependencies](#widgets-dependencies)
       - [Wifi](#wifi)
       - [CPU, RAM and stuff](#cpu-ram-and-stuff)
       - [Thermal sensor](#thermal-sensor)
       - [Cool icons](#cool-icons)
-  - [GNOME Desktop](#gnome-desktop) - [GNOME tweaks](#gnome-tweaks) - [Extension Manager](#extension-manager) - [Dconf](#dconf)
-  <!--toc:end-->
+  - [GNOME Desktop](#gnome-desktop)
+    - [GNOME tweaks](#gnome-tweaks)
+    - [Extension Manager](#extension-manager)
+    - [Dconf](#dconf)
+
+<!--toc:end-->
 
 # Instructions
 
 Managed with [GNU Stow](https://www.gnu.org/software/stow/). Every top-level
-directory is a *package* whose insides mirror `$HOME`, so
+directory is a _package_ whose insides mirror `$HOME`, so
 `zsh/.config/zsh/finish.sh` gets linked to `~/.config/zsh/finish.sh`.
 
-After a clean install:
+After a clean install/new machine:
 
 ```bash
 git clone git@github.com:matheus-ft/.dotfiles.git ~/.dotfiles
@@ -85,29 +80,19 @@ Stow refuses to clobber a real file, so if it complains, move the conflicting
 file aside and re-run. `stow -n -v <package>` dry-runs without touching
 anything, and `stow -D <package>` unlinks it again.
 
-The remote is SSH. Over HTTPS every push stops to ask for a credential this
-machine does not store, so it hangs instead of failing. If an existing clone
-still points at HTTPS:
-
-```bash
-git remote set-url origin git@github.com:matheus-ft/.dotfiles.git
-git ls-remote --heads origin   # should answer without prompting
-```
-
 ## Layout
 
-| Where | What | How to stow |
-| --- | --- | --- |
-| repo root | cross-platform packages | `stow <package>` |
-| `linux/` | X11/Linux-desktop-only packages | `stow --dir=linux --target=~ <package>` |
-| `mac/` | macOS-only packages | `stow --dir=mac --target=~ <package>` |
-| `deprecated/` | kept for reference, not stowed | see [`deprecated/README.md`](deprecated/README.md) |
+| Where         | What                            | How to stow                                        |
+| ------------- | ------------------------------- | -------------------------------------------------- |
+| repo root     | cross-platform packages         | `stow <package>`                                   |
+| `linux/`      | X11/Linux-desktop-only packages | `stow --dir=linux --target=~ <package>`            |
+| `mac/`        | macOS-only packages             | `stow --dir=mac --target=~ <package>`              |
+| `deprecated/` | kept for reference, not stowed  | see [`deprecated/README.md`](deprecated/README.md) |
 
 Cross-platform: `shell`, `zsh`, `kitty`, `vim`, `firefox`, `claude`.
 
 Linux-only: `qtile`, `rofi`, `dunst`, `picom`, `copyq`, `pop-shell`, `dconf`,
-`htop`, `neofetch`, `topgrade`, `screenlayout`, `desktop-entries`. On a Linux
-box:
+`htop`, `neofetch`, `topgrade`, `screenlayout`, `desktop-entries`. On a Linux:
 
 ```bash
 stow --dir=~/.dotfiles/linux --target=~ qtile rofi dunst picom copyq pop-shell
@@ -126,12 +111,12 @@ it. That is why `firefox` sits at the root rather than under `linux/` -- the
 stylesheets are identical on both platforms and only the profile directory
 differs, which the script works out for itself. Note that the stylesheets
 themselves are stale; see
-[their README](firefox/.mozilla/firefox/stylesheets/README.md). `dconf` still
-wants `dconf load` by hand.
+[their README](firefox/.mozilla/firefox/stylesheets/README.md).
+`dconf` still wants `dconf load` ran by hand.
 
 ## Shell layering
 
-`shell` is deliberately shell-agnostic: it puts `aliases.sh` and `variables.sh`
+`shell/` is deliberately shell-agnostic: it puts `aliases.sh` and `variables.sh`
 in `~/.config/shell/`, and `zsh/.config/zsh/finish.sh` sources everything it
 finds there. **`shell` and `zsh` must both be stowed** -- without `shell`, zsh
 loses its aliases and `~/.local/bin` drops off `PATH`.
@@ -139,136 +124,204 @@ loses its aliases and `~/.local/bin` drops off `PATH`.
 Bash used to be the other consumer of that directory; it now lives in
 `deprecated/bash/`.
 
-The startup files that run *before* `.zshrc` are tracked too, because they
+The startup files that run _before_ `.zshrc` are tracked too, because they
 carry the toolchain `PATH` setup:
 
-| File | Package | Runs on |
-| --- | --- | --- |
-| `.zshenv` | `zsh` | every zsh, interactive or not -- rust + bob |
-| `.zprofile` | `zsh` | zsh login shells -- Homebrew |
-| `.profile` | `shell` | sh/bash login shells -- rust |
+| File        | Package | Runs on                                     |
+| ----------- | ------- | ------------------------------------------- |
+| `.zshenv`   | `zsh`   | every zsh, interactive or not -- rust + bob |
+| `.zprofile` | `zsh`   | zsh login shells -- Homebrew                |
+| `.profile`  | `shell` | sh/bash login shells -- rust                |
 
 Every line in them is guarded by an existence check, so a machine without
 cargo, bob or Homebrew sources them without error.
 
----
+# Setup
 
-# Package managers
+Everything here is shared: both machines get it, only the install command
+differs. Linux-only software lives under [Linux only](#linux-only) at the end.
 
-Language specific ones detailed under [programming](https://github.com/matheus-ft/.dotfiles#programming).
+## 1. Bootstrap
 
-## Nala
-
-Better package manager interface for APT
-
-```bash
-echo "deb https://deb.volian.org/volian/ scar main" | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
-wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null
-sudo apt update && sudo apt install nala
-```
-
-## Pacstall
-
-Debian based distros' AUR
+macOS -- Command Line Tools give `git`, `cc` and `g++`, which Homebrew needs:
 
 ```bash
-sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh -O -)"
+xcode-select --install
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install stow
 ```
 
-## Topgrade
+Ignore the `shellenv` line the installer prints -- `zsh/.zprofile` already runs
+it, on every login rather than once.
 
-A freaking cool way to upgrade the shit out of your system - make sure to have [Rust](https://github.com/matheus-ft/.dotfiles#rust) set up before.
+Linux -- set up [Nala](#nala) first, then:
 
 ```bash
-cargo install topgrade
+sudo nala install stow build-essential meson ninja-build
 ```
 
-## Build tools
+## 2. Fonts
 
-Some of the general build tools I had to get
+JetBrains Mono Nerd Font, which every kitty and terminal setting here assumes.
+
+macOS:
 
 ```bash
-sudo nala install meson ninja-build
+brew install --cask font-jetbrains-mono-nerd-font
 ```
 
----
-
-# Terminal
-
-## Kitty
-
-Better terminal emulator.
+Linux -- grab the zip from <https://www.nerdfonts.com/font-downloads>, then:
 
 ```bash
-sudo nala install kitty
+unzip JetBrainsMono.zip -d ~/.local/share/fonts/JetBrainsMono/
+fc-cache -fv
 ```
 
-Settings in [kitty.conf](kitty/.config/kitty).
+## 3. Terminal
 
-## Z shell
+Kitty. Settings in [kitty.conf](kitty/.config/kitty).
+
+```bash
+brew install --cask kitty   # macOS
+sudo nala install kitty     # Linux
+```
+
+Zsh is already the login shell on macOS. On Linux:
 
 ```bash
 sudo nala install zsh zsh-doc
 chsh -s $(which zsh)
 ```
 
-Last line makes z shell the default login shell.
-
-### Oh My Zsh
+Then oh-my-zsh and its two add-ons, identical on both:
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-#### Powerlevel10k
-
-```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
-
-#### Syntax highlighting
-
-```bash
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-## Starship
-
-Prompt that works with any shell.
-
-```bash
-curl -sS https://starship.rs/install.sh | sh
-```
-
-Ricing in [starship.toml](deprecated/bash/.config/starship.toml).
-
-zsh uses Powerlevel10k instead, so starship only ever applied to bash -- both now
-live in [`deprecated/bash/`](deprecated/README.md).
-
-## Eza
-
-Better `ls` command. The maintained fork of `exa`, which was archived in 2023.
+The oh-my-zsh installer writes its own `~/.zshrc`. Delete it, or stow will
+refuse to overwrite it in step 6:
 
 ```bash
-cargo install eza --locked
+rm ~/.zshrc
 ```
 
-`--locked` is not optional: without it cargo resolves a `palette` version that
-fails to build on current rustc.
+## 4. CLI tools
 
-## Bat
+| tool    | what for                               | macOS                        | Linux                        |
+| ------- | -------------------------------------- | ---------------------------- | ---------------------------- |
+| eza     | better `ls`                            | `cargo install eza --locked` | `cargo install eza --locked` |
+| bat     | better `cat`                           | `brew install bat`           | `sudo nala install bat`      |
+| ripgrep | Telescope, and grep generally          | `brew install ripgrep`       | `sudo nala install ripgrep`  |
+| fd      | faster `find`                          | `brew install fd`            | `sudo nala install fd-find`  |
+| jq      | the Claude [status line](#status-line) | ships with recent macOS      | `sudo nala install jq`       |
 
-Better `cat` command.
+`--locked` is not optional for eza: without it cargo resolves a `palette`
+version that fails to build on current rustc. `brew install eza` also works on
+macOS if you would rather not compile it.
+
+eza is the maintained fork of `exa`, which was archived in 2023.
+
+## 5. Programming toolchain
+
+Rust -- needed for eza, bob and neovide, so it comes first:
 
 ```bash
-sudo nala install bat
+curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" | sh
+cargo install cargo-update
 ```
 
-## Screenshooter
+On Linux also make sure you have `gcc` (`build-essential`), `openssl`
+(including `libssl-dev`) and `pkg-config`.
+
+Neovim through [bob](https://github.com/MordechaiHadad/bob), so the version is
+pinned the same way on both machines. Uninstall any manually installed neovim
+first. Settings live in [their own repo](https://github.com/matheus-ft/nvim).
 
 ```bash
-sudo nala install flameshot
+cargo install bob-nvim
+bob use stable
 ```
+
+Neovide, the GUI client:
+
+```bash
+brew install --cask neovide   # macOS
+```
+
+On Linux it has to be [built from source](#neovide).
+
+Node, mostly for other things' dependencies:
+
+```bash
+brew install node             # macOS
+```
+
+On Linux use the [NodeSource repo](#nodejs).
+
+Python ships with both; what is missing is `pip`, `venv` and `tkinter` (a
+matplotlib backend):
+
+```bash
+brew install python-tk                              # macOS
+sudo nala install python3-pip python3-venv python3-tk   # Linux
+```
+
+Jupyter, if wanted:
+
+```bash
+pip install jupyterlab
+pip install --upgrade jupyterlab-vim
+pip install jupytext
+```
+
+And the venv neovim talks to:
+
+```bash
+mkdir -p $HOME/.local/venv && cd $HOME/.local/venv
+python3 -m venv nvim
+cd nvim
+. ./bin/activate
+pip install --upgrade pynvim
+pip install Pillow cairosvg pnglatex plotly kaleido jupyter-client black docformatter
+```
+
+Last line is for Magma and Formatter. TODO find replacement for `ueberzug`
+
+LaTeX:
+
+```bash
+brew install --cask mactex-no-gui   # macOS
+```
+
+```bash
+sudo nala install texlive texlive-luatex texlive-lang-english \
+    texlive-lang-portuguese texlive-science perl-tk texlive-bibtex-extra biber
+sudo nala install latexmk
+```
+
+## 6. The dotfiles
+
+Clone and stow as described in [Instructions](#instructions).
+
+Firefox, if it is not on the machine yet:
+
+```bash
+brew install --cask firefox   # macOS
+sudo nala install firefox     # Linux
+```
+
+Then link the stylesheets into its profile:
+
+```bash
+~/.mozilla/firefox/stylesheets/apply.sh
+```
+
+Open a new terminal when you are done -- `.zshenv` and `.zprofile` only run on a
+fresh login shell, so the `PATH` from step 5 is not live in the one you set all
+this up in.
 
 ---
 
@@ -315,13 +368,68 @@ test -L ~/.claude/settings.json || stow -R claude
 
 ---
 
-# Fonts
-
-## JetBrains Mono Nerd Font
-
-Manually installed from https://www.nerdfonts.com/font-downloads and extracted the zip to `$HOME/.local/share/fonts/JetBrainsMono/`
-
 ---
+
+# Linux only
+
+Debian-based distros running X11.
+
+# Package managers
+
+Language specific ones detailed under [programming](https://github.com/matheus-ft/.dotfiles#programming).
+
+## Nala
+
+Better package manager interface for APT
+
+```bash
+echo "deb https://deb.volian.org/volian/ scar main" | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list
+wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null
+sudo apt update && sudo apt install nala
+```
+
+## Pacstall
+
+Debian based distros' AUR
+
+```bash
+sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh -O -)"
+```
+
+## Topgrade
+
+A freaking cool way to upgrade the shit out of your system - make sure to have [Rust](https://github.com/matheus-ft/.dotfiles#rust) set up before.
+
+```bash
+cargo install topgrade
+```
+
+## Build tools
+
+Some of the general build tools I had to get
+
+```bash
+sudo nala install meson ninja-build
+```
+
+## Starship
+
+Prompt that works with any shell.
+
+```bash
+curl -sS https://starship.rs/install.sh | sh
+```
+
+Ricing in [starship.toml](deprecated/bash/.config/starship.toml).
+
+zsh uses Powerlevel10k instead, so starship only ever applied to bash -- both now
+live in [`deprecated/bash/`](deprecated/README.md).
+
+## Screenshooter
+
+```bash
+sudo nala install flameshot
+```
 
 # Connection with mobile device
 
@@ -332,8 +440,6 @@ Yes, this is a KDE app, so be ready for a shit ton of dependencies
 ```bash
 sudo nala install kdeconnect nautilus-kdeconnect
 ```
-
----
 
 # Other apps
 
@@ -347,52 +453,13 @@ echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] http
 sudo apt update && sudo nala install brave-browser
 ```
 
----
-
 ## Zoom
 
 ```bash
 flatpak install flathub us.zoom.Zoom
 ```
 
----
-
 # Programming
-
-## Python
-
-Python interpreter came pre-installed. But we must add `pip`, `venv`, and `tkinter`.
-
-- `pip` is the python package manager
-
-- `venv` is the tool to manage virtual environments
-
-- `tkinter` is a GUI backend installed to use matplotlib
-
-```bash
-sudo nala install python3-pip python3-venv python3-tk
-```
-
-### Jupyter notebooks
-
-```bash
-pip install jupyterlab
-pip install --upgrade jupyterlab-vim
-pip install jupytext
-```
-
-### Neovim integration
-
-```bash
-mkdir -p $HOME/.local/venv && cd $HOME/.local/venv
-python3 -m venv nvim
-cd nvim
-. ./bin/activate
-pip install --upgrade pynvim
-pip install Pillow cairosvg pnglatex plotly kaleido jupyter-client black docformatter
-```
-
-Last line is for Magma and Formatter. TODO find replacement for `ueberzug`
 
 ## Node.js
 
@@ -409,48 +476,7 @@ sudo apt-get update
 sudo apt-get install nodejs -y
 ```
 
-## Rust
-
-Because it's cool... and because of Neovim (Bob and Neovide).
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" | sh
-cargo install cargo-update
-```
-
-Make sure to have `gcc` (`build-essential`), `openssl` (including `libssl-dev`), and `pkg-config`
-
-## Latex
-
-Tex Live
-
-```bash
-sudo nala install texlive texlive-luatex texlive-lang-english texlive-lang-portuguese texlive-science perl-tk texlive-bibtex-extra biber
-```
-
-Latexmk
-
-```bash
-sudo nala install latexmk
-```
-
 ## Neovim
-
-### Bob
-
-Installing and managing neovim versions.
-
-From crates
-
-```bash
-cargo install bob-nvim
-```
-
-Make sure to uninstall manually installed versions beforehand. And then
-
-```bash
-bob use <version>
-```
 
 ### PPA
 
@@ -466,14 +492,6 @@ nvim +PackerSync
 Settings in [init.lua](https://github.com/matheus-ft/nvim)
 
 Also possible to get bleeding edge versions with `ppa:neovim-ppa/unstable` or nightly appimage builds
-
-### Rip grep
-
-Essential for a good Telescope experience
-
-```bash
-sudo nala install ripgrep
-```
 
 ### Neovide
 
@@ -502,8 +520,6 @@ sudo update-alternatives --install /usr/bin/editor editor $(which nvim) 100
 #### In Gnome
 
 Done with the files in [linux/desktop-entries](linux/desktop-entries/.local/share/applications)
-
----
 
 # Qtile
 
@@ -538,7 +554,6 @@ Keywords=wm;tiling
 Settings in [config.py](linux/qtile/.config/qtile).
 
 ## Additional software needed
-
 
 ## System monitor
 
@@ -722,8 +737,6 @@ sudo nala install lm-sensors
 
 [Nerd fonts cheat sheet](https://www.nerdfonts.com/cheat-sheet)
 
----
-
 ## GNOME Desktop
 
 ### GNOME tweaks
@@ -750,7 +763,7 @@ Extensions added:
 
 - [Vitals](https://extensions.gnome.org/extension/1460/vitals/) - superfluous?
 
-~- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)~ (not anymore)
+~~- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/)~~ (not anymore)
 
 - [Auto Move Windows](https://extensions.gnome.org/extension/16/auto-move-windows/) - didn't actually use yet
 
