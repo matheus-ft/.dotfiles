@@ -11,8 +11,6 @@
   - [5. Programming toolchain](#5-programming-toolchain)
   - [6. The dotfiles](#6-the-dotfiles)
 - [Claude Code](#claude-code)
-  - [Status line](#status-line)
-  - [Careful with settings.json](#careful-with-settingsjson)
 - [Linux only](#linux-only)
 - [Package managers](#package-managers)
   - [Nala](#nala)
@@ -73,7 +71,7 @@ After a clean install/new machine:
 ```bash
 git clone git@github.com:matheus-ft/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-stow shell zsh kitty vim firefox claude
+stow shell zsh kitty vim firefox
 ```
 
 Stow refuses to clobber a real file, so if it complains, move the conflicting
@@ -89,7 +87,7 @@ anything, and `stow -D <package>` unlinks it again.
 | `mac/`        | macOS-only packages             | `stow --dir=mac --target=~ <package>`              |
 | `deprecated/` | kept for reference, not stowed  | see [`deprecated/README.md`](deprecated/README.md) |
 
-Cross-platform: `shell`, `zsh`, `kitty`, `vim`, `firefox`, `claude`.
+Cross-platform: `shell`, `zsh`, `kitty`, `vim`, `firefox`.
 
 Linux-only: `qtile`, `rofi`, `dunst`, `picom`, `copyq`, `pop-shell`, `dconf`,
 `htop`, `neofetch`, `topgrade`, `screenlayout`, `desktop-entries`. On a Linux:
@@ -216,7 +214,7 @@ rm ~/.zshrc
 | bat     | better `cat`                           | `brew install bat`           | `sudo nala install bat`      |
 | ripgrep | Telescope, and grep generally          | `brew install ripgrep`       | `sudo nala install ripgrep`  |
 | fd      | faster `find`                          | `brew install fd`            | `sudo nala install fd-find`  |
-| jq      | the Claude [status line](#status-line) | ships with recent macOS      | `sudo nala install jq`       |
+| jq      | the Claude [status line](#claude-code) | ships with recent macOS      | `sudo nala install jq`       |
 
 `--locked` is not optional for eza: without it cargo resolves a `palette`
 version that fails to build on current rustc. `brew install eza` also works on
@@ -327,43 +325,11 @@ this up in.
 
 # Claude Code
 
-Cross-platform package at the repo root, holding `settings.json` and the status
-line:
+Its config (settings, rules, status line) lives with the skills in
+[matheus-ft/skills](https://github.com/matheus-ft/skills), stowed from there:
 
 ```bash
-stow claude
-```
-
-Stow folds into the existing `~/.claude` instead of replacing it, linking each
-entry individually. That matters: `~/.claude/skills` is a symlink to a separate
-repo ([matheus-ft/skills](https://github.com/matheus-ft/skills)) and has to
-survive untouched.
-
-## Status line
-
-The bar above Claude Code's footer: repo, branch, worktree and open PR on the
-left; model, context window, rate limits and session cost on the right. It is a
-bash script handed a JSON payload on stdin, so it needs a shell, `jq`, `git` and
-a working directory -- which is why it is machine config rather than something
-for the skills repo.
-
-Render it against captured fixtures, without starting a session:
-
-```bash
-~/.claude/statusline/preview.sh
-```
-
-Full notes in
-[`claude/.claude/statusline/README.md`](claude/.claude/statusline/README.md).
-
-## Careful with `settings.json`
-
-Claude Code rewrites that file whenever you change a setting through `/config`.
-If a write replaces it instead of following the symlink, the repo quietly stops
-tracking reality. To check, and repair if needed:
-
-```bash
-test -L ~/.claude/settings.json || stow -R claude
+stow --dir ~/Projects/skills --target ~ claude
 ```
 
 ---
